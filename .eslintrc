@@ -23,7 +23,8 @@
   },
   "settings": {
     "import/ignore": [
-      "node_modules"
+      "node_modules",
+      "src/store/configureStore"
     ]
   },
   "rules": {

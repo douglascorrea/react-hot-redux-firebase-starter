@@ -1,9 +1,17 @@
-import { AppContainer } from 'react-hot-loader';
+// modules
+import {AppContainer} from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import {Provider} from 'react-redux';
+// components
 import App from './components/App';
+// Store
+import initialState from './reducers/initialState';
 import configureStore from './store/configureStore';
+// Actions
+import {loadCourses} from './actions/courseActions';
+import {loadAuthors} from './actions/authorActions';
+import {initializeFirebase} from './actions/firebaseActions';
 
 // styles
 import './styles/styles.css'; //Webpack can import CSS files too!
@@ -11,10 +19,18 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 
 
+// store initialization
+const store = configureStore(initialState);
+store.dispatch(initializeFirebase());
+store.dispatch(loadCourses());
+store.dispatch(loadAuthors());
+
 const rootEl = document.getElementById('root');
 ReactDOM.render(
   <AppContainer>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </AppContainer>,
   rootEl
 );
@@ -26,7 +42,9 @@ if (module.hot) {
     const NextApp = require('./components/App').default;
     ReactDOM.render(
       <AppContainer>
-         <NextApp />
+        <Provider store={store}>
+          <NextApp />
+        </Provider>
       </AppContainer>,
       rootEl
     );

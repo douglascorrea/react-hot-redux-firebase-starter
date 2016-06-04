@@ -14,10 +14,10 @@ Work in progress...
 - [X] Mocha for tests
 - [X] Eslint
 - [X] Bootstrap
-- [ ] Redux
-- [ ] Redux Thunk
-- [ ] Firebase 3.0.3
-- [ ] Firebase authentication setup
+- [X] Redux
+- [X] Redux Thunk
+- [X] Firebase 3.0.3
+- [ ] Firebase authentication setup (Registration/Login)
 - [ ] Firebase Database
 - [ ] Firebase Storage
 

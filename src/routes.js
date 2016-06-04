@@ -4,6 +4,9 @@ import Layout from './components/Layout';
 import Counter from './components/counter/Counter';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
+import CoursesPage from './components/course/CoursesPage';
+import ManageCoursePage from './components/course/ManageCoursePage'; //eslint-disable-line import/no-named-as-default
+import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
 
 
 export default (
@@ -12,5 +15,9 @@ export default (
     <Route path="layout" component={Layout} />
     <Route path="counter" component={Counter} />
     <Route path="about" component={AboutPage} />
+    <Route path="courses" component={CoursesPage} />
+    <Route path="course" component={ManageCoursePage} />
+    <Route path="course/:id" component={ManageCoursePage} />
+    <Route path="registration" component={RegistrationPage} />
   </Route>
 );
