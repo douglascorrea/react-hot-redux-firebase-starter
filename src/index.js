@@ -21,7 +21,6 @@ import '../node_modules/toastr/build/toastr.min.css';
 
 // store initialization
 const store = configureStore(initialState);
-store.dispatch(initializeFirebase());
 store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 
