@@ -5,9 +5,15 @@ Work in progress...
 
 ## Goal
 
-- React
-- React Hot Loader 3.0.0-beta.2
-- Redux
-- Firebase 3.0.3
+- [X] React
+- [X] Webpack
+- [X] Webpack Dev Middleware
+- [X] Webpack Hot Middleware
+- [X] React Hot Loader 3.0.0-beta.2
+- [X] React Router
+- [X] Mocha for tests
+- [X] Eslint
+- [ ] Redux
+- [ ] Firebase 3.0.3
 
 With Firebase authentication demo

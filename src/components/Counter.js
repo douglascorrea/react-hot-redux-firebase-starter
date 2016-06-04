@@ -16,7 +16,7 @@ export default class Counter extends Component {
 
   tick() {
     this.setState({
-      counter: this.state.counter + 2
+      counter: this.state.counter + 210
     });
   }
 
