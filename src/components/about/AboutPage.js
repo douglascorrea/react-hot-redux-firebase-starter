@@ -9,6 +9,6 @@ const AboutPage = () => {
       <Link to="/layout" activeClassName="active">Go to Layout</Link>
     </div>
   );
-}
+};
 
 export default AboutPage;

@@ -21,6 +21,11 @@
     "jquery": true,
     "mocha": true
   },
+  "settings": {
+    "import/ignore": [
+      "node_modules"
+    ]
+  },
   "rules": {
     "quotes": 0,
     "no-console": 1,

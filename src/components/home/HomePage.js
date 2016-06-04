@@ -9,6 +9,6 @@ const HomePage = () => {
       <Link to="about" className="btn btn-primary btn-lg">Learn more</Link>
     </div>
   );
-}
+};
 
 export default HomePage;

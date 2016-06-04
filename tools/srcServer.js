@@ -29,4 +29,4 @@ app.listen(port, function(err) {
   }
 });
 
-export default {};
+export default app;

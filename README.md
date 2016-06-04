@@ -13,9 +13,11 @@ Work in progress...
 - [X] React Router
 - [X] Mocha for tests
 - [X] Eslint
+- [X] Bootstrap
 - [ ] Redux
+- [ ] Redux Thunk
 - [ ] Firebase 3.0.3
 - [ ] Firebase authentication setup
 - [ ] Firebase Database
 - [ ] Firebase Storage
-- [ ] Bootstrap
+
