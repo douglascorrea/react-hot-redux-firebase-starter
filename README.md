@@ -15,5 +15,7 @@ Work in progress...
 - [X] Eslint
 - [ ] Redux
 - [ ] Firebase 3.0.3
-
-With Firebase authentication demo
+- [ ] Firebase authentication setup
+- [ ] Firebase Database
+- [ ] Firebase Storage
+- [ ] Bootstrap

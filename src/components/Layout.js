@@ -1,16 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router';
+import Header from './common/Header';
 
 
-export default function Layout({ children }) {
-  return (
-    <div>
-      <h1>Hellow, wasdsaorld!</h1>
-      <Link to="/counter" activeClassName="active">Go to counter</Link>
-    </div>
-  );
+class Layout extends React.Component {
+  render() {
+    return (
+      <div className="container-fluid">
+        <Header />
+        {this.props.children}
+      </div>
+    );
+  }
 }
 
 Layout.propTypes =  {
   children: React.PropTypes.object
 };
+
+export default Layout;

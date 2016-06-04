@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class Counter extends Component {
   constructor(props) {
@@ -16,13 +17,16 @@ export default class Counter extends Component {
 
   tick() {
     this.setState({
-      counter: this.state.counter + 210
+      counter: this.state.counter + 1
     });
   }
 
   render() {
     return (
-      <h2>Counter: {this.state.counter}</h2>
+      <div>
+        <h2>Counter: {this.state.counter}</h2>
+        <Link to="/" activeClassName="active">Go toasdsa Home</Link>
+      </div>
     );
   }
 }
