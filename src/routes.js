@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Layout from './components/Layout';
-import Counter from './components/Counter';
+import Counter from './components/counter/Counter';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 
