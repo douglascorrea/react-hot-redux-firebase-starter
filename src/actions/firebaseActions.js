@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
+import { firebaseConfig } from '../config';
 import * as firebase from 'firebase/firebase-browser';
 
 function initilizeFirebaseIfNotYet(dispatch, getState) {
@@ -56,15 +57,9 @@ export function userLoggedOutSuccess() {
 
 export function initializeFirebase() {
   return dispatch => {
-    // Initialize Firebase
-    const config = {
-      apiKey: "AIzaSyB9QFe2_Yicu6-YxU9xPZlQb9y_n1YpHhg",
-      authDomain: "react-redux-pluralsight-9c5bd.firebaseapp.com",
-      databaseURL: "https://react-redux-pluralsight-9c5bd.firebaseio.com",
-      storageBucket: "react-redux-pluralsight-9c5bd.appspot.com"
-    };
+
     dispatch(beginAjaxCall());
-    firebase.initializeApp(config);
+    firebase.initializeApp(firebaseConfig);
     dispatch(firebaseInitializedSuccess());
   };
 }
