@@ -46,7 +46,7 @@ Work in progress...
     - [ ] Set example
     - [ ] Remove example 
   - Storage
-    [ ] Storage example
+    - [ ] Storage example
 - Tests:
   - [ ] Action tests
   - [ ] Reducer tests
