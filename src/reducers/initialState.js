@@ -1,7 +1,8 @@
 export default {
   routing: {},
   user: {
-    isLogged: false
+    isLogged: false,
+    isAdmin: false
   },
   fbInitialized: false,
   ajaxCallsInProgress: 0

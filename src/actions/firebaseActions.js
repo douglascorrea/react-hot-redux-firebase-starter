@@ -24,7 +24,8 @@ function transformFirebaseUser(firebaseUser) {
     'providerData',
     'providerId',
     'refreshToken',
-    'uid'
+    'uid',
+    'isAdmin'
   ];
 
   userProperties.map((prop) => {
@@ -34,18 +35,11 @@ function transformFirebaseUser(firebaseUser) {
   });
 
   return storeUser;
-
 }
 
 export function firebaseInitializedSuccess() {
 
   return {type: types.FIREBASE_INITIALIZED_SUCCESS};
-}
-
-export function userCreatedSuccess(user) {
-  return {
-    type: types.USER_CREATED_SUCCESS, user
-  };
 }
 
 export function userLoggedInSuccess(user) {
@@ -74,10 +68,7 @@ export function createUserWithEmailAndPassword(user) {
 
     dispatch(beginAjaxCall());
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(user => {
-      return firebaseApi.databasePush('/users', transformFirebaseUser(user))
-        .then(() => {
-          dispatch(userCreatedSuccess(transformFirebaseUser(user)));
-        });
+      return firebaseApi.databaseSet('/users/'+user.uid, transformFirebaseUser(user))
     }).catch(error => {
       dispatch(ajaxCallError(error));
       throw(error);
@@ -120,8 +111,16 @@ export function onAuthStateChanged() {
     dispatch(beginAjaxCall());
     return firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
-        dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
-        dispatch(push('/'));
+        firebaseApi.databaseGetByKeyOnce('/isAdmin/',user.uid)
+          .then((userSnapshot) => {
+            if(userSnapshot.exists()){
+              user.isAdmin = userSnapshot.child(user.uid).val();
+            } else {
+              user.isAdmin = false;
+            }
+            dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
+            dispatch(push('/'));
+          });
       } else {
         dispatch(userLoggedOutSuccess());
       }
