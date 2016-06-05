@@ -24,7 +24,8 @@ class Layout extends React.Component {
 Layout.propTypes =  {
   children: React.PropTypes.object,
   actions: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired
+  user: React.PropTypes.object.isRequired,
+  loading: React.PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

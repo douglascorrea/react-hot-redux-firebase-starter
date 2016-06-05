@@ -1,3 +1,4 @@
+import * as firebase from 'firebase/firebase-browser';
 
 class FirebaseApi {
   static databasePush(path, value) {

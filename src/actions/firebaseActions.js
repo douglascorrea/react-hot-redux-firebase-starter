@@ -4,6 +4,7 @@ import { firebaseConfig } from '../config';
 import * as firebase from 'firebase/firebase-browser';
 import firebaseApi from '../api/firebase';
 import { push } from 'react-router-redux';
+import toastr from 'toastr';
 
 function initilizeFirebaseIfNotYet(dispatch, getState) {
   if (!getState().fbInitialized) {
@@ -128,3 +129,14 @@ export function onAuthStateChanged() {
   };
 }
 
+export function requireAuth(nextState, replace) {
+  return (dispatch, getState) => {
+    if (!getState().user.isLogged) {
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+      toastr.error('You need to be logged to access this page');
+    }
+  };
+}

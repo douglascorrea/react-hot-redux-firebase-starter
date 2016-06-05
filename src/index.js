@@ -31,7 +31,7 @@ const rootEl = document.getElementById('root');
 ReactDOM.render(
   <AppContainer>
     <Provider store={store}>
-      <App history={history} />
+      <App history={history} store={store}/>
     </Provider>
   </AppContainer>,
   rootEl
@@ -45,7 +45,7 @@ if (module.hot) {
     ReactDOM.render(
       <AppContainer>
         <Provider store={store}>
-          <NextApp history={history} />
+          <NextApp history={history} store={store}/>
         </Provider>
       </AppContainer>,
       rootEl

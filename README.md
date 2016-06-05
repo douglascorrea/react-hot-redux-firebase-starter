@@ -37,10 +37,16 @@ Work in progress...
 ## Features
 
 - Firebase:
-  - [X] Authentication setup (Registration/Login) 
-  - [X] state.user sync with Firebase Auth
-  - [ ] Database example
-  - [ ] Storage example
+  - Auth
+    - [X] Authentication setup (Registration/Login) 
+    - [X] state.user sync with Firebase Auth
+    - [X] Protected routes (needs to be logged in)
+  - Database
+    - [ ] Push example
+    - [ ] Set example
+    - [ ] Remove example 
+  - Storage
+    [ ] Storage example
 - Tests:
   - [ ] Action tests
   - [ ] Reducer tests
