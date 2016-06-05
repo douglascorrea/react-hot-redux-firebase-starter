@@ -3,6 +3,9 @@ import {AppContainer} from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+
 // components
 import App from './components/App';
 // Store
@@ -20,13 +23,15 @@ import '../node_modules/toastr/build/toastr.min.css';
 
 // store initialization
 const store = configureStore(initialState);
+// Create an enhanced history that syncs navigation events with the store
+const history = syncHistoryWithStore(browserHistory, store);
 store.dispatch(onAuthStateChanged());
 
 const rootEl = document.getElementById('root');
 ReactDOM.render(
   <AppContainer>
     <Provider store={store}>
-      <App />
+      <App history={history} />
     </Provider>
   </AppContainer>,
   rootEl
@@ -40,7 +45,7 @@ if (module.hot) {
     ReactDOM.render(
       <AppContainer>
         <Provider store={store}>
-          <NextApp />
+          <NextApp history={history} />
         </Provider>
       </AppContainer>,
       rootEl

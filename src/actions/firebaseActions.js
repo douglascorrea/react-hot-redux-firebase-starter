@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
 import { firebaseConfig } from '../config';
 import * as firebase from 'firebase/firebase-browser';
+import firebaseApi from '../api/firebase';
+import { push } from 'react-router-redux';
 
 function initilizeFirebaseIfNotYet(dispatch, getState) {
   if (!getState().fbInitialized) {
@@ -71,8 +73,12 @@ export function createUserWithEmailAndPassword(user) {
 
     dispatch(beginAjaxCall());
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(user => {
-      dispatch(userCreatedSuccess(transformFirebaseUser(user)));
+      return firebaseApi.databasePush('/users', transformFirebaseUser(user))
+        .then(() => {
+          dispatch(userCreatedSuccess(transformFirebaseUser(user)));
+        });
     }).catch(error => {
+      dispatch(ajaxCallError(error));
       throw(error);
     });
   };
@@ -86,6 +92,7 @@ export function signInWithEmailAndPassword(user) {
     dispatch(beginAjaxCall());
     return firebase.auth().signInWithEmailAndPassword(user.email, user.password)
       .catch(error => {
+        dispatch(ajaxCallError(error));
         throw(error);
       });
   };
@@ -99,6 +106,7 @@ export function signOut() {
     dispatch(beginAjaxCall());
     return firebase.auth().signOut()
       .catch(error => {
+        dispatch(ajaxCallError(error));
         throw(error);
       });
   };
@@ -112,6 +120,7 @@ export function onAuthStateChanged() {
     return firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
         dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
+        dispatch(push('/'));
       } else {
         dispatch(userLoggedOutSuccess());
       }

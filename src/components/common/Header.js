@@ -12,8 +12,6 @@ const Header = ({loading, signOut, user}) => {
     <nav>
       <IndexLink to="/" activeClassName="active">Home</IndexLink>
       {" | "}
-      <Link to="/register" activeClassName="active">Sign Up</Link>
-      {" | "}
       <Link to="/about" activeClassName="active">About</Link>
       {" | "}
       {loginLogoutLink}

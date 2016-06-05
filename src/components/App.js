@@ -9,10 +9,16 @@ import routes from '../routes';
 // You can ignore this warning. For details, see:
 // https://github.com/reactjs/react-router/issues/2182
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
-      <Router history={browserHistory} routes={routes}/>
+      <Router history={browserHistory} routes={routes} history={this.props.history}/>
     );
   }
 }
+
+App.propTypes = {
+  history: React.PropTypes.object.isRequired
+};
+
+export default App;

@@ -1,4 +1,5 @@
 export default {
+  routing: {},
   user: {
     isLogged: false
   },

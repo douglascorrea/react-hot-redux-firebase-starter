@@ -38,6 +38,7 @@ Work in progress...
 
 - Firebase:
   - [X] Authentication setup (Registration/Login) 
+  - [X] state.user sync with Firebase Auth
   - [ ] Database example
   - [ ] Storage example
 - Tests:
