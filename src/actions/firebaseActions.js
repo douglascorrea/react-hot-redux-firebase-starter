@@ -65,7 +65,6 @@ export function signInWithEmailAndPassword(user) {
 
     dispatch(beginAjaxCall());
     return firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(user => {
-      console.log(user);
       dispatch(userLoggedSuccess(user));
     }).catch(error => {
       throw(error);

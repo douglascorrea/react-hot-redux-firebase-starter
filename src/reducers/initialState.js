@@ -1,7 +1,5 @@
 export default {
-  fbInitialized: false,
-  authors: [],
-  courses: [],
   user: {},
+  fbInitialized: false,
   ajaxCallsInProgress: 0
 };

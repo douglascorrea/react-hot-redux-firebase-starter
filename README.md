@@ -3,7 +3,7 @@ react-hot-redux-firebase-starter
 
 Work in progress...
 
-## Goal
+## Stack
 
 - [X] React
 - [X] Webpack
@@ -17,7 +17,17 @@ Work in progress...
 - [X] Redux
 - [X] Redux Thunk
 - [X] Firebase 3.0.3
-- [ ] Firebase authentication setup (Registration/Login)
-- [ ] Firebase Database
-- [ ] Firebase Storage
 
+
+
+## Features
+
+- Firebase:
+  - [X] Authentication setup (Registration/Login) 
+  - [ ] Database example
+  - [ ] Storage example
+- Tests:
+  - [ ] Action tests
+  - [ ] Reducer tests
+  - [ ] Store tests
+  - [ ] Components tests

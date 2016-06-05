@@ -7,11 +7,7 @@ import {Provider} from 'react-redux';
 import App from './components/App';
 // Store
 import initialState from './reducers/initialState';
-import configureStore from './store/configureStore';
-// Actions
-import {loadCourses} from './actions/courseActions';
-import {loadAuthors} from './actions/authorActions';
-import {initializeFirebase} from './actions/firebaseActions';
+import configureStore from './store/configureStore'; //eslint-disable-line import/default
 
 // styles
 import './styles/styles.css'; //Webpack can import CSS files too!
@@ -21,8 +17,6 @@ import '../node_modules/toastr/build/toastr.min.css';
 
 // store initialization
 const store = configureStore(initialState);
-store.dispatch(loadCourses());
-store.dispatch(loadAuthors());
 
 const rootEl = document.getElementById('root');
 ReactDOM.render(
