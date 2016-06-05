@@ -36,8 +36,8 @@ Work in progress...
     - [X] Authentication setup (Registration/Login) 
     - [X] state.user sync with Firebase Auth
     - [X] Protected routes (needs to be logged in)
-    - [X] Store users on '/users/<user.uid>'
-    - [X] Admin flag on user ('/isAdmin/<user.uid>' :: bool)
+    - [X] Store users on `'/users/<user.uid>'`
+    - [X] Admin flag on user (`'/isAdmin/<user.uid>' :: bool`)
   - Database
     - [ ] Push example
     - [X] Set example
