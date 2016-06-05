@@ -1,19 +1,31 @@
 import React, {PropTypes} from 'react';
-import { Link, IndexLink } from 'react-router';
+import {Link, IndexLink} from 'react-router';
+import LoadingDots from './LoadingDots';
+import LoginLink from './LoginLink';
+import LogoutLink from './LogoutLink';
 
-const Header = () => {
+const Header = ({loading, signOut, user}) => {
+
+  let loginLogoutLink = user.isLogged ? <LogoutLink signOut={signOut} /> : <LoginLink />;
+
   return (
     <nav>
       <IndexLink to="/" activeClassName="active">Home</IndexLink>
       {" | "}
       <Link to="/register" activeClassName="active">Sign Up</Link>
       {" | "}
-      <Link to="/login" activeClassName="active">Login</Link>
-      {" | "}
       <Link to="/about" activeClassName="active">About</Link>
-
+      {" | "}
+      {loginLogoutLink}
+      {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
   );
+};
+
+Header.propTypes = {
+  signOut: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default Header;

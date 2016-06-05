@@ -1,5 +1,7 @@
 export default {
-  user: {},
+  user: {
+    isLogged: false
+  },
   fbInitialized: false,
   ajaxCallsInProgress: 0
 };

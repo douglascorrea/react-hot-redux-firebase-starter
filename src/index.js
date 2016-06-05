@@ -9,6 +9,9 @@ import App from './components/App';
 import initialState from './reducers/initialState';
 import configureStore from './store/configureStore'; //eslint-disable-line import/default
 
+// Actions
+import { onAuthStateChanged } from './actions/firebaseActions';
+
 // styles
 import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -17,6 +20,7 @@ import '../node_modules/toastr/build/toastr.min.css';
 
 // store initialization
 const store = configureStore(initialState);
+store.dispatch(onAuthStateChanged());
 
 const rootEl = document.getElementById('root');
 ReactDOM.render(

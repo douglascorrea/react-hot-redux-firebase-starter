@@ -43,8 +43,8 @@ export class RegistrationPage extends React.Component {
 
   redirect(user) {
     this.setState({saving: false});
-    toastr.success('Usera Created');
-    this.context.router.push('/courses');
+    toastr.success('You are logged in');
+    this.context.router.push('/');
   }
 
   render() {

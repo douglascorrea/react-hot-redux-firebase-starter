@@ -8,6 +8,31 @@ function initilizeFirebaseIfNotYet(dispatch, getState) {
   }
 }
 
+function transformFirebaseUser(firebaseUser) {
+
+  const storeUser = {};
+  const userProperties = [
+    'displayName',
+    'email',
+    'emailVerified',
+    'isAnonymous',
+    'photoURL',
+    'providerData',
+    'providerId',
+    'refreshToken',
+    'uid'
+  ];
+
+  userProperties.map((prop) => {
+    if (prop in firebaseUser) {
+      storeUser[prop] = firebaseUser[prop];
+    }
+  });
+
+  return storeUser;
+
+}
+
 export function firebaseInitializedSuccess() {
 
   return {type: types.FIREBASE_INITIALIZED_SUCCESS};
@@ -15,18 +40,18 @@ export function firebaseInitializedSuccess() {
 
 export function userCreatedSuccess(user) {
   return {
-    type: types.USER_CREATED_SUCCESS, user: {
-      email: user.email
-    }
+    type: types.USER_CREATED_SUCCESS, user
   };
 }
 
-export function userLoggedSuccess(user) {
+export function userLoggedInSuccess(user) {
   return {
-    type: types.USER_LOGGED_SUCCESS, user: {
-      email: user.email
-    }
+    type: types.USER_LOGGED_IN_SUCCESS, user
   };
+}
+
+export function userLoggedOutSuccess() {
+  return {type: types.USER_LOGGED_OUT_SUCCESS};
 }
 
 export function initializeFirebase() {
@@ -51,7 +76,7 @@ export function createUserWithEmailAndPassword(user) {
 
     dispatch(beginAjaxCall());
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(user => {
-      dispatch(userCreatedSuccess(user));
+      dispatch(userCreatedSuccess(transformFirebaseUser(user)));
     }).catch(error => {
       throw(error);
     });
@@ -64,12 +89,38 @@ export function signInWithEmailAndPassword(user) {
     initilizeFirebaseIfNotYet(dispatch, getState);
 
     dispatch(beginAjaxCall());
-    return firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(user => {
-      dispatch(userLoggedSuccess(user));
-    }).catch(error => {
-      throw(error);
-    });
+    return firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+      .catch(error => {
+        throw(error);
+      });
   };
 }
 
+export function signOut() {
+  return function (dispatch, getState) {
+
+    initilizeFirebaseIfNotYet(dispatch, getState);
+
+    dispatch(beginAjaxCall());
+    return firebase.auth().signOut()
+      .catch(error => {
+        throw(error);
+      });
+  };
+}
+
+export function onAuthStateChanged() {
+  return function (dispatch, getState) {
+
+    initilizeFirebaseIfNotYet(dispatch, getState);
+    dispatch(beginAjaxCall());
+    return firebase.auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
+      } else {
+        dispatch(userLoggedOutSuccess());
+      }
+    });
+  };
+}
 
