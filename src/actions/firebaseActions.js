@@ -1,9 +1,9 @@
 import * as types from './actionTypes';
-import { beginAjaxCall, ajaxCallError } from './ajaxStatusActions';
-import { firebaseConfig } from '../config';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import {firebaseConfig} from '../config';
 import * as firebase from 'firebase/firebase-browser';
 import firebaseApi from '../api/firebase';
-import { push } from 'react-router-redux';
+import {push} from 'react-router-redux';
 import toastr from 'toastr';
 
 function initilizeFirebaseIfNotYet(dispatch, getState) {
@@ -62,13 +62,13 @@ export function initializeFirebase() {
 }
 
 export function createUserWithEmailAndPassword(user) {
-  return function (dispatch, getState) {
+  return (dispatch, getState) => {
 
     initilizeFirebaseIfNotYet(dispatch, getState);
 
     dispatch(beginAjaxCall());
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(user => {
-      return firebaseApi.databaseSet('/users/'+user.uid, transformFirebaseUser(user))
+      return firebaseApi.databaseSet('/users/' + user.uid, transformFirebaseUser(user))
     }).catch(error => {
       dispatch(ajaxCallError(error));
       throw(error);
@@ -77,7 +77,7 @@ export function createUserWithEmailAndPassword(user) {
 }
 
 export function signInWithEmailAndPassword(user) {
-  return function (dispatch, getState) {
+  return (dispatch, getState) => {
 
     initilizeFirebaseIfNotYet(dispatch, getState);
 
@@ -91,7 +91,7 @@ export function signInWithEmailAndPassword(user) {
 }
 
 export function signOut() {
-  return function (dispatch, getState) {
+  return (dispatch, getState) => {
 
     initilizeFirebaseIfNotYet(dispatch, getState);
 
@@ -105,22 +105,16 @@ export function signOut() {
 }
 
 export function onAuthStateChanged() {
-  return function (dispatch, getState) {
+  return (dispatch, getState) => {
 
     initilizeFirebaseIfNotYet(dispatch, getState);
     dispatch(beginAjaxCall());
     return firebase.auth().onAuthStateChanged((user) => {
       if (user !== null) {
-        firebaseApi.databaseGetByKeyOnce('/isAdmin/',user.uid)
-          .then((userSnapshot) => {
-            if(userSnapshot.exists()){
-              user.isAdmin = userSnapshot.child(user.uid).val();
-            } else {
-              user.isAdmin = false;
-            }
-            dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
-            dispatch(push('/'));
-          });
+        dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
+        if (window.location.pathname === '/login') {
+          dispatch(push('/'));
+        }
       } else {
         dispatch(userLoggedOutSuccess());
       }
@@ -128,14 +122,43 @@ export function onAuthStateChanged() {
   };
 }
 
+function redirect(replace, pathname, nextPathName, warning = false) {
+  replace({
+    pathname: pathname,
+    state: {nextPathname: nextPathName}
+  });
+  if (warning) {
+    toastr.error(warning);
+  }
+}
+
 export function requireAuth(nextState, replace) {
   return (dispatch, getState) => {
     if (!getState().user.isLogged) {
-      replace({
-        pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
-      });
-      toastr.error('You need to be logged to access this page');
+      redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
     }
   };
+}
+
+
+
+export function requireAdmin(nextState, replace) {
+  return (dispatch, getState) => {
+    console.log(firebase.auth());
+    if (getState().user.uid !== undefined) {
+      const uid = getState().user.uid;
+      firebaseApi.databaseGetByKeyOnce('/isAdmin/', uid)
+        .then((userSnapshot) => {
+          if (userSnapshot.exists()) {
+            user.isAdmin = userSnapshot.child(user.uid).val();
+          } else {
+            user.isAdmin = false;
+            redirect(replace, '/', nextState.location.pathname, 'You need to be Admin to access this page');
+          }
+          dispatch(userLoggedInSuccess(transformFirebaseUser(user)));
+        });
+    } else {
+      redirect(replace, '/', nextState.location.pathname, 'You need to be Admin to access this page');
+    }
+  }
 }

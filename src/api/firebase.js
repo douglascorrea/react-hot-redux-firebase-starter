@@ -33,6 +33,19 @@ class FirebaseApi {
       .set(value);
 
   }
+
+  static initAuth(dispatch) {
+    return new Promise((resolve, reject) => {
+      const unsub = firebaseAuth.onAuthStateChanged(
+        user => {
+          dispatch(authActions.initAuth(user));
+          unsub();
+          resolve();
+        },
+        error => reject(error)
+      );
+    });
+  }
 }
 
 export default FirebaseApi;
