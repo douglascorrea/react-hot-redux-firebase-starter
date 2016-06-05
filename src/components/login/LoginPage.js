@@ -33,10 +33,10 @@ export class RegistrationPage extends React.Component {
 
     this.setState({saving: true});
 
-    this.props.actions.createUserWithEmailAndPassword(this.state.user)
+    this.props.actions.signInWithEmailAndPassword(this.state.user)
       .then((user) => this.redirect(user))
       .catch(error => {
-        toastr.error(error);
+        toastr.error(error.message);
         this.setState({saving: false});
       });
   }
@@ -44,7 +44,6 @@ export class RegistrationPage extends React.Component {
   redirect(user) {
     this.setState({saving: false});
     toastr.success('Usera Created');
-    console.log(user);
     this.context.router.push('/courses');
   }
 

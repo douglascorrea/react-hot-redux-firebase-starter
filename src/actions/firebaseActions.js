@@ -2,6 +2,11 @@ import * as types from './actionTypes';
 import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 import * as firebase from 'firebase/firebase-browser';
 
+function initilizeFirebaseIfNotYet(dispatch, getState) {
+  if (!getState().fbInitialized) {
+    dispatch(initializeFirebase());
+  }
+}
 
 export function firebaseInitializedSuccess() {
 
@@ -9,9 +14,19 @@ export function firebaseInitializedSuccess() {
 }
 
 export function userCreatedSuccess(user) {
-  return {type: types.USER_CREATED_SUCCESS, user: {
-    email: user.email
-  }};
+  return {
+    type: types.USER_CREATED_SUCCESS, user: {
+      email: user.email
+    }
+  };
+}
+
+export function userLoggedSuccess(user) {
+  return {
+    type: types.USER_LOGGED_SUCCESS, user: {
+      email: user.email
+    }
+  };
 }
 
 export function initializeFirebase() {
@@ -30,25 +45,32 @@ export function initializeFirebase() {
 }
 
 export function createUserWithEmailAndPassword(user) {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
 
     initilizeFirebaseIfNotYet(dispatch, getState);
 
     dispatch(beginAjaxCall());
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then(user => {
-      console.log('user');
-      console.log(user);
       dispatch(userCreatedSuccess(user));
     }).catch(error => {
-      console.log('eraror');
-      console.log(error);
       throw(error);
     });
   };
 }
 
-function initilizeFirebaseIfNotYet(dispatch, getState){
-  if(!getState().fbInitialized) {
-    dispatch(initializeFirebase());
-  }
+export function signInWithEmailAndPassword(user) {
+  return function (dispatch, getState) {
+
+    initilizeFirebaseIfNotYet(dispatch, getState);
+
+    dispatch(beginAjaxCall());
+    return firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(user => {
+      console.log(user);
+      dispatch(userLoggedSuccess(user));
+    }).catch(error => {
+      throw(error);
+    });
+  };
 }
+
+

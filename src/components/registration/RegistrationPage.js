@@ -36,15 +36,14 @@ export class RegistrationPage extends React.Component {
     this.props.actions.createUserWithEmailAndPassword(this.state.user)
       .then((user) => this.redirect(user))
       .catch(error => {
-        toastr.error(error);
+        toastr.error(error.message);
         this.setState({saving: false});
       });
   }
 
   redirect(user) {
     this.setState({saving: false});
-    toastr.success('Usera Created');
-    console.log(user);
+    toastr.success('User Created');
     this.context.router.push('/courses');
   }
 
