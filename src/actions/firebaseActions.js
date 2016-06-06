@@ -7,7 +7,7 @@ import {push} from 'react-router-redux';
 import toastr from 'toastr';
 
 function initilizeFirebaseIfNotYet(dispatch, getState) {
-  if (!getState().fbInitialized) {
+  if (!getState().firebase.initialized) {
     dispatch(initializeFirebase());
   }
 }

@@ -1,9 +1,11 @@
 export default {
   routing: {},
-  user: {
-    isLogged: false,
-    isAdmin: false
+  user: {},
+  auth: {
+    logged: false
   },
-  fbInitialized: false,
+  firebase: {
+    initialized: false
+  },
   ajaxCallsInProgress: 0
 };
