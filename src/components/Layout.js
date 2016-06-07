@@ -12,7 +12,6 @@ class Layout extends React.Component {
 
   render() {
     const {auth, actions, loading, user} = this.props;
-    console.log(loading);
     return (
       <div className="container-fluid">
         <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
