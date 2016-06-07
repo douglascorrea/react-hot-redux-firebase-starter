@@ -5,8 +5,8 @@ const AboutPage = () => {
   return (
     <div>
       <h1>About</h1>
-      <p>This applitation uses React, Redux, React Router and a variety of other helpful libraries.</p>
-      <Link to="/layout" activeClassName="active">Go to Layout</Link>
+      <p>Created by <a href="http://twitter.com/douglas_correa">@douglas_correa</a></p>
+      <Link to="/" activeClassName="active">Go to Home</Link>
     </div>
   );
 };

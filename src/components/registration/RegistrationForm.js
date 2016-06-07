@@ -4,7 +4,7 @@ import TextInput from '../common/TextInput';
 const RegistrationForm = ({user, onSave, onChange, saving}) => {
   return (
     <form>
-      <h1>Sign asdsaUp</h1>
+      <h1>Create account</h1>
       <TextInput
         name="email"
         label="Email"
