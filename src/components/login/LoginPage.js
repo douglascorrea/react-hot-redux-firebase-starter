@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as firebaseActions from '../../actions/firebaseActions';
+import {signInWithEmailAndPassword} from '../../actions/authActions';
 import RegistrationForm from './LoginForm';
 import toastr from 'toastr';
 
@@ -34,13 +34,13 @@ export class RegistrationPage extends React.Component {
     this.setState({saving: true});
 
     this.props.actions.signInWithEmailAndPassword(this.state.user)
-      .then((user) => toastr.success('You are logged in'))
+      .then(user => toastr.success('You are logged in'))
       .catch(error => {
         toastr.error(error.message);
         this.setState({saving: false});
       });
   }
-  
+
   render() {
     return (
       <RegistrationForm
@@ -67,7 +67,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(firebaseActions, dispatch)
+    actions: bindActionCreators({signInWithEmailAndPassword}, dispatch)
   };
 }
 

@@ -2,7 +2,7 @@ let path = require('path');
 let webpack = require('webpack');
 
 const config = {
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=false',

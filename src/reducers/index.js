@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import user from './userReducer';
-import firebase from './firebaseReducer';
 import auth from './authReducer';
 
 import ajaxCallsInProgress from './ajaxStatusReducer';
@@ -11,7 +10,6 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   user,
   auth,
-  firebase,
   ajaxCallsInProgress
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './common/Header';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as firebaseActions from '../actions/firebaseActions';
+import {signOut} from '../actions/authActions';
 
 class Layout extends React.Component {
 
@@ -11,10 +11,11 @@ class Layout extends React.Component {
   }
 
   render() {
-    const {user, actions, loading} = this.props;
+    const {auth, actions, loading, user} = this.props;
+    console.log(loading);
     return (
       <div className="container-fluid">
-        <Header signOut={actions.signOut} user={user} loading={loading} />
+        <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
         {this.props.children}
       </div>
     );
@@ -24,12 +25,14 @@ class Layout extends React.Component {
 Layout.propTypes =  {
   children: React.PropTypes.object,
   actions: React.PropTypes.object.isRequired,
+  auth: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
   loading: React.PropTypes.bool.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   return {
+    auth: state.auth,
     user: state.user,
     loading: state.ajaxCallsInProgress > 0
   };
@@ -37,7 +40,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(firebaseActions, dispatch)
+    actions: bindActionCreators({signOut}, dispatch)
   };
 }
 

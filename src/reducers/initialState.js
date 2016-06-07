@@ -1,10 +1,11 @@
 export default {
   routing: {},
-  user: {},
-  auth: {
-    logged: false
+  user: {
+    isAdmin: undefined
   },
-  firebase: {
+  auth: {
+    isLogged: false,
+    currentUserUID: null,
     initialized: false
   },
   ajaxCallsInProgress: 0

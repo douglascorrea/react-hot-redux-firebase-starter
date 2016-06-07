@@ -7,7 +7,7 @@ import ProtectedPage from './components/protected/ProtectedPage';
 import AboutPage from './components/about/AboutPage';
 import LoginPage from './components/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
-import {requireAuth, requireAdmin} from './actions/firebaseActions';
+import {requireAuth, requireAdmin} from './actions/authActions';
 
 
 export default function Routes(store) {
@@ -16,8 +16,8 @@ export default function Routes(store) {
     store.dispatch(requireAuth(nextState, replace));
   };
 
-  const checkAdmin = (nextState, replace) => {
-    store.dispatch(requireAdmin(nextState, replace));
+  const checkAdmin = (nextState, replace, callback) => {
+    store.dispatch(requireAdmin(nextState, replace, callback));
   };
 
   return (

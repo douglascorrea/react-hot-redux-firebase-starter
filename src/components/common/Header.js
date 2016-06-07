@@ -5,9 +5,9 @@ import LoginLink from './LoginLink';
 import LogoutLink from './LogoutLink';
 import AdminLink from './AdminLink';
 
-const Header = ({loading, signOut, user}) => {
+const Header = ({loading, signOut, auth, user}) => {
 
-  let loginLogoutLink = user.isLogged ? <LogoutLink signOut={signOut} /> : <LoginLink />;
+  let loginLogoutLink = auth.isLogged ? <LogoutLink signOut={signOut} /> : <LoginLink />;
   let adminLink = user.isAdmin ? <AdminLink /> : null;
 
   return (
@@ -27,6 +27,7 @@ const Header = ({loading, signOut, user}) => {
 
 Header.propTypes = {
   signOut: React.PropTypes.func.isRequired,
+  auth: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 };

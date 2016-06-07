@@ -1,4 +1,8 @@
 /* Styles */
+html, body, #root, .container-loading {
+  height: 100%;
+}
+
 #app {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #4d4d4d;
@@ -13,4 +17,42 @@ a.active {
 
 nav {
   padding-top: 20px;
+}
+
+.container-loading {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.loading {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.loading-row {
+  background-color: #fff;
+  min-height: 100%;
+  height: 100%;
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center;
+  width: 100%;
+}
+
+.loading div {
+  width: inherit !important;
+}
+
+.loading svg {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.h1-loading {
+  color: #fff;
+  font-size: 6rem;
+  line-height: 8rem;
 }
