@@ -13,6 +13,7 @@ It uses the latest version of libraries, including the brand new React Hot Loade
   - [X] React Router `2.4.1`
 - Redux
   - [X] Redux `3.5.2`
+  - [X] React Redux `4.4.5`
   - [X] React Router Redux `4.0.4`
   - [X] Redux Thunk `2.1.0`
   - [X] Redux Dev Tools
