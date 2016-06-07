@@ -84,12 +84,16 @@ export function signInWithEmailAndPassword(user) {
 }
 
 export function signOut() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(beginAjaxCall());
     return firebaseApi.authSignOut()
       .then(
         () => {
           dispatch(authLoggedOutSuccess());
+          if (getState().routesPermissions.requireAuth
+              .filter(route => route === getState().routing.locationBeforeTransitions.pathname).toString()) {
+            dispatch(push('/'));
+          }
         })
       .catch(error => {
         dispatch(ajaxCallError(error));

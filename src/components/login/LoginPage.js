@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signInWithEmailAndPassword} from '../../actions/authActions';
-import RegistrationForm from './LoginForm';
+import LoginForm from './LoginForm';
 import toastr from 'toastr';
 
 export class RegistrationPage extends React.Component {
@@ -43,7 +43,7 @@ export class RegistrationPage extends React.Component {
 
   render() {
     return (
-      <RegistrationForm
+      <LoginForm
         onChange={this.updateUserState}
         onSave={this.createUser}
         saving={this.state.saving}
