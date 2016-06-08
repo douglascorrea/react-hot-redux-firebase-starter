@@ -9,7 +9,7 @@ It uses the latest version of libraries, including the brand new React Hot Loade
 
 - React
   - [X] React `15.1.0`
-  - [X] React Hot Loader 3.0.0-beta.2`
+  - [X] React Hot Loader `3.0.0-beta.2`
   - [X] React Router `2.4.1`
 - Redux
   - [X] Redux `3.5.2`
