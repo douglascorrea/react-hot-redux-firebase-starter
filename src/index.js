@@ -1,9 +1,7 @@
-const time1 = Date.now();
 // modules
 import {AppContainer} from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Loader from 'react-loader';
 import {Provider} from 'react-redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 import {browserHistory} from 'react-router';
@@ -33,18 +31,6 @@ const store = configureStore(initialState);
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
 const rootEl = document.getElementById('root');
-
-// // render an initial loading
-// ReactDOM.render(
-//   <div className="container-fluid container-loading">
-//     <div className="row loading-row">
-//       <div className="loading">
-//         <Loader loaded={false} width={30} radius={70} color="#000" className="spinner" scale={0.50}/>
-//       </div>
-//     </div>
-//   </div>,
-//   rootEl
-// );
 
 // Initialize Firebase Auth and then start the app
 store.dispatch(beginAjaxCall());
