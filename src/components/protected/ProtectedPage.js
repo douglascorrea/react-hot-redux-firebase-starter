@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-
+import checkAuth from '../requireAuth';
 const ProtectedPage = () => {
   return (
     <div>
@@ -10,4 +10,4 @@ const ProtectedPage = () => {
   );
 };
 
-export default ProtectedPage;
+export default checkAuth(ProtectedPage);
