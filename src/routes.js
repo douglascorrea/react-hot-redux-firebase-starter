@@ -7,14 +7,11 @@ import ProtectedPage from './components/protected/ProtectedPage';
 import AboutPage from './components/about/AboutPage';
 import LoginPage from './components/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
-import {requireAuth, requireAdmin} from './actions/authActions';
+import {requireAdmin} from './actions/authActions';
 
 
 export default function Routes(store) {
 
-  const checkAuth = (nextState, replace) => {
-    store.dispatch(requireAuth(nextState, replace));
-  };
 
   const checkAdmin = (nextState, replace, callback) => {
     store.dispatch(requireAdmin(nextState, replace, callback));
@@ -25,7 +22,7 @@ export default function Routes(store) {
       <IndexRoute component={HomePage}/>
       <Route path="layout" component={Layout}/>
       <Route path="about" component={AboutPage}/>
-      <Route path="protected" component={ProtectedPage} onEnter={checkAuth}/>
+      <Route path="protected" component={ProtectedPage}/>
       <Route path="admin" component={AdminPage} onEnter={checkAdmin}/>
       <Route path="register" component={RegistrationPage}/>
       <Route path="login" component={LoginPage}/>
