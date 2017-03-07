@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
+import {Button} from 'react-materialize';
 
 const LoginForm = ({user, onSave, onChange, saving}) => {
   return (
@@ -18,11 +19,13 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
         onChange={onChange}
         value={user.password}
         type="password"/>
+      <Button
+        waves='light'
         type="submit"
         disabled={saving}
-        value={saving ? 'Logining in...' : 'Login'}
-        className="btn btn-primary"
-        onClick={onSave}/>
+        onClick={onSave}>
+        {saving ? 'Logining in...' : 'Login'}
+      </Button>
     </form>
   );
 };
