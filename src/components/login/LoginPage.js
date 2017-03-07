@@ -5,7 +5,7 @@ import {signInWithEmailAndPassword} from '../../actions/authActions';
 import LoginForm from './LoginForm';
 import toastr from 'toastr';
 
-export class RegistrationPage extends React.Component {
+export class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -53,11 +53,11 @@ export class RegistrationPage extends React.Component {
   }
 }
 
-RegistrationPage.propTypes = {
+LoginPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-RegistrationPage.contextTypes = {
+LoginPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -71,4 +71,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
