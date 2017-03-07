@@ -1,7 +1,7 @@
 {
-  "name": "react-hot-redux-firebase-starter",
+  "name": "ChatX",
   "version": "0.1.0",
-  "description": "Boilerplate for ReactJS, Redux, Hot Loading and Firebase 3.x",
+  "description": "Chat room application",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
