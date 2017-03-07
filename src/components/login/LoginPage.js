@@ -34,7 +34,10 @@ export class LoginPage extends React.Component {
     this.setState({saving: true});
 
     this.props.actions.signInWithEmailAndPassword(this.state.user)
-      .then(user => toastr.success('You are logged in'))
+      .then(() => {
+        toastr.success('Logged in');
+        this.context.router.push('/');
+      })
       .catch(error => {
         toastr.error(error.message);
         this.setState({saving: false});
