@@ -10,16 +10,14 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
         label="Email"
         onChange={onChange}
         value={user.email}
-        />
+        type="text"/>
 
       <TextInput
         name="password"
         label="Password"
         onChange={onChange}
         value={user.password}
-        />
-
-      <input
+        type="password"/>
         type="submit"
         disabled={saving}
         value={saving ? 'Logining in...' : 'Login'}
