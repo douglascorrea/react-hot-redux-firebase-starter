@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/firebase-browser';
 import {firebaseConfig} from '../config';
-
+import * as actions from '../actions/actionTypes';
 
 class FirebaseApi {
 
@@ -17,7 +17,7 @@ class FirebaseApi {
     });
   }
 
-  static createUserWithEmailAndPassword(user){
+  static createUserWithEmailAndPassword(user) {
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
   }
 
@@ -25,7 +25,7 @@ class FirebaseApi {
     return firebase.auth().signInWithEmailAndPassword(user.email, user.password);
   }
 
-  static authSignOut(){
+  static authSignOut() {
     return firebase.auth().signOut();
   }
 
@@ -41,6 +41,28 @@ class FirebaseApi {
             resolve();
           }
         });
+    });
+  }
+
+  static databasePushByKey(path, value) {
+    return new Promise((resolve, reject) => {
+      const messagesRef = firebase.database().ref(path);
+      // Push new entry to the table and save the generated key
+      const key = messagesRef.push().key;
+
+      // Add ID of the new table entry to the object
+      value.id = key;
+
+      let updateItem = {};
+      updateItem[key] = value;
+
+      return messagesRef.update(updateItem, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
     });
   }
 
@@ -69,6 +91,47 @@ class FirebaseApi {
       .ref(path)
       .set(value);
 
+  }
+
+
+  /* Unique room */
+
+  static updatedRoom(room) {
+    return {
+      type: actions.ROOM_UPDATED,
+      room
+    }
+  }
+
+  static getChatRoom() {
+    return (dispatch) => {
+      const ref = firebase.database().ref('chatroom');
+      ref.on('value', function (snapshot) {
+        dispatch(FirebaseApi.updatedRoom(snapshot.val()));
+      });
+    }
+  }
+
+  /* Chat room interactions */
+  static sendMessageToRoom(message) {
+    return FirebaseApi.databasePushByKey('chatroom/messages', message);
+  }
+
+  static getChatRoomMessages() {
+    return (dispatch) => {
+      let ref = firebase.database().ref('chatroom/messages');
+      // Limit the sent snapshot to the last 10 values
+      ref.limitToLast(10).on('value', function (snapshot) {
+        dispatch(FirebaseApi.updatedRoomMessages(snapshot.val()));
+      });
+    }
+  }
+
+  static updatedRoomMessages(messages) {
+    return {
+      type: actions.ROOM_MESSAGES_UPDATED,
+      value: messages
+    }
   }
 }
 
