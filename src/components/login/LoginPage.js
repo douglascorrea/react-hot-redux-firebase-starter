@@ -18,7 +18,7 @@ export class LoginPage extends React.Component {
     };
 
     this.updateUserState = this.updateUserState.bind(this);
-    this.createUser = this.createUser.bind(this);
+    this.signInUser = this.signInUser.bind(this);
   }
 
   updateUserState(event) {
@@ -28,7 +28,7 @@ export class LoginPage extends React.Component {
     return this.setState({user: user});
   }
 
-  createUser(event) {
+  signInUser(event) {
     event.preventDefault();
 
     this.setState({saving: true});
@@ -45,7 +45,7 @@ export class LoginPage extends React.Component {
     return (
       <LoginForm
         onChange={this.updateUserState}
-        onSave={this.createUser}
+        onSave={this.signInUser}
         saving={this.state.saving}
         user={this.state.user}
       />
