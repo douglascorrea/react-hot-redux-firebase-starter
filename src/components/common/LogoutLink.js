@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LogoutLink = ({signOut}) => {
-  return <a href="#" onClick={signOut}>Logout</a>;
+  return <a href="#" className="nav-item" onClick={signOut}>Logout</a>;
 };
 
 LogoutLink.propTypes = {
