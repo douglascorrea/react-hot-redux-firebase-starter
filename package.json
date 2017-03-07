@@ -67,15 +67,17 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "bootstrap": "^3.3.6",
+    "bootstrap": "^3.3.7",
     "firebase": "^3.0.3",
     "jquery": "^2.2.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-loader": "^2.4.0",
+    "react-materialize": "^0.18.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "react-router-redux": "^4.0.4",
+    "react-spinkit": "^2.1.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "toastr": "^2.1.2"
