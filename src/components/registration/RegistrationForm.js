@@ -1,6 +1,6 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
-import {Button} from 'react-materialize';
+import {Button} from 'react-bootstrap';
 
 const RegistrationForm = ({user, onSave, onChange, saving}) => {
   return (
@@ -21,7 +21,6 @@ const RegistrationForm = ({user, onSave, onChange, saving}) => {
         type="password"/>
 
       <Button
-        waves='light'
         type="submit"
         disabled={saving}
         onClick={onSave}>
