@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
+import {Button} from 'react-bootstrap';
 
 const LoginForm = ({user, onSave, onChange, saving}) => {
   return (
@@ -10,21 +11,20 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
         label="Email"
         onChange={onChange}
         value={user.email}
-        />
+        type="text"/>
 
       <TextInput
         name="password"
         label="Password"
         onChange={onChange}
         value={user.password}
-        />
-
-      <input
+        type="password"/>
+      <Button
         type="submit"
         disabled={saving}
-        value={saving ? 'Logining in...' : 'Login'}
-        className="btn btn-primary"
-        onClick={onSave}/>
+        onClick={onSave}>
+        {saving ? 'Logining in...' : 'Login'}
+      </Button>
     </form>
   );
 };

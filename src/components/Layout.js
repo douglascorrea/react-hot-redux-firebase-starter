@@ -13,15 +13,17 @@ class Layout extends React.Component {
   render() {
     const {auth, actions, loading, user} = this.props;
     return (
-      <div className="container-fluid">
-        <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
-        {this.props.children}
+      <div>
+        <Header signOut={actions.signOut} auth={auth} loading={loading} user={user}/>
+        <div className="app-container">
+          {this.props.children}
+        </div>
       </div>
     );
   }
 }
 
-Layout.propTypes =  {
+Layout.propTypes = {
   children: React.PropTypes.object,
   actions: React.PropTypes.object.isRequired,
   auth: React.PropTypes.object.isRequired,

@@ -1,7 +1,7 @@
 {
-  "name": "react-hot-redux-firebase-starter",
+  "name": "ChatX",
   "version": "0.1.0",
-  "description": "Boilerplate for ReactJS, Redux, Hot Loading and Firebase 3.x",
+  "description": "Chat room application",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
@@ -24,6 +24,9 @@
     "firebase"
   ],
   "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "contributors": [
+    "Clément Lucas <clement.lucas@ynotek.fr>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
@@ -64,15 +67,18 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
-    "bootstrap": "^3.3.6",
+    "bootstrap": "^3.3.7",
     "firebase": "^3.0.3",
     "jquery": "^2.2.4",
     "react": "^15.1.0",
+    "react-bootstrap": "^0.30.8",
     "react-dom": "^15.1.0",
     "react-loader": "^2.4.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
+    "react-router-bootstrap": "^0.23.1",
     "react-router-redux": "^4.0.4",
+    "react-spinkit": "^2.1.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "toastr": "^2.1.2"

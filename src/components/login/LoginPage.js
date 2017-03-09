@@ -5,7 +5,7 @@ import {signInWithEmailAndPassword} from '../../actions/authActions';
 import LoginForm from './LoginForm';
 import toastr from 'toastr';
 
-export class RegistrationPage extends React.Component {
+export class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
@@ -18,7 +18,7 @@ export class RegistrationPage extends React.Component {
     };
 
     this.updateUserState = this.updateUserState.bind(this);
-    this.createUser = this.createUser.bind(this);
+    this.signInUser = this.signInUser.bind(this);
   }
 
   updateUserState(event) {
@@ -28,13 +28,16 @@ export class RegistrationPage extends React.Component {
     return this.setState({user: user});
   }
 
-  createUser(event) {
+  signInUser(event) {
     event.preventDefault();
 
     this.setState({saving: true});
 
     this.props.actions.signInWithEmailAndPassword(this.state.user)
-      .then(user => toastr.success('You are logged in'))
+      .then(() => {
+        toastr.success('Logged in');
+        this.context.router.push('/');
+      })
       .catch(error => {
         toastr.error(error.message);
         this.setState({saving: false});
@@ -45,7 +48,7 @@ export class RegistrationPage extends React.Component {
     return (
       <LoginForm
         onChange={this.updateUserState}
-        onSave={this.createUser}
+        onSave={this.signInUser}
         saving={this.state.saving}
         user={this.state.user}
       />
@@ -53,11 +56,11 @@ export class RegistrationPage extends React.Component {
   }
 }
 
-RegistrationPage.propTypes = {
+LoginPage.propTypes = {
   actions: PropTypes.object.isRequired
 };
 
-RegistrationPage.contextTypes = {
+LoginPage.contextTypes = {
   router: PropTypes.object
 };
 
@@ -71,4 +74,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

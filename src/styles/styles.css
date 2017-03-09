@@ -1,58 +1,94 @@
 /* Styles */
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
 html, body, #root, .container-loading {
-  height: 100%;
+	height: 100%;
 }
 
-#app {
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #4d4d4d;
-  min-width: 550px;
-  max-width: 850px;
-  margin: 0 auto;
-}
-
-a.active {
-  color: orange;
-}
-
-nav {
-  padding-top: 20px;
+.app-container {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .container-loading {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
+	display: table;
+	table-layout: fixed;
+	width: 100%;
 }
 
 .loading {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
 }
 
 .loading-row {
-  background-color: #fff;
-  min-height: 100%;
-  height: 100%;
-  display:table-cell;
-  vertical-align:middle;
-  text-align:center;
-  width: 100%;
+	background-color: #fff;
+	min-height: 100%;
+	height: 100%;
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+	width: 100%;
 }
 
 .loading div {
-  width: inherit !important;
+	width: inherit !important;
 }
 
 .loading svg {
-  display: block;
-  width: 100px;
-  margin: 0 auto;
+	display: block;
+	width: 100px;
+	margin: 0 auto;
 }
 
 .h1-loading {
-  color: #fff;
-  font-size: 6rem;
-  line-height: 8rem;
+	color: #fff;
+	font-size: 6rem;
+	line-height: 8rem;
+}
+
+.chat-container {
+  position: fixed;
+  padding-top: 20px;
+}
+
+#messages-card {
+  height: 100%;
+  padding-bottom: 0;
+  margin-top: 15px;
+}
+#messages-card-container {
+  height: calc(100% - 150px);
+  padding-bottom: 0;
+}
+
+#message-container {
+  display: flex;
+  height: 100%;
+  padding-bottom: 0;
+  margin-top: 15px;
+}
+
+.message-input {
+  font-size: 1.5rem !important;
+}
+
+.message-send-button {
+  margin: auto;
+}
+
+.spinner {
+  margin: auto;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+.chatrooms-list {
+  margin: 10px;
+  width: 100%;
 }
