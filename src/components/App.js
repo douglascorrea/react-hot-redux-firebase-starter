@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Router} from 'react-router';
 import routes from '../routes';
 
@@ -11,9 +11,9 @@ import routes from '../routes';
 
 class App extends Component {
   render() {
-    const { history, store } = this.props;
+    const {history, store} = this.props;
     return (
-      <Router routes={routes(store)} history={history} />
+      <Router routes={routes(store)} history={history}/>
     );
   }
 }
