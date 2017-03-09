@@ -2,30 +2,25 @@
  * Created by clementlucas on 07/03/2017.
  */
 import React from 'react';
-import {Button, Input} from 'react-materialize';
+import {Form, FormGroup, FormControl, InputGroup, Button} from 'react-bootstrap';
 
 const MessageForm = ({message, onChange, onSubmit}) => {
   // Prevent the user to send empty message
   const sendButtonDisabled = (/^\s*$/).test(message);
 
   return (
-    <form id="message-container">
-      <Input
-        className="message-input"
-        type="text"
-        s={12}
-        value={message}
-        onChange={onChange}
-        placeholder="Message..."/>
-      <Button
-        waves='light'
-        type="submit"
-        disabled={sendButtonDisabled}
-        onClick={onSubmit}
-        className="message-send-button">
+    <Form inline>
+      <FormGroup>
+        <InputGroup>
+          <InputGroup.Addon>Message :</InputGroup.Addon>
+          <FormControl value={message} onChange={onChange} type="text" />
+        </InputGroup>
+      </FormGroup>
+      {' '}
+      <Button type="submit" disabled={sendButtonDisabled} onClick={onSubmit}>
         Send
       </Button>
-    </form>
+    </Form>
   )
 };
 
