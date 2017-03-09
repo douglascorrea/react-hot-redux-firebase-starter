@@ -1,13 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
-const LoginLink = () => {
-  return (
-    <span>
-      <Link to="/register" className="nav-item" activeClassName="active">Register</Link>
-      <Link to="/login" className="nav-item" activeClassName="active">Login</Link>
-    </span>
-  );
-};
+const LoginLink = [
+      <LinkContainer key={'registerKey'} to={{pathname: "/register"}}>
+        <NavItem eventKey={4}>Register</NavItem>
+      </LinkContainer>,
+      <LinkContainer key={'loginKey'} to={{pathname: "/login"}}>
+        <NavItem eventKey={5}>Login</NavItem>
+      </LinkContainer>];
 
 export default LoginLink;
