@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import user from './userReducer';
 import routesPermissions from './routesPermissionsReducer';
 import auth from './authReducer';
-import chatroom from './chatRoomReducer';
+import chat from './chatRoomReducer';
 
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import { routerReducer } from 'react-router-redux';
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   routesPermissions,
   user,
   auth,
-  chatroom,
+  chat,
   ajaxCallsInProgress,
 });
 
