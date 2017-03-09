@@ -12,17 +12,6 @@ html, body, #root, .container-loading {
   padding-right: 10px;
 }
 
-.nav-item {
-  display: inline-flex;
-  padding-left: 10px;
-  padding-right: 10px;
-  text-decoration: none !important;
-}
-
-.nav-item:hover {
-  background-color: rgba(0,0,0,0.1);
-}
-
 .container-loading {
 	display: table;
 	table-layout: fixed;
@@ -89,4 +78,17 @@ html, body, #root, .container-loading {
 
 .message-send-button {
   margin: auto;
+}
+
+.spinner {
+  margin: auto;
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+.chatrooms-list {
+  margin: 10px;
+  width: 100%;
 }
