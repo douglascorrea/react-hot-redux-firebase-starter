@@ -13,3 +13,5 @@ export const USER_LOADED_SUCCESS = 'USER_LOADED_SUCCESS';
 export const USER_IS_ADMIN_SUCCESS = 'USER_IS_ADMIN_SUCCESS';
 
 
+// Chat actions
+export const MESSAGE_SAVED = 'MESSAGE_SAVED';
