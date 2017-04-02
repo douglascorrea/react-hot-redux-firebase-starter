@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { sendMessage } from '../actions/chatActions';
 import TextInput from '../components/common/TextInput';
 
-// TODO: add user content after dispatch
-let SendMessage = ({ dispatch }) => {
+let SendMessage = ({ dispatch, user }) => {
   let input;
   const setRef = node => {input = node;};
   const onSubmit = event => {
@@ -13,8 +12,8 @@ let SendMessage = ({ dispatch }) => {
       return;
     }
     dispatch(sendMessage({
-      // TODO: add user content
-      message: input.value
+      message: input.value,
+      nick: user.email.split('@')[0]
     }));
     input.value = '';
   };
@@ -37,10 +36,20 @@ let SendMessage = ({ dispatch }) => {
   );
 };
 
-SendMessage.propTypes = {
-  dispatch: React.PropTypes.func.isRequired
+// TODO: mapStateToProps
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  };
 };
 
-SendMessage = connect()(SendMessage);
+SendMessage.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  user: React.PropTypes.object.isRequired
+};
+
+// TODO: update connect
+SendMessage = connect(mapStateToProps, null)(SendMessage);
+// SendMessage = connect()(SendMessage);
 
 export default SendMessage;

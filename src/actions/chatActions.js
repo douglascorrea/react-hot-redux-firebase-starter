@@ -7,6 +7,20 @@ export function messageSaved() {
   };
 }
 
+export function messageReceived(messages) {
+  return {
+    type: type.MESSAGE_RECEIVED,
+    messages
+  };
+}
+
+export function broadcastListening() {
+  return {
+    type: type.BROADCAST_LISTENING
+  };
+}
+
+
 
 export function sendMessage(message) {
   return (dispatch, getState) => {
@@ -19,5 +33,14 @@ export function sendMessage(message) {
       err => {
         throw(err);
       });
+  };
+}
+
+export function listenBroadcast() {
+  return (dispatch, getState) => {
+    dispatch(broadcastListening());
+    firebaseAPI.GetLastTen("message", function(snapshot) {
+      dispatch(messageReceived(snapshot.val()));
+    });
   };
 }
