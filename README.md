@@ -1,66 +1,32 @@
-Firebase 3.0 Starter using React Redux
+bjorge-irc
 =====================
 
-This is a Firebase 3.0 start using React and Redux.
+bjorge-irc is as simple chat webapp. So, basically, you can chat with your friends with it.
 
-It uses the latest version of libraries, including the brand new React Hot Loader ([still beta](https://github.com/gaearon/react-hot-loader/pull/240))
+## Informations
 
-## Stack
+### About
 
-- React
-  - [X] React `15.1.0`
-  - [X] React Hot Loader `3.0.0-beta.2`
-  - [X] React Router `2.4.1`
-- Redux
-  - [X] Redux `3.5.2`
-  - [X] React Redux `4.4.5`
-  - [X] React Router Redux `4.0.4`
-  - [X] Redux Thunk `2.1.0`
-  - [X] Redux Dev Tools
-- Webpack    
-  - [X] Webpack `1.13.1`
-  - [X] Webpack Dev Middleware `1.6.1`
-  - [X] Webpack Hot Middleware `2.10.0`
-- Firebase
-  - [X] Firebase `3.0.3`
-- Linting
-  - [X] Eslint `2.11.1`
-- Styles
-  - [X] Bootstrap `3.3.6`
-- Testing
-  - [X] Mocha `2.5.3`
-  - [X] Enzyme `2.3.0`
+The project is based on the [Firebase 3.0 Starter using React Redux](https://github.com/douglascorrea/react-hot-redux-firebase-starter) boilerplate by [@douglascorrea](https://github.com/douglascorrea).
+
+For now, it doesn't do much stuff (cause... well, I had to learn React, Redux and firebase in two days), but it does the job well. I will improve it without a doubt because it was very fun, even if I didn't have enough sleep (if you ask me, but I'm sure you won't). Anyway, it was a great experience!
 
 
-## Features
+### Features
 
-- Firebase:
-  - Auth
-    - [X] Authentication setup (Registration/Login) 
-    - [X] state.user sync with Firebase Auth
-    - [X] Protected routes (needs to be logged in)    
-    - [X] Store users on `'/users/<user.uid>'`
-    - [X] Admin flag on user (`'/isAdmin/<user.uid>' :: bool`)
-    - [X] Admin Protected routes (needs to be logged in)
-  - Database
-    - [X] Set example
-    - [X] Query example 
+- Chat. Yeah. You can use it for chatting. 
 
 ## Usage
 
+That's the simplest thing in the world!
+
+Make sure you have node & npm installed, an then, simply run theses commands
+
 ```
-git clone git@github.com:douglascorrea/react-hot-redux-firebase-starter.git
-cd react-hot-redux-firebase-starter
+git clone git@github.com:bj0rge/bjorge-irc.git
+cd bjorge-irc
 npm install
 npm start -s
 ```
 
-## Development Tasks
 
-- `npm start` run the web app with lint and tests in watch mode
-- `npm run lint` linting javascript code usig eslint
-- `npm run test` test using mocha and enzyme
-
-## Roadmap
-
-Check our [roadmap issues](https://github.com/douglascorrea/react-hot-redux-firebase-starter/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap)
