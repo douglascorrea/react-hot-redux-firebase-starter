@@ -70,6 +70,14 @@ class FirebaseApi {
       .set(value);
 
   }
+
+  static GetLastTen(path, cb) {
+    firebase
+      .database()
+      .ref(path)
+      .limitToLast(10)
+      .on('value', cb);
+  }
 }
 
 export default FirebaseApi;

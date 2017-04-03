@@ -17,6 +17,7 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
         label="Password"
         onChange={onChange}
         value={user.password}
+        visible={false}
         />
 
       <input
@@ -33,7 +34,7 @@ LoginForm.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool,
   user: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  onChange: React.PropTypes.func
 };
 
 export default LoginForm;
