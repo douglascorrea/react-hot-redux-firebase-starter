@@ -17,6 +17,7 @@ const RegistrationForm = ({user, onSave, onChange, saving}) => {
         label="Password"
         onChange={onChange}
         value={user.password}
+        visible={false}
         />
 
       <input

@@ -5,6 +5,7 @@ import auth from './authReducer';
 
 import ajaxCallsInProgress from './ajaxStatusReducer';
 import { routerReducer } from 'react-router-redux';
+import messages from './chatReducer';
 
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   routesPermissions,
   user,
   auth,
-  ajaxCallsInProgress
+  ajaxCallsInProgress,
+  messages
 });
 
 export default rootReducer;

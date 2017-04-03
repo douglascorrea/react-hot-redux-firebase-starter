@@ -16,7 +16,7 @@ const Header = ({loading, signOut, auth, user}) => {
       {" | "}
       <Link to="/about" activeClassName="active">About</Link>
       {" | "}
-      <Link to="/protected" activeClassName="active">Protected</Link>
+      <Link to="/chat" activeClassName="active">Chat</Link>
       {adminLink}
       {" | "}
       {loginLogoutLink}
