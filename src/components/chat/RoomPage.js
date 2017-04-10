@@ -29,7 +29,6 @@ export class RoomPage extends React.Component {
 
     this.props.actions.watchMessages(this.props.params.roomId);
     this.props.actions.watchCurrentRoom(this.props.params.roomId);
-    // this.props.actions.watchRoomUsers(this.props.params.roomId);
 
     if (user && user.uid && user.email){
       this.props.actions.joinRoom(
@@ -100,7 +99,6 @@ RoomPage.propTypes = {
   params: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // roomUsers: PropTypes.arrayOf(PropTypes.object).isRequired,
   currentRoom: PropTypes.object.isRequired
 };
 
@@ -111,7 +109,6 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user,
     messages: state.messages,
-    roomUsers: state.roomUsers,
     currentRoom: state.currentRoom
   };
 };
