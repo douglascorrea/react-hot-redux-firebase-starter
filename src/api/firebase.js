@@ -62,6 +62,13 @@ class FirebaseApi {
       .once('child_added');
   }
 
+  static GetAllByPath(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .once('value');
+  }
+
   static databaseSet(path, value) {
 
     return firebase
