@@ -9,9 +9,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist/'),
     filename: 'bundle.js',
-    publicPath: 'https://gmpetrov.github.io/react-hot-redux-firebase-starter/'
+    publicPath: '/static/'
   },
-
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
