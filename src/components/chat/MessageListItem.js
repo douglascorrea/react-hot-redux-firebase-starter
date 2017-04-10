@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-const MessageListItem = ({value, from, currentUser}) => {
+const MessageListItem = ({value, from = {}, currentUser}) => {
   let msgClassName = "message-left";
   let fromLabel = from.email;
 

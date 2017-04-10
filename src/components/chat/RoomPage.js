@@ -13,14 +13,9 @@ export class RoomPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    const {user} = this.props;
     this.state = {
       message: {
-        value: "",
-        from: {
-          uid: user.uid,
-          email: user.email
-        }
+        value: ""
       },
       saving: false
     };
@@ -54,9 +49,19 @@ export class RoomPage extends React.Component {
   createMessage(event){
     event.preventDefault();
 
+    const {user} = this.props;
+
     this.setState({saving: true});
 
-    this.props.actions.postMessage(this.state.message, this.props.params.roomId)
+    const message = {
+      value: this.state.message.value,
+      from: {
+        uid: user.uid,
+        email: user.email
+      }
+    };
+
+    this.props.actions.postMessage(message, this.props.params.roomId)
       .then(() => {
         toastr.success('Message Posted');
         this.setState({saving: false, message: {value: ""}});

@@ -17,19 +17,18 @@ export function roomsReducer(state = initialState.rooms, action) {
 export function roomUsers(state = [], action){
   switch (action.type) {
     case types.ROOM_FETCH_USERS:
-      return Object.keys(action.payload).map((key) => action.payload[key]);
+      return Object.keys(action.payload).map(key => action.payload[key]);
     default:
       return state;
   }
 }
 
 export function currentRoom(state = {}, action) {
+  let users = [];
   switch (action.type) {
     case types.ROOM_FETCH_CURRENT:
-      let users = [];
-
       if (action.payload.users) {
-        users = Object.keys(action.payload.users).map((key) => action.payload.users[key]);
+        users = Object.keys(action.payload.users).map(key => action.payload.users[key]);
       }
       return Object.assign({}, action.payload, {users: users});
     default:

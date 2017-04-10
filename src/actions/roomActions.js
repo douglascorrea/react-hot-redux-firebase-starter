@@ -7,7 +7,7 @@ export function watchRooms() {
   return (dispatch) => {
     dispatch(beginAjaxCall());
     return firebaseApi.WatchPathValue('/rooms', snapshot => {
-      dispatch(fetchRoomsSuccess(snapshot.val()));
+      dispatch(fetchRoomsSuccess(snapshot.val() || {}));
     });
   };
 }
