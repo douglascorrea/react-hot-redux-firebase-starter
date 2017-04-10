@@ -1,25 +1,31 @@
-let path = require('path');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
-  devtool: 'source-map',
+module.exports = {
   entry: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?reload=false',
-    './src/index'
+    path.join(__dirname, 'src/index.js')
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, '/dist/'),
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: 'body',
       filename: 'index.html'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+            warnings: false,
+            screw_ie8: true
+        }
+    }),
+    new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('production')
     })
   ],
   module: {
@@ -34,5 +40,3 @@ const config = {
     ]
   }
 };
-
-export default config;

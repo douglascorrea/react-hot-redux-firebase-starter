@@ -63,12 +63,46 @@ class FirebaseApi {
   }
 
   static databaseSet(path, value) {
-
     return firebase
       .database()
       .ref(path)
       .set(value);
+  }
 
+  static databaseUpdate(path, value) {
+    return firebase
+      .database()
+      .ref(path)
+      .update(value);
+  }
+
+  static databaseDelete(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .remove();
+  }
+
+  static GetAllByPath(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .once('value');
+  }
+
+  static WatchPathValue(path, handler) {
+      return firebase
+        .database()
+        .ref(path)
+        .on('value', handler);
+  }
+
+  static WatchPathValueLimitLast(path, limit, handler) {
+      return firebase
+        .database()
+        .ref(path)
+        .limitToLast(limit)
+        .on('value', handler);
   }
 }
 

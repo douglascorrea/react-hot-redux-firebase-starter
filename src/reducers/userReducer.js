@@ -9,6 +9,8 @@ export default function userReducer(state = initialState.user, action) {
       return Object.assign({}, state, {isAdmin: true});
     case types.AUTH_LOGGED_OUT_SUCCESS:
       return initialState.user;
+    case types.USER_UPDATE:
+      return Object.assign({}, state, action.payload);
     default:
       return state;
   }

@@ -56,3 +56,59 @@ nav {
   font-size: 6rem;
   line-height: 8rem;
 }
+
+.room-list, .message-list {
+  width: 100%;
+  height: 50vh;
+  border: 5px solid #4d4d4d;
+  overflow-y: scroll;
+}
+
+.room-list-item {
+  display: block;
+  color: #4d4d4d;
+  text-decoration: none;
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1px solid #4d4d4d;
+}
+
+.room-list-item:hover {
+  background: #4d4d4d;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.message-list {
+  padding: 20px;
+}
+
+.message-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.message {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.message-left {
+  background: #d4b8e0;
+  padding-right: 10px;
+  /*float: left;*/
+}
+
+.message-right {
+  background: #ddd;
+  padding-left: 10px;
+  margin-left: auto;
+}
+
+.from-label {
+  font-size: 10px;
+}

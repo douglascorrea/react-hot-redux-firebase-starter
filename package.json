@@ -8,8 +8,9 @@
     "open:src": "babel-node tools/srcServer.js",
     "test": "mocha --reporter progress tools/testSetup.js src/*.test.js",
     "test:watch": "npm run test -- --watch",
-    "lint": "node_modules/.bin/esw webpack.config.* tools src",
-    "lint:watch": "npm run lint -- --watch"
+    "lint": "node_modules/.bin/esw webpack.config.dev.js tools src",
+    "lint:watch": "npm run lint -- --watch",
+    "build": "rimraf dist && webpack --config ./webpack.config.prod.js --progress --profile --colors"
   },
   "keywords": [
     "react",
@@ -48,6 +49,7 @@
     "expect": "^1.20.1",
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.28.0",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "nock": "^8.0.0",
@@ -57,6 +59,7 @@
     "react-hot-loader": "^3.0.0-beta.2",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-mock-store": "^1.0.4",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
