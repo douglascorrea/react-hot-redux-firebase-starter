@@ -19,6 +19,8 @@ const Header = ({loading, signOut, auth, user}) => {
       <Link to="/protected" activeClassName="active">Protected</Link>
       {adminLink}
       {" | "}
+      <Link to="/chat" activeClassName="active">Chat</Link>
+      {" | "}
       {loginLogoutLink}
       {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
