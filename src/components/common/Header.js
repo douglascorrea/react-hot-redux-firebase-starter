@@ -22,7 +22,6 @@ const Header = ({loading, signOut, auth, user}) => {
       <Link to="/chat" activeClassName="active">Chat</Link>
       {" | "}
       {loginLogoutLink}
-      {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
   );
 };

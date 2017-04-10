@@ -16,5 +16,7 @@ export default {
     currentUserUID: null,
     initialized: false
   },
-  ajaxCallsInProgress: 0
+  ajaxCallsInProgress: 0,
+  rooms: [],
+  messages: []
 };

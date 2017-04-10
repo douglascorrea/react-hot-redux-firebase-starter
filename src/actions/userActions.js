@@ -63,3 +63,10 @@ export function userIsAdminSuccess() {
     type: types.USER_IS_ADMIN_SUCCESS
   };
 }
+
+export function updateUser(user) {
+  return {
+    type: types.USER_UPDATE,
+    payload: user
+  };
+}
