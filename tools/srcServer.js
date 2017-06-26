@@ -17,6 +17,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.get('/firebase-messaging-sw.js', function(req, res) {
+  res.sendFile(path.join( __dirname, '../src/firebase-messaging-sw.js'));
+});
+
 app.get('*', function(req, res) {
   res.sendFile(path.join( __dirname, '../src/index.html'));
 });

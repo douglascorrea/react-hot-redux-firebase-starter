@@ -1,8 +1,10 @@
 // Firebase
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCNsG4Y4pkaVxqM809bpQeZ3wsFgVlCPcg",
-  authDomain: "react-hot-redux-firebase-start.firebaseapp.com",
-  databaseURL: "https://react-hot-redux-firebase-start.firebaseio.com",
-  storageBucket: "react-hot-redux-firebase-start.appspot.com"
-};
+      apiKey: "AIzaSyC1wX7I7CR-m841-idi4sBjIsrfPch2K1o",
+      authDomain: "chatx-efounders.firebaseapp.com",
+      databaseURL: "https://chatx-efounders.firebaseio.com",
+      projectId: "chatx-efounders",
+      storageBucket: "chatx-efounders.appspot.com",
+      messagingSenderId: "482880994460"
+    };
