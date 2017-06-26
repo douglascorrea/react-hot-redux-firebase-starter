@@ -1,11 +1,40 @@
 import * as firebase from 'firebase/firebase-browser';
 import {firebaseConfig} from '../config';
 
-
 class FirebaseApi {
 
   static initAuth() {
-    firebase.initializeApp(firebaseConfig);
+    this.app = firebase.initializeApp(firebaseConfig);
+    this.firebaseMessaging = this.app.messaging(this.app);
+
+    this.firebaseMessaging.onTokenRefresh(function() {
+      ctx.firebaseMessaging.getToken()
+      .then(token => {
+        console.log(token);
+        this.fcmToken = token;
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'key=AIzaSyB3YIy9OwX6CAaIFTqTVe8cTgtVUtkphxM');
+        let option = {
+          method: 'POST',
+          headers: headers
+        };
+
+        fetch("https://iid.googleapis.com/iid/v1/" + token + "/rel/topics/ChatX", option).then(function(response) {
+          if (response.ok) {
+            console.log("Subscribed to topic");
+          }
+        })
+        .catch(function(error) {
+          console.log("Error subscribing to topic:", error);
+        });
+
+      })
+      .catch(function(err) {
+        console.log('Unable to retrieve refreshed token ', err);
+      });
+    });
+    this.initCloudNotifications();
     return new Promise((resolve, reject) => {
       const unsub = firebase.auth().onAuthStateChanged(
         user => {
@@ -14,6 +43,76 @@ class FirebaseApi {
         },
         error => reject(error)
       );
+    });
+  }
+
+  static initCloudNotifications() {
+    this.firebaseMessaging.requestPermission()
+    .then(() => {
+      console.log('Notification permission granted.');
+      this.firebaseMessaging.getToken()
+      .then(token => {
+        console.log(token);
+        this.fcmToken = token;
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Authorization', 'key=AIzaSyB3YIy9OwX6CAaIFTqTVe8cTgtVUtkphxM');
+        let option = {
+          method: 'POST',
+          headers: headers
+        };
+
+        fetch("https://iid.googleapis.com/iid/v1/" + token + "/rel/topics/ChatX", option).then(function(response) {
+          if (response.ok) {
+            console.log("Subscribed to topic");
+          }
+        })
+        .catch(function(error) {
+          console.log("Error subscribing to topic:", error);
+        });
+      })
+      .catch(function(err) {
+        console.error('Unable to retrieve refreshed token ', err);
+      });
+    })
+    .catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+  }
+
+  static sendMessage(message) {
+    let headers = new Headers();
+
+    let sender = firebase.auth().currentUser
+
+    firebase.database().ref('messages/').push({
+    author: sender.email,
+    msg: message
+  });
+
+
+
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'key=AIzaSyB3YIy9OwX6CAaIFTqTVe8cTgtVUtkphxM');
+    let option = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ notification: {
+          title: "ChatX-Notification-NewMessage",
+          body: message
+        },
+        to : "/topics/ChatX"
+      })
+    };
+
+    fetch("https://fcm.googleapis.com/fcm/send", option).then(function(response) {
+      if (response.ok) {
+        console.log("Message sent");
+      }
+    })
+    .catch(function(error) {
+      console.log("Error subscribing to topic:", error);
     });
   }
 
@@ -43,6 +142,7 @@ class FirebaseApi {
         });
     });
   }
+
 
   static GetValueByKeyOnce(path, key) {
     return firebase
