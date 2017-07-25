@@ -1,6 +1,8 @@
 Firebase 3.0 Starter using React Redux
 =====================
 
+### forked from douglascorrea/react-hot-redux-firebase-starter
+
 This is a Firebase 3.0 start using React and Redux.
 
 It uses the latest version of libraries, including the brand new React Hot Loader ([still beta](https://github.com/gaearon/react-hot-loader/pull/240))
@@ -44,12 +46,12 @@ It uses the latest version of libraries, including the brand new React Hot Loade
     - [X] Admin Protected routes (needs to be logged in)
   - Database
     - [X] Set example
-    - [X] Query example 
+    - [X] Query example
 
 ## Usage
 
 ```
-git clone git@github.com:douglascorrea/react-hot-redux-firebase-starter.git
+git clone git@github.com:JohanSing/react-hot-redux-firebase-starter.git
 cd react-hot-redux-firebase-starter
 npm install
 npm start -s
@@ -64,3 +66,17 @@ npm start -s
 ## Roadmap
 
 Check our [roadmap issues](https://github.com/douglascorrea/react-hot-redux-firebase-starter/issues?q=is%3Aissue+is%3Aopen+label%3Aroadmap)
+
+### Add by me : 
+- Chat : single chat room
+  There is only 1 chat room where users can discuss:
+    - User must be connected or subscribe an account to access chat room
+    - User can read the last 10 messages of the room when entering
+    - User can read new messages from other users
+    - User can write and send new messages
+- FireBase : 
+  I created an account and set the rules on public mode. Everybody can read and write on database (it's just a database for     this project).
+- Problem :
+    - The input field to write a message doesn't reset after submit.
+    - The TalkBox does update only for our messages.
+    - For this updates, it's obligatory to refresh window.
