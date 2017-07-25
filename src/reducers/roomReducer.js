@@ -1,7 +1,6 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 
-//- Reducer message input
 export default function roomReducer(state = initialState.room, action) {
   switch (action.type) {
     case types.INIT_ROOM_LOADING:

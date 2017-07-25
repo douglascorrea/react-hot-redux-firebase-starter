@@ -31,31 +31,19 @@ export class RoomPage extends React.Component {
     }
 
     componentWillMount() {
-
-        this.props.actions.initRoom()
-                .then(_ => {
-                    return this.setState({
-                        room : {
-                            message : {
-                                text : ""
-                            },
-                            messageContainer : this.props.room.messageContainer,
-                            saving : false
-                        }
-                    });
-                });
-
-    }
-
-    componentWillReceiveProps(nextProps) {
         console.log('Hello');
-        this.setState({
-            room : {
-                message : {
-                    text : nextProps.room.message.text
-                }
-            }
-        });
+        this.props.actions.initRoom()
+            .then(_ => {
+                return this.setState({
+                    room : {
+                        message : {
+                            text : ""
+                        },
+                        messageContainer : this.props.room.messageContainer,
+                        saving : false
+                    }
+                });
+            });
     }
 
     //- Update value input message
@@ -69,13 +57,12 @@ export class RoomPage extends React.Component {
                     text : message.text,
                     userUID : this.props.room.message.userUID,
                     userEmail : this.props.room.message.userEmail
-                },
-                messageContainer : this.props.room.messageContainer
+                }
             }
         });
     }
 
-    //- Create message in input to send it
+    //- Create message to send it
     createMessage(event) {
 
       event.preventDefault();
