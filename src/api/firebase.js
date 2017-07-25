@@ -29,17 +29,23 @@ class FirebaseApi {
     return firebase.auth().signOut();
   }
 
-  static databasePush(path, value) {
+  static databasePushMessage(path, value) {
     return new Promise((resolve, reject) => {
-      firebase
-        .database()
-        .ref(path)
-        .push(value, (error) => {
-          if (error) {
+        let U = firebase
+            .database()
+            .ref(path)
+            .push();
+        U.set({
+            messageUID : U.key,
+            text : value.text,
+            userUID : value.userUID,
+            userEmail : value.userEmail
+        })
+        .then(_ => {
+            resolve(U.key);
+        })
+        .catch(error => {
             reject(error);
-          } else {
-            resolve();
-          }
         });
     });
   }
@@ -60,6 +66,46 @@ class FirebaseApi {
       .orderByKey()
       .equalTo(key)
       .once('child_added');
+  }
+
+  static GetChildAddedByOnce(path) {
+    return new Promise((resolve, reject) => {
+        firebase
+          .database()
+          .ref(path)
+          .limitToLast(1)
+          .on('value', (snapshot) => {
+             resolve(snapshot);
+          });
+    });
+  }
+
+  static GetDataByKey(path, key) {
+    return new Promise((resolve, reject) => {
+        firebase
+          .database()
+          .ref(path)
+          .orderByKey()
+          .equalTo(key)
+          .on('value', (snapshot) => {
+              resolve(snapshot.val());
+          });
+    });
+
+  }
+
+  static GetChildAddedOnce(path) {
+    return new Promise((resolve, reject) => {
+        firebase
+            .database()
+            .ref(path)
+            .limitToLast(10)
+            .orderByKey()
+            .on('value', (snapshot) => {
+                resolve(snapshot.val());
+            });
+    });
+
   }
 
   static databaseSet(path, value) {

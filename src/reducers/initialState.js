@@ -9,12 +9,17 @@ export default {
   },
   routing: {},
   user: {
+    currentUserUID: null,
+    currentUserEmail: null,
     isAdmin: undefined
   },
   auth: {
     isLogged: false,
-    currentUserUID: null,
     initialized: false
   },
+  room : {
+     message: {},
+     messageContainer : []
+ },
   ajaxCallsInProgress: 0
 };

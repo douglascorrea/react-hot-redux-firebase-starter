@@ -56,3 +56,40 @@ nav {
   font-size: 6rem;
   line-height: 8rem;
 }
+
+.RoomBox {
+    border: 1px solid #7f8c8d;
+    padding: 0;
+    height: 60vh;
+    overflow-y: scroll;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.ListMessage {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ListMessage > li {
+    border: 1px solid #ecf0f1;
+    padding: 10px 35px;
+    margin: 0;
+}
+
+.ListMessage > li > p {
+    margin: 5px 0;
+    position: relative;
+    bottom: 0;
+}
+
+.pemail {
+    font-size: 0.9em;
+    color: #3498db;
+}
+
+.ptext {
+    font-size: 1.1em;
+    color: #2980b9;
+}

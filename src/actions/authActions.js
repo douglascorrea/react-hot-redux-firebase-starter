@@ -13,9 +13,9 @@ export function authInitializedDone() {
   };
 }
 
-export function authLoggedInSuccess(userUID) {
+export function authLoggedInSuccess(user) {
   return {
-    type: types.AUTH_LOGGED_IN_SUCCESS, userUID
+    type: types.AUTH_LOGGED_IN_SUCCESS, user
   };
 }
 
@@ -28,18 +28,18 @@ export function authInitialized(user) {
   return (dispatch) => {
     dispatch(authInitializedDone());
     if (user) {
-      dispatch(authLoggedIn(user.uid));
+      dispatch(authLoggedIn(user));
     } else {
       dispatch(authLoggedOutSuccess());
     }
   };
 }
 
-export function authLoggedIn(userUID) {
+export function authLoggedIn(user) {
   return (dispatch) => {
-    dispatch(authLoggedInSuccess(userUID));
+    dispatch(authLoggedInSuccess(user));
     dispatch(beginAjaxCall());
-    firebaseApi.GetChildAddedByKeyOnce('/users', userUID)
+    firebaseApi.GetChildAddedByKeyOnce('/users', user.uid)
       .then(
         user => {
           dispatch(userLoadedSuccess(user.val()));
@@ -73,7 +73,7 @@ export function signInWithEmailAndPassword(user) {
     return firebaseApi.signInWithEmailAndPassword(user)
       .then(
         user => {
-          dispatch(authLoggedIn(user.uid));
+           dispatch(authLoggedIn(user));
         })
       .catch(error => {
         dispatch(ajaxCallError(error));

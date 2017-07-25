@@ -16,10 +16,13 @@ const Header = ({loading, signOut, auth, user}) => {
       {" | "}
       <Link to="/about" activeClassName="active">About</Link>
       {" | "}
+      <Link to="/room" activeClassName="active">Room</Link>
+      {" | "}
       <Link to="/protected" activeClassName="active">Protected</Link>
       {adminLink}
       {" | "}
       {loginLogoutLink}
+      {" "}
       {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
   );
