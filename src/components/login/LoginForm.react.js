@@ -6,24 +6,24 @@ const LoginForm = ({user, onSave, onChange, saving}) => {
     <form>
       <h1>Login</h1>
       <TextInput
-        name="email"
-        label="Email"
+        name='email'
+        label='Email'
         onChange={onChange}
         value={user.email}
         />
 
       <TextInput
-        name="password"
-        label="Password"
+        name='password'
+        label='Password'
         onChange={onChange}
         value={user.password}
         />
 
       <input
-        type="submit"
+        type='submit'
         disabled={saving}
         value={saving ? 'Logining in...' : 'Login'}
-        className="btn btn-primary"
+        className='btn btn-primary'
         onClick={onSave}/>
     </form>
   );

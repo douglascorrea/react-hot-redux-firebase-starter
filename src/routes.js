@@ -19,14 +19,14 @@ export default function Routes(store) {
   };
 
   return (
-    <Route path="/" component={Layout}>
+    <Route path='/' component={Layout}>
       <IndexRoute component={HomePage}/>
-      <Route path="layout" component={Layout}/>
-      <Route path="about" component={AboutPage}/>
-      <Route path="protected" component={ProtectedPage}/>
-      <Route path="admin" component={AdminPage} onEnter={checkAdmin}/>
-      <Route path="register" component={RegistrationPage}/>
-      <Route path="login" component={LoginPage}/>
+      <Route path='layout' component={Layout}/>
+      <Route path='about' component={AboutPage}/>
+      <Route path='protected' component={ProtectedPage}/>
+      <Route path='admin' component={AdminPage} onEnter={checkAdmin}/>
+      <Route path='register' component={RegistrationPage}/>
+      <Route path='login' component={LoginPage}/>
     </Route>
   );
 }

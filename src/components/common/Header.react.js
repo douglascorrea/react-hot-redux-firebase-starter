@@ -12,13 +12,13 @@ const Header = ({loading, signOut, auth, user}) => {
 
   return (
     <nav>
-      <IndexLink to="/" activeClassName="active">Home</IndexLink>
-      {" | "}
-      <Link to="/about" activeClassName="active">About</Link>
-      {" | "}
-      <Link to="/protected" activeClassName="active">Protected</Link>
+      <IndexLink to='/' activeClassName='active'>Home</IndexLink>
+      {' | '}
+      <Link to='/about' activeClassName='active'>About</Link>
+      {' | '}
+      <Link to='/protected' activeClassName='active'>Protected</Link>
       {adminLink}
-      {" | "}
+      {' | '}
       {loginLogoutLink}
       {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>
