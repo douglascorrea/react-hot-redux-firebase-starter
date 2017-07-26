@@ -1,4 +1,4 @@
-/*eslint no-invalid-this: "error"*/
+/*eslint no-invalid-this: 'error'*/
 /*eslint-env es6*/
 import React, { PropTypes, Component } from 'react';
 import {connect} from 'react-redux';

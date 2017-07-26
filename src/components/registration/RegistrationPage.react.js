@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {createUserWithEmailAndPassword} from '../../actions/authActions';
-import RegistrationForm from './RegistrationForm';
+import RegistrationForm from './RegistrationForm.react';
 import toastr from 'toastr';
 
 export class RegistrationPage extends React.Component {
@@ -11,8 +11,8 @@ export class RegistrationPage extends React.Component {
 
     this.state = {
       user: {
-        email: "",
-        password: ""
+        email: '',
+        password: ''
       },
       saving: false
     };

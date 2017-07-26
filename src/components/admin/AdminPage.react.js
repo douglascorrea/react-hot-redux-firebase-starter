@@ -5,7 +5,7 @@ const AdminPage = () => {
   return (
     <div>
       <h1>You will only see this page if you are Admin</h1>
-      <Link to="/" activeClassName="active">Home</Link>
+      <Link to='/' activeClassName='active'>Home</Link>
     </div>
   );
 };

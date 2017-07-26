@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './common/Header';
+import Header from './common/Header.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signOut} from '../actions/authActions';
@@ -13,7 +13,7 @@ class Layout extends React.Component {
   render() {
     const {auth, actions, loading, user} = this.props;
     return (
-      <div className="container-fluid">
+      <div className='container-fluid'>
         <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
         {this.props.children}
       </div>

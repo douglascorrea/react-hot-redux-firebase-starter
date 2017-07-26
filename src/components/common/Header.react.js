@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
-import LoadingDots from './LoadingDots';
-import LoginLink from './LoginLink';
-import LogoutLink from './LogoutLink';
-import AdminLink from './AdminLink';
+import LoadingDots from './LoadingDots.react';
+import LoginLink from './LoginLink.react';
+import LogoutLink from './LogoutLink.react';
+import AdminLink from './AdminLink.react';
 
 const Header = ({loading, signOut, auth, user}) => {
 
@@ -12,13 +12,13 @@ const Header = ({loading, signOut, auth, user}) => {
 
   return (
     <nav>
-      <IndexLink to="/" activeClassName="active">Home</IndexLink>
-      {" | "}
-      <Link to="/about" activeClassName="active">About</Link>
-      {" | "}
-      <Link to="/protected" activeClassName="active">Protected</Link>
+      <IndexLink to='/' activeClassName='active'>Home</IndexLink>
+      {' | '}
+      <Link to='/about' activeClassName='active'>About</Link>
+      {' | '}
+      <Link to='/protected' activeClassName='active'>Protected</Link>
       {adminLink}
-      {" | "}
+      {' | '}
       {loginLogoutLink}
       {loading && <LoadingDots interval={100} dots={20}/>}
     </nav>

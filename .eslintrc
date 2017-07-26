@@ -27,7 +27,7 @@
     ]
   },
   "rules": {
-    "quotes": 0,
+    "quotes": [1, 'single'],
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
@@ -38,7 +38,7 @@
     "no-underscore-dangle": 0,
     "no-alert": 0,
     "no-lone-blocks": 0,
-    "jsx-quotes": 1,
+    "jsx-quotes": [1, "prefer-single"],
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],
     "react/jsx-boolean-value": 1,
