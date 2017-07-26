@@ -1,10 +1,10 @@
 import React from 'react';
-import TextInput from '../common/TextInput';
+import TextInput from '../common/TextInput.react';
 
-const RegistrationForm = ({user, onSave, onChange, saving}) => {
+const LoginForm = ({user, onSave, onChange, saving}) => {
   return (
     <form>
-      <h1>Create account</h1>
+      <h1>Login</h1>
       <TextInput
         name="email"
         label="Email"
@@ -22,18 +22,18 @@ const RegistrationForm = ({user, onSave, onChange, saving}) => {
       <input
         type="submit"
         disabled={saving}
-        value={saving ? 'Signing up...' : 'Sign Up'}
+        value={saving ? 'Logining in...' : 'Login'}
         className="btn btn-primary"
         onClick={onSave}/>
     </form>
   );
 };
 
-RegistrationForm.propTypes = {
+LoginForm.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool,
   user: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func.isRequired
 };
 
-export default RegistrationForm;
+export default LoginForm;

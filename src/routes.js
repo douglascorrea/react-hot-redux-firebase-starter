@@ -1,12 +1,13 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import Layout from './components/Layout';
-import HomePage from './components/home/HomePage';
-import AdminPage from './components/admin/AdminPage';
-import ProtectedPage from './components/protected/ProtectedPage';
-import AboutPage from './components/about/AboutPage';
-import LoginPage from './components/login/LoginPage'; //eslint-disable-line import/no-named-as-default
-import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
+
+import Layout from './components/Layout.react';
+import HomePage from './components/home/HomePage.react';
+import AdminPage from './components/admin/AdminPage.react';
+import ProtectedPage from './components/protected/ProtectedPage.react';
+import AboutPage from './components/about/AboutPage.react';
+import LoginPage from './components/login/LoginPage.react'; //eslint-disable-line import/no-named-as-default
+import RegistrationPage from './components/registration/RegistrationPage.react'; //eslint-disable-line import/no-named-as-default
 import {requireAdmin} from './actions/authActions';
 
 

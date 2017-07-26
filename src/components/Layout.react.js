@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './common/Header';
+import Header from './common/Header.react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {signOut} from '../actions/authActions';
