@@ -1,6 +1,5 @@
-import * as firebase from 'firebase/firebase-browser';
+import * as firebase from 'firebase';
 import {firebaseConfig} from '../config';
-
 
 class FirebaseApi {
 
@@ -44,6 +43,13 @@ class FirebaseApi {
     });
   }
 
+  static getData(path) {
+    return firebase
+      .database()
+      .ref()
+      .child(path);
+  }
+
   static GetValueByKeyOnce(path, key) {
     return firebase
       .database()
@@ -68,6 +74,14 @@ class FirebaseApi {
       .database()
       .ref(path)
       .set(value);
+
+  }
+
+  static databaseRemove(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .remove();
 
   }
 }
