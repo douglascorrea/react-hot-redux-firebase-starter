@@ -16,7 +16,8 @@ class ChatContent extends Component {
       message: {
         uid: Math.random().toString(36).substring(7),
         senderId: this.props.user.uid,
-        body: ""
+        body: "",
+        postedAt: Date.now()
       }
     };
 
@@ -34,34 +35,34 @@ class ChatContent extends Component {
   }
 
   componentDidUpdate() {
-    // LOAD MESSAGES ON CHATROOM SELECT
     if (this.props.chat) {
-      let messagesRef = FirebaseApi.getData('chatrooms/'+this.props.chat.uid+'/messages');
+      // LOAD MESSAGES ON CHATROOM SELECT
+        let messagesRef = FirebaseApi.getData('chatrooms/'+this.props.chat.uid+'/messages');
 
-      messagesRef.on('value', snapshot => {
+        messagesRef.on('value', snapshot => {
 
-          let messages;
-          messages = snapshot.val() ? Object.keys(snapshot.val()).map( key => {
-              return snapshot.val()[key];
-          }) :
-          messages = [];
+            let messages;
+            messages = snapshot.val() ? Object.keys(snapshot.val()).map( key => {
+                return snapshot.val()[key];
+            }) :
+            messages = [];
 
-          this.props.updateMessages(messages);
-      });
+            this.props.updateMessages(messages);
+        });
 
-      // LOAD USERS ON CHATROOM SELECT
-      let usersRef = FirebaseApi.getData('chatrooms/'+this.props.chat.uid+'/users');
+        // LOAD USERS ON CHATROOM SELECT
+        let usersRef = FirebaseApi.getData('chatrooms/'+this.props.chat.uid+'/users');
 
-      usersRef.on('value', snapshot => {
+        usersRef.on('value', snapshot => {
 
-          let users;
-          users = snapshot.val() ? Object.keys(snapshot.val()).map( key => {
-              return snapshot.val()[key];
-          }) :
-          users = [];
+            let users;
+            users = snapshot.val() ? Object.keys(snapshot.val()).map( key => {
+                return snapshot.val()[key];
+            }) :
+            users = [];
 
-          this.props.updateUsers(users);
-      });
+            this.props.updateUsers(users);
+        });
     }
   }
 
@@ -88,6 +89,7 @@ class ChatContent extends Component {
   createMessage(event) {
     event.preventDefault();
     this.props.actions.createMessage(this.props.chat.uid, this.state.message);
+    // this.setState({message: { body: ''}});
   }
 
   renderUsers() {
@@ -108,23 +110,41 @@ class ChatContent extends Component {
   }
 
   render() {
-    return (
-      <div className="panel panel-default col-sm-8">
-        <button onClick={this.joinChatRoom} className="btn btn-primary">Join this chatroom</button>
-        <button onClick={this.leaveChatRoom} className="btn btn-primary">Leave this chatroom</button>
-        <h2>{this.props.chat ? this.props.chat.name : 'Select a chatroom'}</h2>
-        {this.renderUsers()}
-        <ul>
-          {this.renderList()}
-        </ul>
+    console.log(this.props.users);
+    if (this.props.chat) {
+      if(this.props.users.includes(this.props.user.email)) {
+        return (
+          <div className="panel panel-default col-sm-8">
+            <h2>{this.props.chat.name}</h2>
 
-        <ChatMessageForm
-          onChange={this.updateChatMessageState}
-          onSave={this.createMessage}
-          message={this.state.message}
-        />
-      </div>
-    );
+            {this.renderUsers()}
+            {this.renderList()}
+
+            <ChatMessageForm
+              onChange={this.updateChatMessageState}
+              onSave={this.createMessage}
+              message={this.state.message}
+            />
+            <button onClick={this.leaveChatRoom} className="btn btn-primary">Leave this chatroom</button>
+          </div>
+        );
+      } else {
+        return (
+          <div className="panel panel-default col-sm-8">
+            <h2>{this.props.chat.name}</h2>
+            <p>You haven't joined this chatroom yet.</p>
+            <button onClick={this.joinChatRoom} className="btn btn-primary">Join this chatroom</button>
+          </div>
+        );
+      }
+    } else {
+
+        return (
+          <div className="panel panel-default col-sm-8">
+            <h2>Select a chatroom</h2>
+          </div>
+        );
+    }
   }
 }
 

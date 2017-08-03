@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {createChat, updateChatrooms} from '../../actions/chatActions';
 import FirebaseApi from '../../api/firebase';
+import checkAuth from '../requireAuth';
 
 import ChatList from './ChatList';
 import ChatForm from './ChatForm';
@@ -73,6 +74,7 @@ class ChatPage extends Component {
           saving={this.state.saving}
           chatRoom={this.state.chatRoom}
         />
+        <hr />
          <ChatList
         onChatSelect={selectedChat => this.setState({selectedChat})}
         chatRooms={this.state.chatRooms}/>

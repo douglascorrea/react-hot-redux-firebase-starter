@@ -1,7 +1,8 @@
 export default {
   routesPermissions: {
     requireAuth: [
-      '/admin'
+      '/admin',
+      '/chat'
     ],
     routesRequireAdmin: [
       '/admin'

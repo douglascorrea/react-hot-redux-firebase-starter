@@ -56,3 +56,29 @@ nav {
   font-size: 6rem;
   line-height: 8rem;
 }
+
+.messageContainer {
+  padding: 0;
+}
+
+.message {
+  background-color: #ddd;
+  border-radius: 4px 20px 20px 4px;
+  padding: 8px 16px;
+  margin-bottom: 4px;
+  display: block;
+  float: left;
+  clear: both;
+}
+
+.message p {
+  margin-bottom: 0;
+}
+
+.mine {
+  border-radius: 20px 4px 4px 20px;
+  background-color: #79e;
+  color: #fff;
+  float: right;
+  text-align: right;
+}
