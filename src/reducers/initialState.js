@@ -1,7 +1,8 @@
 export default {
   routesPermissions: {
     requireAuth: [
-      '/admin'
+      '/admin',
+      '/chat'
     ],
     routesRequireAdmin: [
       '/admin'
@@ -11,6 +12,9 @@ export default {
   user: {
     isAdmin: undefined
   },
+  chatRooms: [],
+  messages: [],
+  users: [],
   auth: {
     isLogged: false,
     currentUserUID: null,
