@@ -16,8 +16,8 @@ This is a test from Krash Studio.
 ## Usage
 
 ```
-git clone git@github.com:douglascorrea/react-hot-redux-firebase-starter.git
-cd react-hot-redux-firebase-starter
+git clone https://github.com/XtanStudent/chat-r.git
+cd chat-r
 npm install
 npm start -s
 ```

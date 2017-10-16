@@ -1,12 +1,15 @@
+// Modules
 import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
+
+// Custom modules
 import LoadingDots from './LoadingDots';
 import LoginLink from './LoginLink';
 import LogoutLink from './LogoutLink';
 import AdminLink from './AdminLink';
 
+// Component
 const Header = ({loading, signOut, auth, user}) => {
-
   let loginLogoutLink = auth.isLogged ? <LogoutLink signOut={signOut} /> : <LoginLink />;
   let adminLink = user.isAdmin ? <AdminLink /> : null;
 
@@ -18,6 +21,8 @@ const Header = ({loading, signOut, auth, user}) => {
       {" | "}
       <Link to="/protected" activeClassName="active">Protected</Link>
       {adminLink}
+      {" | "}
+      <Link to="/chat" activeClassName="active">Chat</Link>
       {" | "}
       {loginLogoutLink}
       {loading && <LoadingDots interval={100} dots={20}/>}
