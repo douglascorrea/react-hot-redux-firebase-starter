@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 
 import Message from './Message';
 
-export default class Messages extends Component {
+export default class MessageList extends Component {
   render() {
     return(
       <div className="col-md-9">
         <ul>
-          {this.props.messages.map(message => <Message text={message.message}/>)}
+          {this.props.messages.map(message => <Message text={message.message} name={message.username}/>)}
         </ul>
       </div>
     );
   }
 }
 
-Messages.PropTypes = {
+MessageList.PropTypes = {
   messages: PropTypes.array
 };
 
-Messages.defaultProps = {
+MessageList.defaultProps = {
   messages: []
 };

@@ -8,18 +8,18 @@ import R from 'ramda';
 // Custom modules
 import checkAuth from '../requireAuth';
 import firebaseApi from '../../api/firebase';
-import Messages from './Messages';
+import MessageList from './MessageList';
 
 // Component
 class ChatPage extends Component {
   constructor(props) {
     super(props);
 
-    this.messageRef = firebase.database().ref('messages');
+    this.messageRef = firebase.database().ref('messages').limitToLast(10)
 
     this.state = {
       messages: [],
-      numberOfMessages: 0,
+      numberOfMessages: 10,
       newMessage: ''
     };
 
@@ -45,10 +45,16 @@ class ChatPage extends Component {
         });
       });
 
-      this.setState({
-        messages: messages,
-        numberOfMessages: messages.length
-      });
+/**
+  Ajouter les 10 derniers messages de base, on compare ensuite les
+**/
+      const compare2messages = (m1, m2) => m1.date === m2.date;
+      const newMessages = R.differenceWith(compare2messages, messages, this.state.messages);
+
+      this.setState(prevState => ({
+        messages: R.concat(prevState.messages, newMessages),
+        numberOfMessages: prevState.messages.length + newMessages.length
+      }));
     });
   }
 
@@ -125,7 +131,7 @@ class ChatPage extends Component {
                     {this.renderUsers()}
                   </ul>
                 </div>
-                <Messages messages={this.state.messages}/>
+                <MessageList messages={this.state.messages}/>
               </div>
               <div className="row">
                 <div className="col-md-10">
@@ -154,8 +160,9 @@ class ChatPage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  console.log(state.user);
   return {
-    userEmail: R.propOr('', 'email', state.user)
+    userEmail: R.propOr('Unknown', 'email', state.user)
   };
 }
 
