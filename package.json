@@ -67,6 +67,8 @@
     "bootstrap": "^3.3.6",
     "firebase": "^3.0.3",
     "jquery": "^2.2.4",
+    "prop-types": "^15.6.0",
+    "ramda": "^0.25.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-loader": "^2.4.0",

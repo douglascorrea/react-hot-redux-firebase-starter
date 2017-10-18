@@ -1,14 +1,17 @@
 // Modules
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import * as firebase from 'firebase/firebase-browser';
+import R from 'ramda';
 
 // Custom modules
 import checkAuth from '../requireAuth';
 import firebaseApi from '../../api/firebase';
+import Messages from './Messages';
 
 // Component
-class ChatPage extends React.Component {
+class ChatPage extends Component {
   constructor(props) {
     super(props);
 
@@ -92,7 +95,7 @@ class ChatPage extends React.Component {
 
   submitNewMessage() {
     const message = {
-      username: 'frederic.mamath',
+      username: this.props.userEmail,
       message: this.state.newMessage,
       sendAt: Date.now()
     };
@@ -122,11 +125,7 @@ class ChatPage extends React.Component {
                     {this.renderUsers()}
                   </ul>
                 </div>
-                <div className="col-md-9">
-                  <ul>
-                    {this.renderMessages()}
-                  </ul>
-                </div>
+                <Messages messages={this.state.messages}/>
               </div>
               <div className="row">
                 <div className="col-md-10">
@@ -154,4 +153,10 @@ class ChatPage extends React.Component {
   }
 }
 
-export default checkAuth(ChatPage);
+function mapStateToProps(state, ownProps) {
+  return {
+    userEmail: R.propOr('', 'email', state.user)
+  };
+}
+
+export default connect(mapStateToProps)(checkAuth(ChatPage));
