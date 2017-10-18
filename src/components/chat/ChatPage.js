@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 import * as firebase from 'firebase/firebase-browser';
 
 // Custom modules
-import {firebaseConfig} from '../../config';
 import checkAuth from '../requireAuth';
 import firebaseApi from '../../api/firebase';
 
@@ -17,11 +16,13 @@ class ChatPage extends React.Component {
 
     this.state = {
       messages: [],
-      numberOfMessages: 0
+      numberOfMessages: 0,
+      newMessage: ''
     };
 
     this.listenForMessages = this.listenForMessages.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
+    this.onChangeNewMessage = this.onChangeNewMessage.bind(this);
+    this.submitNewMessage= this.submitNewMessage.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +30,12 @@ class ChatPage extends React.Component {
   }
 
   listenForMessages(messageRef) {
-    messageRef.on('value', (snap) => {
+    messageRef.on('value', snap => {
       const messages = [];
 
       snap.forEach((child) => {
         messages.push({
+          id: child.key,
           username: child.val().username,
           message: child.val().message,
           date: child.val().sendAt
@@ -83,14 +85,20 @@ class ChatPage extends React.Component {
     ));
   }
 
-  sendMessage() {
+  onChangeNewMessage(event) {
+    const message = event.target.value;
+    this.setState({newMessage: message});
+  }
+
+  submitNewMessage() {
     const message = {
-        username: 'frederic.mamath',
-        message: 'Hello world !',
-        sendAt: Date.now()
+      username: 'frederic.mamath',
+      message: this.state.newMessage,
+      sendAt: Date.now()
     };
 
     firebaseApi.databasePush('messages', message);
+    this.setState({newMessage: ''});
   }
 
   render() {
@@ -123,12 +131,17 @@ class ChatPage extends React.Component {
               <div className="row">
                 <div className="col-md-10">
                   <div className="row">
-                    <input type="text" className="col-md-12"/>
+                    <input
+                      type="text"
+                      value={this.state.newMessage}
+                      className="col-md-12"
+                      onChange={this.onChangeNewMessage}
+                    />
                   </div>
                 </div>
                 <div className="col-md-2">
                   <div className="row">
-                    <button className="col-md-12" onClick={() => this.sendMessage()}>Send</button>
+                    <button className="col-md-12" onClick={this.submitNewMessage}>Send</button>
                   </div>
                 </div>
               </div>
