@@ -116,12 +116,12 @@ class ChatPage extends Component {
         <h1>Chat Room</h1>
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-xs-12 col-sm-12 col-md-12">
               <div className="row">
-                <p className="col-md-3">
-                  User(s)
+                <p className="col-xs-3 col-sm-3 col-md-3">
+                  Connected user(s)
                 </p>
-                <p className="col-md-9">
+                <p className="col-xs-9 col-sm-9 col-md-9">
                   Message(s)
                 </p>
               </div>
@@ -130,19 +130,19 @@ class ChatPage extends Component {
                 <MessageList messages={this.state.messages}/>
               </div>
               <div className="row">
-                <div className="col-md-10">
+                <div className="col-xs-10 col-sm-10 col-md-10">
                   <div className="row">
                     <input
                       type="text"
                       value={this.state.newMessage}
-                      className="col-md-12"
+                      className="col-md-12 form-control"
                       onChange={this.onChangeNewMessage}
                     />
                   </div>
                 </div>
-                <div className="col-md-2">
+                <div className="col-xs-2 col-sm-2 col-md-2">
                   <div className="row">
-                    <button className="col-md-12" onClick={this.submitNewMessage}>Send</button>
+                    <button className="col-xs-12 col-sm-12 col-md-12 btn btn-primary" onClick={this.submitNewMessage}>Send</button>
                   </div>
                 </div>
               </div>

@@ -12,7 +12,6 @@ export default class UserList extends Component {
   }
 
   renderUsers() {
-    console.log(this.props.users);
     return this.props.users.map(user => (
       <User key={user.id} name={user.username}/>
     ));
@@ -20,7 +19,7 @@ export default class UserList extends Component {
 
   render() {
     return(
-      <div className="col-md-3">
+      <div className="col-xs-3 col-sm-3 col-md-3">
         <ul>
           {this.renderUsers()}
         </ul>
