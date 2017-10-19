@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-// Custom modules
+// Custom components
 import User from './User';
 
 // Component

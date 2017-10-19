@@ -9,7 +9,10 @@ import R from 'ramda';
 // Custom modules
 import checkAuth from '../requireAuth';
 import firebaseApi from '../../api/firebase';
+
+// Custom components
 import MessageList from './MessageList';
+import UserList from './UserList';
 
 // Component
 class ChatPage extends Component {
@@ -17,27 +20,32 @@ class ChatPage extends Component {
     super(props);
 
     this.messageRef = firebase.database().ref('messages').limitToLast(10);
+    this.userRef = firebase.database().ref('users');
 
     this.state = {
+      connectedUsers: [],
       messages: [],
+      newMessage: '',
       numberOfMessages: 10,
-      newMessage: ''
+      numberOfConnectedUsers: 0
     };
 
     this.listenForMessages = this.listenForMessages.bind(this);
+    this.listenForUsers = this.listenForUsers.bind(this);
     this.onChangeNewMessage = this.onChangeNewMessage.bind(this);
     this.submitNewMessage= this.submitNewMessage.bind(this);
   }
 
   componentDidMount() {
     this.listenForMessages(this.messageRef);
+    this.listenForUsers(this.userRef);
   }
 
   listenForMessages(messageRef) {
     messageRef.on('value', snap => {
       const messages = [];
 
-      snap.forEach((child) => {
+      snap.forEach(child => {
         messages.push({
           id: child.key,
           username: child.val().username,
@@ -46,9 +54,6 @@ class ChatPage extends Component {
         });
       });
 
-/**
-  Ajouter les 10 derniers messages de base, on compare ensuite les
-**/
       const compare2messages = (m1, m2) => m1.date === m2.date;
       const newMessages = R.differenceWith(compare2messages, messages, this.state.messages);
 
@@ -59,6 +64,23 @@ class ChatPage extends Component {
     });
   }
 
+  listenForUsers(userRef) {
+    userRef.on('value', snap => {
+      const users = [];
+
+      snap.forEach(child => {
+        users.push({
+          id: child.key,
+          username: child.val().email
+        });
+      });
+
+      this.setState({
+        connectedUsers: users,
+        numberOfConnectedUsers: users.length
+      });
+    });
+  }
   getUsers() {
     const users = [
       { id: 0, username: 'frederic.mamath' },
@@ -84,8 +106,8 @@ class ChatPage extends Component {
   }
 
   renderUsers() {
-    return this.getUsers().map(user => (
-      <li key={user.id}>{user.id} - {user.username}</li>
+    return this.state.connectedUsers.map(connectedUser => (
+      <li key={connectedUser.id}>{connectedUser.id} - {connectedUser.username}</li>
     ));
   }
 
