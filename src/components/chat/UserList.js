@@ -11,11 +11,11 @@ export default class UserList extends Component {
   }
 }
 
-User.PropTypes = {
+UserList.PropTypes = {
   text: PropTypes.string.isRequired,
   name: PropTypes.string
 };
 
-User.defaultProps = {
+UserList.defaultProps = {
   name: 'Unknown'
 };

@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import * as firebase from 'firebase/firebase-browser';
+import PropTypes from 'prop-types';
 import R from 'ramda';
 
 // Custom modules
@@ -15,7 +16,7 @@ class ChatPage extends Component {
   constructor(props) {
     super(props);
 
-    this.messageRef = firebase.database().ref('messages').limitToLast(10)
+    this.messageRef = firebase.database().ref('messages').limitToLast(10);
 
     this.state = {
       messages: [],
@@ -160,7 +161,6 @@ class ChatPage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log(state.user);
   return {
     userEmail: R.propOr('Unknown', 'email', state.user)
   };
