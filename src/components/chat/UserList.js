@@ -7,7 +7,12 @@ import User from './User';
 
 // Component
 export default class UserList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   renderUsers() {
+    console.log(this.props.users);
     return this.props.users.map(user => (
       <User key={user.id} name={user.username}/>
     ));

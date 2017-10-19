@@ -36,6 +36,18 @@ class ChatPage extends Component {
     this.submitNewMessage= this.submitNewMessage.bind(this);
   }
 
+  componentWillMount() {
+    // Disconnecting when closing window /!\ TO BE UPDATED /!\
+    window.onbeforeunload = function() {
+      // /!\ For some dark reasons ...                                             /!\
+      // /!\ It looks like when i'm calling the API                           /!\
+      // /!\ Nothing is happening anymore, not even the return /!\
+      firebaseApi.databaseSet('/users/'+this.props.userId+'/isConnected', false);
+
+      return "Window is closing";
+    };
+  }
+
   componentDidMount() {
     this.listenForMessages(this.messageRef);
     this.listenForUsers(this.userRef);
@@ -82,18 +94,6 @@ class ChatPage extends Component {
     });
   }
 
-  renderUsers() {
-    return this.state.connectedUsers.map(connectedUser => (
-      <li key={connectedUser.id}>{connectedUser.id} - {connectedUser.username}</li>
-    ));
-  }
-
-  renderMessages() {
-    return this.state.messages.map(message => (
-      <li key={message.id}>{message.id} - {message.username} - {message.message}</li>
-    ));
-  }
-
   onChangeNewMessage(event) {
     const message = event.target.value;
     this.setState({newMessage: message});
@@ -126,11 +126,7 @@ class ChatPage extends Component {
                 </p>
               </div>
               <div className="row">
-                <div className="col-md-3">
-                  <ul>
-                    {this.renderUsers()}
-                  </ul>
-                </div>
+                <UserList users={this.state.connectedUsers}/>
                 <MessageList messages={this.state.messages}/>
               </div>
               <div className="row">
