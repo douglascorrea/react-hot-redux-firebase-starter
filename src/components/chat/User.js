@@ -1,6 +1,8 @@
+// Modules
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+// Component
 export default class User extends Component {
   render() {
     return(
@@ -13,8 +15,4 @@ export default class User extends Component {
 
 User.PropTypes = {
   name: PropTypes.string.isRequired
-};
-
-User.defaultProps = {
-  name: 'Unknown'
 };
