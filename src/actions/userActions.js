@@ -17,13 +17,15 @@ function extractUserProperties(firebaseUser) {
     'providerId',
     'refreshToken',
     'uid',
-    'isAdmin'
+    'isAdmin',
+    'isConnected'
   ];
 
   userProperties.map((prop) => {
     if (prop in firebaseUser) {
       user[prop] = firebaseUser[prop];
     }
+    user['isConnected'] = true;
   });
 
   return user;

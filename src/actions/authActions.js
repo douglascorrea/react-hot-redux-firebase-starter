@@ -42,6 +42,9 @@ export function authLoggedIn(userUID) {
     firebaseApi.GetChildAddedByKeyOnce('/users', userUID)
       .then(
         user => {
+          // Setting the user's "isConnected" state to "true" when succesfully logged in
+          firebaseApi.databaseSet('/users/'+user.val().uid+"/isConnected", true);
+          
           dispatch(userLoadedSuccess(user.val()));
           dispatch(push('/'));
         })
