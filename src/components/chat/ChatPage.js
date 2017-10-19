@@ -81,29 +81,6 @@ class ChatPage extends Component {
       });
     });
   }
-  getUsers() {
-    const users = [
-      { id: 0, username: 'frederic.mamath' },
-      { id: 1, username: 'mathieu.mamath' },
-      { id: 2, username: 'olivier.nguyen' },
-      { id: 3, username: 'mickael.avril' }
-    ];
-
-    return users;
-  }
-
-  getMessages() {
-    const messages = [
-      { id: 0, username: 'frederic.mamath', message: 'Salut les gens !' },
-      { id: 1, username: 'frederic.mamath', message: 'Oh ... Y\'a personne...' },
-      { id: 2, username: 'mathieu.mamath', message: 'Salut le petit !' },
-      { id: 3, username: 'frederic.mamath', message: 'Oh ! Mon frère ! Comment tu vas ?' },
-      { id: 4, username: 'olivier.nguyen', message: 'Salut les frères !' },
-      { id: 5, username: 'frederic.mamath', message: 'Oh ! Encore quelqu\'un !' }
-    ];
-
-    return messages;
-  }
 
   renderUsers() {
     return this.state.connectedUsers.map(connectedUser => (
