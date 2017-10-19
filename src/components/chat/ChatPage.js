@@ -20,7 +20,7 @@ class ChatPage extends Component {
     super(props);
 
     this.messageRef = firebase.database().ref('messages').limitToLast(10);
-    this.userRef = firebase.database().ref('users');
+    this.userRef = firebase.database().ref('users').orderByChild('isConnected').equalTo(true);
 
     this.state = {
       connectedUsers: [],
@@ -161,7 +161,8 @@ class ChatPage extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    userEmail: R.propOr('Unknown', 'email', state.user)
+    userEmail: R.propOr('Unknown', 'email', state.user),
+    userId: R.propOr('Unknown', 'uid', state.user)
   };
 }
 

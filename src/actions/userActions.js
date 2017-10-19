@@ -25,7 +25,6 @@ function extractUserProperties(firebaseUser) {
     if (prop in firebaseUser) {
       user[prop] = firebaseUser[prop];
     }
-    user['isConnected'] = true;
   });
 
   return user;
