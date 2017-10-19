@@ -26,7 +26,7 @@ class Message extends Component {
 
     return(
       <li style={styles.container}>
-          <p style={styles.message}>{this.props.text} - {this.props.from}</p>
+          <p style={styles.message}>{this.props.text}</p>
       </li>
     );
   }

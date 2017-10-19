@@ -99,7 +99,9 @@ class ChatPage extends Component {
     this.setState({newMessage: message});
   }
 
-  submitNewMessage() {
+  submitNewMessage(event) {
+    event.preventDefault();
+
     const message = {
       username: this.props.userEmail,
       message: this.state.newMessage,
@@ -111,6 +113,14 @@ class ChatPage extends Component {
   }
 
   render() {
+    const styles = {
+        columnTitle: {
+          textAlign: 'center',
+          fontWeight: 'bold',
+          border: 'solid 1px black'
+        }
+    };
+
     return (
       <div>
         <h1>Chat Room</h1>
@@ -118,10 +128,10 @@ class ChatPage extends Component {
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12">
               <div className="row">
-                <p className="col-xs-3 col-sm-3 col-md-3">
+                <p style={styles.columnTitle} className="col-xs-3 col-sm-3 col-md-3">
                   Connected user(s)
                 </p>
-                <p className="col-xs-9 col-sm-9 col-md-9">
+                <p style={styles.columnTitle} className="col-xs-9 col-sm-9 col-md-9">
                   Message(s)
                 </p>
               </div>
@@ -129,7 +139,7 @@ class ChatPage extends Component {
                 <UserList users={this.state.connectedUsers}/>
                 <MessageList messages={this.state.messages}/>
               </div>
-              <div className="row">
+              <form className="row" onSubmit={this.submitNewMessage}>
                 <div className="col-xs-10 col-sm-10 col-md-10">
                   <div className="row">
                     <input
@@ -142,10 +152,10 @@ class ChatPage extends Component {
                 </div>
                 <div className="col-xs-2 col-sm-2 col-md-2">
                   <div className="row">
-                    <button className="col-xs-12 col-sm-12 col-md-12 btn btn-primary" onClick={this.submitNewMessage}>Send</button>
+                    <input type="submit" className="col-xs-12 col-sm-12 col-md-12 btn btn-primary" value="Send"/>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>

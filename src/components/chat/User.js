@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 export default class User extends Component {
   render() {
     return(
-      <li>
-          <p>{this.props.name}</p>
+      <li className="list-group-item">
+          {this.props.name}
       </li>
     );
   }
