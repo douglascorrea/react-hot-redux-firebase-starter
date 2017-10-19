@@ -13,6 +13,7 @@ export default class User extends Component {
   }
 }
 
+// Properties validation
 User.PropTypes = {
   name: PropTypes.string.isRequired
 };

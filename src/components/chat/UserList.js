@@ -24,6 +24,7 @@ export default class UserList extends Component {
   }
 }
 
+// Properties validation
 UserList.PropTypes = {
   users: PropTypes.array
 };
