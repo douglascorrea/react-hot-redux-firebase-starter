@@ -80,7 +80,6 @@ export default class Message extends Component {
             </span>
           ) : null
           }
-          <p className="CANOTBEWOR">AHLALA</p>
         </div>
       );
   }
