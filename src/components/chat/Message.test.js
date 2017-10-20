@@ -1,16 +1,24 @@
 // Modules
 import React from 'react';
 import {render} from 'enzyme';
-import {expect} from 'expect';
+import expect from 'expect';
 
 // Custom components
 import Message from './Message';
 
 // Tests
-describe('Message', () => {
-  it('Should render text', () => {
-    const wrapper = render(<Message message="Hello world" from="Developer" />);
+describe('Testing Message component', () => {
+  it('should contain the text "Hello world"', () => {
+    const developer = 'fredericmamath@gmail.com';
+    const wrapper = render(
+      <Message
+        currentUserEmail="fredericmamath@gmail.com"
+        text="Hello world"
+        from={developer}
+        date={Date.now()}
+      />
+    );
 
-    expect(wrapper).to.have.text('Hello world');
+    expect(wrapper.find('#text')[0].children[0].data).toBe('Hello world');
   });
 });

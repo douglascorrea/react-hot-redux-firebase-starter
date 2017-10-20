@@ -26,12 +26,10 @@ export default class Message extends Component {
     this.setState({ hovered: false });
   }
 
-  render() {
+  renderMessageDependingOnUser() {
+    const date = moment(this.props.date).format("MM/DD/YYYY  hh:mm A");
     const fromCurrentUser = (this.props.currentUserEmail === this.props.from);
     const styles = {
-      container: {
-        textAlign: fromCurrentUser ? 'right':'left'
-      },
       message: {
         display: 'inline-block',
         backgroundColor: fromCurrentUser ? '#0084ff':'#f1f0f0',
@@ -55,46 +53,52 @@ export default class Message extends Component {
         marginBottom: '0px'
       }
     };
-    const date = moment(this.props.date).format("MM/DD/YYYY  hh:mm A");
+
+    return fromCurrentUser ? (
+        <div>
+          {this.state.hovered ?
+            (
+              <span style={styles.additionalInformations}>
+                At {date}
+              </span>
+            ) : null
+          }
+          <p id="text" className="text" style={styles.message}>
+            {this.props.text}
+          </p>
+        </div>
+      ) : (
+        <div>
+          <div style={styles.message}>
+            <p className="text" style={styles.from}>{this.props.from}</p>
+            <p id="text" style={styles.text}>{this.props.text}</p>
+          </div>
+          {this.state.hovered ?
+            (
+            <span style={styles.additionalInformations}>
+              At {date}
+            </span>
+          ) : null
+          }
+          <p className="CANOTBEWOR">AHLALA</p>
+        </div>
+      );
+  }
+
+  render() {
+    const fromCurrentUser = (this.props.currentUserEmail === this.props.from);
+    const styles = {
+      container: {
+        textAlign: fromCurrentUser ? 'right':'left'
+      }
+    };
 
     return(
       <li style={styles.container}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-          {
-            !fromCurrentUser ?
-              (
-                <div>
-                  <div style={styles.message}>
-                    <p style={styles.from}>{this.props.from}</p>
-                    <p style={styles.text}>{this.props.text}</p>
-                  </div>
-                  {this.state.hovered ?
-                    (
-                    <span style={styles.additionalInformations}>
-                      At {date}
-                    </span>
-                  ) : null
-                  }
-
-                </div>
-              )
-              : (
-                <div>
-                  {this.state.hovered ?
-                    (
-                      <span style={styles.additionalInformations}>
-                        At {date}
-                      </span>
-                    ) : null
-                  }
-                  <p style={styles.message}>
-                    {this.props.text}
-                  </p>
-                </div>
-              )
-          }
+        {this.renderMessageDependingOnUser()}
       </li>
     );
   }
@@ -104,7 +108,7 @@ export default class Message extends Component {
 Message.propTypes = {
   text: PropTypes.string.isRequired,
   from: PropTypes.string.isRequired,
-  date: PropTypes.string,
+  date: PropTypes.number,
   currentUserEmail: PropTypes.string.isRequired
 };
 
