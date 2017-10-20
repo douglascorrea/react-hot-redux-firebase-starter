@@ -8,17 +8,17 @@ import Message from './Message';
 
 // Tests
 describe('Testing Message component', () => {
-  it('should contain the text "Hello world"', () => {
-    const developer = 'fredericmamath@gmail.com';
-    const wrapper = render(
-      <Message
-        currentUserEmail="fredericmamath@gmail.com"
-        text="Hello world"
-        from={developer}
-        date={Date.now()}
-      />
-    );
+  const developer = 'fredericmamath@gmail.com';
+  const wrapper = render(
+    <Message
+      currentUserEmail="fredericmamath@gmail.com"
+      text="Hello world"
+      from={developer}
+      date={Date.now()}
+    />
+  );
 
+  it('should contain the text "Hello world"', () => {
     expect(wrapper.find('#text')[0].children[0].data).toBe('Hello world');
   });
 });
