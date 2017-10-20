@@ -19,14 +19,16 @@ class ChatPage extends Component {
   constructor(props) {
     super(props);
 
+    // Fetching only the last 10 messages
     this.messageRef = firebase.database().ref('messages').limitToLast(10);
+    // Fetching only connected users
     this.userRef = firebase.database().ref('users').orderByChild('isConnected').equalTo(true);
 
     this.state = {
       connectedUsers: [],
       messages: [],
       newMessage: '',
-      numberOfMessages: 10,
+      numberOfMessages: 0,
       numberOfConnectedUsers: 0
     };
 
@@ -66,9 +68,12 @@ class ChatPage extends Component {
         });
       });
 
-      const compare2messages = (m1, m2) => m1.date === m2.date;
-      const newMessages = R.differenceWith(compare2messages, messages, this.state.messages);
+      // Comparing messages's dates from previous state and new messages pulled from FB
+      const compareOldAndNewMessages = (m1, m2) => m1.date === m2.date;
+      // Getting only the messages that isn't showing yet
+      const newMessages = R.differenceWith(compareOldAndNewMessages, messages, this.state.messages);
 
+      // Adding new message to current messages
       this.setState(prevState => ({
         messages: R.concat(prevState.messages, newMessages),
         numberOfMessages: prevState.messages.length + newMessages.length
@@ -116,8 +121,7 @@ class ChatPage extends Component {
     const styles = {
         columnTitle: {
           textAlign: 'center',
-          fontWeight: 'bold',
-          border: 'solid 1px black'
+          fontWeight: 'bold'
         }
     };
 
@@ -127,18 +131,20 @@ class ChatPage extends Component {
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12">
-              <div className="row">
-                <p style={styles.columnTitle} className="col-xs-3 col-sm-3 col-md-3">
-                  Connected user(s)
-                </p>
-                <p style={styles.columnTitle} className="col-xs-9 col-sm-9 col-md-9">
-                  Message(s)
-                </p>
-              </div>
-              <div className="row">
-                <UserList users={this.state.connectedUsers}/>
-                <MessageList messages={this.state.messages}/>
-              </div>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th style={styles.columnTitle} className="col-xs-3 col-sm-3 col-md-3">Connected user(s)</th>
+                    <th style={styles.columnTitle} className="col-xs-9 col-sm-9 col-md-9">Message(s)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><UserList users={this.state.connectedUsers} className="col-xs-3 col-sm-3 col-md-3"/></td>
+                    <td><MessageList messages={this.state.messages} className="col-xs-9 col-sm-9 col-md-9"/></td>
+                  </tr>
+                </tbody>
+              </table>
               <form className="row" onSubmit={this.submitNewMessage}>
                 <div className="col-xs-10 col-sm-10 col-md-10">
                   <div className="row">
@@ -158,6 +164,9 @@ class ChatPage extends Component {
               </form>
             </div>
           </div>
+          <div className="row">
+
+          </div>
         </div>
         <Link to="/" activeClassName="active">Go to Home</Link>
       </div>
@@ -165,6 +174,13 @@ class ChatPage extends Component {
   }
 }
 
+// Properties validation
+ChatPage.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired
+};
+
+// Connecting to store to get current user's information
 function mapStateToProps(state, ownProps) {
   return {
     userEmail: R.propOr('Unknown', 'email', state.user),

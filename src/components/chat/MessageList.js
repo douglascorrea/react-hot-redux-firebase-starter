@@ -1,6 +1,7 @@
 // Modules
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Custom components
@@ -17,7 +18,7 @@ export default class MessageList extends Component {
 
   renderMessages() {
     return this.props.messages.map(message => (
-      <Message key={message.id} text={message.message} from={message.username}/>
+      <Message key={message.id} text={message.message} from={message.username} date={message.date} currentUserEmail={this.props.currentUserEmail}/>
     ));
   }
 
@@ -28,8 +29,7 @@ export default class MessageList extends Component {
         height: '500px',
         maxHeight: '500px',
         overflowY: 'scroll',
-        padding: '10',
-        border: 'solid 1px black'
+        padding: '10px'
       },
       list: {
         listStyleType: 'none',
@@ -38,7 +38,7 @@ export default class MessageList extends Component {
     };
 
     return(
-      <div style={styles.container} className="col-xs-9 col-sm-9 col-md-9">
+      <div style={styles.container}>
         <ul style={styles.list}>
           {this.renderMessages()}
         </ul>
@@ -48,6 +48,7 @@ export default class MessageList extends Component {
 }
 
 // Properties validation
-MessageList.PropTypes = {
+MessageList.propTypes = {
+  currentUserEmail: PropTypes.string.isRequired,
   messages: PropTypes.array.isRequired
 };

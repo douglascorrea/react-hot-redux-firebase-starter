@@ -14,6 +14,6 @@ export default class User extends Component {
 }
 
 // Properties validation
-User.PropTypes = {
+User.propTypes = {
   name: PropTypes.string.isRequired
 };
