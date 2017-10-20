@@ -3,6 +3,8 @@ Chat-R
 
 This is a test from Krash Studio.
 
+It should allow people to enter a chat room and discuss between them.
+
 ## Stack
 
 - React
@@ -27,9 +29,3 @@ npm start -s
 - `npm start` run the web app with lint and tests in watch mode
 - `npm run lint` linting javascript code usig eslint
 - `npm run test` test using mocha and enzyme
-
-## Versions
-
-- 1.1.0 : Added some styles to get a little prettier
-- 1.1.0 : Can now see connected users
-- 1.0.0 : Can now discuss between users

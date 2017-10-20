@@ -7,18 +7,23 @@ import expect from 'expect';
 import Message from './Message';
 
 // Tests
-describe('Testing Message component', () => {
+describe('<Message/>', () => {
+  const currentUserEmail = 'fredericmamath@gmail.com';
   const developer = 'fredericmamath@gmail.com';
+  const message = 'Hello world !';
   const wrapper = render(
     <Message
-      currentUserEmail="fredericmamath@gmail.com"
-      text="Hello world"
+      currentUserEmail={currentUserEmail}
+      text={message}
       from={developer}
       date={Date.now()}
     />
   );
 
   it('should contain the text "Hello world"', () => {
-    expect(wrapper.find('#text')[0].children[0].data).toBe('Hello world');
+    expect(wrapper.find('#text')[0].children[0].data).toBe(message);
+  });
+  it('should be to the right since it\'s from the developer', () => {
+    expect(wrapper.find('li')[0].attribs.style).toBe('text-align:right;');
   });
 });
