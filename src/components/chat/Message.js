@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import R from 'ramda';
 
 // Component
-class Message extends Component {
+export default class Message extends Component {
   constructor(props) {
     super(props);
 
@@ -111,12 +111,3 @@ Message.propTypes = {
 Message.defaultProps = {
   date: Date.now()
 };
-
-// Connect component to store
-function mapStateToProps(state, ownProps) {
-  return {
-    currentUserEmail: R.propOr('Unknown', 'email', state.user)
-  };
-}
-
-export default connect(mapStateToProps)(Message);

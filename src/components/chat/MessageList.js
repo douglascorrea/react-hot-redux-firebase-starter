@@ -18,7 +18,12 @@ export default class MessageList extends Component {
 
   renderMessages() {
     return this.props.messages.map(message => (
-      <Message key={message.id} text={message.message} from={message.username} date={message.date} currentUserEmail={this.props.currentUserEmail}/>
+      <Message
+        key={message.id}
+        text={message.message}
+        from={message.username}
+        date={message.date}
+        currentUserEmail={this.props.currentUserEmail}/>
     ));
   }
 

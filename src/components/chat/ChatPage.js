@@ -44,7 +44,7 @@ class ChatPage extends Component {
       // /!\ For some dark reasons ...                                             /!\
       // /!\ It looks like when i'm calling the API                           /!\
       // /!\ Nothing is happening anymore, not even the return /!\
-      firebaseApi.databaseSet('/users/'+this.props.userId+'/isConnected', false);
+      firebaseApi.databaseSet('/users/'+this.props.currentUserId+'/isConnected', false);
 
       return "Window is closing";
     };
@@ -108,7 +108,7 @@ class ChatPage extends Component {
     event.preventDefault();
 
     const message = {
-      username: this.props.userEmail,
+      username: this.props.currentUserEmail,
       message: this.state.newMessage,
       sendAt: Date.now()
     };
@@ -141,7 +141,13 @@ class ChatPage extends Component {
                 <tbody>
                   <tr>
                     <td><UserList users={this.state.connectedUsers} className="col-xs-3 col-sm-3 col-md-3"/></td>
-                    <td><MessageList messages={this.state.messages} className="col-xs-9 col-sm-9 col-md-9"/></td>
+                    <td>
+                      <MessageList
+                        messages={this.state.messages}
+                        currentUserEmail={this.props.currentUserEmail}
+                        className="col-xs-9 col-sm-9 col-md-9"
+                      />
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -176,15 +182,15 @@ class ChatPage extends Component {
 
 // Properties validation
 ChatPage.propTypes = {
-  userEmail: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired
+  currentUserEmail: PropTypes.string.isRequired,
+  currentUserId: PropTypes.string.isRequired
 };
 
 // Connecting to store to get current user's information
 function mapStateToProps(state, ownProps) {
   return {
-    userEmail: R.propOr('Unknown', 'email', state.user),
-    userId: R.propOr('Unknown', 'uid', state.user)
+    currentUserEmail: R.propOr('Unknown', 'email', state.user),
+    currentUserId: R.propOr('Unknown', 'uid', state.user)
   };
 }
 
