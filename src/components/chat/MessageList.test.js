@@ -26,7 +26,6 @@ describe('<MessageList/>', () => {
   );
 
   it('should render six <Message/>"', () => {
-    console.log(wrapper.find(Message).length);
     expect(wrapper.find(Message).length).toBe(6);
   });
 });
