@@ -6,7 +6,7 @@
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
     "open:src": "babel-node tools/srcServer.js",
-    "test": "mocha --reporter progress tools/testSetup.js src/*.test.js",
+    "test": "mocha --reporter progress tools/testSetup.js src/*.test.js src/components/chat/*.test.js",
     "test:watch": "npm run test -- --watch",
     "lint": "node_modules/.bin/esw webpack.config.* tools src",
     "lint:watch": "npm run lint -- --watch"
@@ -57,6 +57,7 @@
     "react-hot-loader": "^3.0.0-beta.2",
     "redux-immutable-state-invariant": "^1.2.3",
     "redux-mock-store": "^1.0.4",
+    "sinon": "^4.0.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
@@ -64,9 +65,13 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "base-64": "^0.1.0",
     "bootstrap": "^3.3.6",
     "firebase": "^3.0.3",
     "jquery": "^2.2.4",
+    "moment": "^2.19.1",
+    "prop-types": "^15.6.0",
+    "ramda": "^0.25.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-loader": "^2.4.0",

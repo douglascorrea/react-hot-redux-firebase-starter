@@ -26,6 +26,11 @@ class FirebaseApi {
   }
 
   static authSignOut(){
+    const currentUser = firebase.auth().currentUser;
+
+    // Setting current user's "isConnected" property to "false" when he's logging out
+    this.databaseSet('/users/'+currentUser.uid+'/isConnected', false);
+
     return firebase.auth().signOut();
   }
 
@@ -63,12 +68,10 @@ class FirebaseApi {
   }
 
   static databaseSet(path, value) {
-
     return firebase
       .database()
       .ref(path)
       .set(value);
-
   }
 }
 
