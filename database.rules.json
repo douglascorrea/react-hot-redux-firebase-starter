@@ -1,7 +1,7 @@
 {
   "rules": {
     "messages":{
-      "indexOn": ["chatKey"]
+      ".indexOn": ["chatKey"]
     }
   }
 }
