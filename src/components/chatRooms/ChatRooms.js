@@ -39,11 +39,19 @@ class ChatRooms extends Component {
   }
 
   onChatRoomAddition(data) {
-    let chatRooms = this.state.chatRooms;
-    let newChat = data.val();
+    const chatRooms = this.state.chatRooms;
+    const newChat = data.val();
     newChat.key = data.key;
     chatRooms.push(newChat);
-    this.setState({chatRooms});
+
+    // if there is no active chat and the user is in the new chat, it will become active
+    const uid = firebase.auth().currentUser.uid;
+    let activeChat = this.state.activeChat;
+    if (!activeChat && newChat.users && newChat.users[uid]) {
+      activeChat = newChat;
+    }
+
+    this.setState({chatRooms, activeChat});
   }
 
   onChatRoomChanged(data) {
@@ -52,9 +60,20 @@ class ChatRooms extends Component {
     updatedChat.key = data.key;
     const index = chatRooms.findIndex(chat => chat.key === updatedChat.key);
 
-    chatRooms.splice(index, 1, updatedChat);
+    const oldChat = chatRooms.splice(index, 1, updatedChat)[0];
 
-    this.setState({chatRooms});
+    const uid = firebase.auth().currentUser.uid;
+    let activeChat = this.state.activeChat;
+    if (updatedChat.users && updatedChat.users[uid] && !(oldChat.users && oldChat.users[uid])) {
+      // if the user just joined the chat, it will be set as active
+      activeChat = updatedChat;
+    }
+    else if(activeChat && activeChat.key === oldChat.key && oldChat.users && oldChat.users[uid] && !(updatedChat.users && updatedChat.users[uid])) {
+      // if the user just left the chat and it was active, it will no longer be active
+      activeChat = null;
+    }
+
+    this.setState({chatRooms, activeChat});
   }
 
   joinChat(chat) {
@@ -62,9 +81,6 @@ class ChatRooms extends Component {
   }
 
   leaveChat(chat) {
-    if (this.state.activeChat === chat) {
-      this.setState({activeChat: null});
-    }
     ChatRoomApi.leave(chat);
   }
 
