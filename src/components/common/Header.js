@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {Link, IndexLink} from 'react-router';
+import {IndexLink, Link} from 'react-router';
 import LoadingDots from './LoadingDots';
 import LoginLink from './LoginLink';
 import LogoutLink from './LogoutLink';
@@ -17,6 +17,8 @@ const Header = ({loading, signOut, auth, user}) => {
       <Link to="/about" activeClassName="active">About</Link>
       {" | "}
       <Link to="/protected" activeClassName="active">Protected</Link>
+      {" | "}
+      <Link to="/chat-rooms" activeClassName="active">Chat Rooms</Link>
       {adminLink}
       {" | "}
       {loginLogoutLink}

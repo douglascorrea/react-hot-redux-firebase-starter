@@ -26,7 +26,14 @@ class LoadingDots extends React.Component {
       text += '.';
       dots--;
     }
-    return <span {...this.props}>{text}&nbsp;</span>;
+
+    // Solve React warnings with "Unknown props 'interval', 'dots' on <span> tag
+    const followedProps = {};
+    const keys = Object.keys(this.props).filter(key => key !== 'interval' && key !== 'dots');
+    for(let key of keys) {
+      followedProps[key] = this.props[key];
+    }
+    return <span {...followedProps}>{text}&nbsp;</span>;
   }
 }
 
