@@ -56,3 +56,18 @@ nav {
   font-size: 6rem;
   line-height: 8rem;
 }
+
+.app-message {
+  padding: 4px;
+  border-radius: 10%;
+}
+
+blockquote.app-message.own-message footer {
+  color: white;
+}
+
+.app-chat-room .app-messages {
+  height: 600px;
+  border: 2px solid blue;
+  overflow-y: scroll;
+}
