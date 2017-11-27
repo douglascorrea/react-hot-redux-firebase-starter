@@ -3,13 +3,13 @@ import * as firebase from 'firebase/firebase-browser';
 import MessageApi from '../../api/message';
 import MessageForm from './MessageForm';
 import Message from './Message';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addMessageFromData} from '../../actions/chatActions';
 
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      messages: []
-    };
     this.onMessageAddition = this.onMessageAddition.bind(this);
     this.registerToMessages(this.props.chat.key);
   }
@@ -17,7 +17,6 @@ class ChatRoom extends Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.chat.key !== this.props.chat.key) {
       this.unregisterToMessages();
-      this.setState({messages: []});
       this.registerToMessages(nextProps.chat.key);
     }
   }
@@ -35,11 +34,7 @@ class ChatRoom extends Component {
   }
 
   onMessageAddition(data) {
-    const messages = this.state.messages;
-    const newMessage = data.val();
-    newMessage.key = data.key;
-    messages.push(newMessage);
-    this.setState({messages});
+    this.props.actions.addMessageFromData(data);
   }
 
   getClassName(message) {
@@ -56,7 +51,7 @@ class ChatRoom extends Component {
       <div className="app-chat-room">
         <h1> {this.props.chat.name} </h1>
         <div className="app-messages">
-          {this.state.messages.map(message => (
+          {this.props.messages.map(message => (
             <div key={message.key} className={this.getClassName(message)}>
               <div className="col-md-8">
               <Message message={message}/>
@@ -71,8 +66,23 @@ class ChatRoom extends Component {
 }
 
 ChatRoom.propTypes = {
-  chat: React.PropTypes.object.isRequired
+  chat: React.PropTypes.object.isRequired,
+  messages: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  actions: React.PropTypes.object.isRequired
 };
 
+function mapStateToProps(state, ownProps) {
+  const chat = ownProps.chat || state.chat.activeChat;
+  return {
+    chat,
+    messages: state.chat.activeChatMessages
+  };
+}
 
-export default ChatRoom;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({addMessageFromData}, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);
