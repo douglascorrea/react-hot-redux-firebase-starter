@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
+import transform from 'lodash/fp/transform';
 
 class LoadingDots extends React.Component {
   constructor(props, context) {
@@ -26,7 +27,16 @@ class LoadingDots extends React.Component {
       text += '.';
       dots--;
     }
-    return <span {...this.props}>{text}&nbsp;</span>;
+
+    const rightProps = transform({})(
+      (result, value, key) => (result[key] = value)
+    )(
+      Object.keys(this.props).filter(
+        key => key !== 'interval' && key !== 'dots'
+      )
+    );
+
+    return <span {...rightProps}>{text}&nbsp;</span>;
   }
 }
 
