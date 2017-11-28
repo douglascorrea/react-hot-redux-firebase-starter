@@ -1,11 +1,7 @@
 import * as firebase from 'firebase/firebase-browser';
-import {firebaseConfig} from '../config';
-
 
 class FirebaseApi {
-
   static initAuth() {
-    firebase.initializeApp(firebaseConfig);
     return new Promise((resolve, reject) => {
       const unsub = firebase.auth().onAuthStateChanged(
         user => {
@@ -63,12 +59,19 @@ class FirebaseApi {
   }
 
   static databaseSet(path, value) {
+    return firebase.database().ref(path).set(value);
+  }
 
+  static unsubDatabase(path) {
+    return firebase.database().ref(path).off();
+  }
+
+  static databasePathValueLimitToLast(path, limit, handler) {
     return firebase
       .database()
       .ref(path)
-      .set(value);
-
+      .limitToLast(limit)
+      .on('value', handler);
   }
 }
 
