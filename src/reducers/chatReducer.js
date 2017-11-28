@@ -22,5 +22,11 @@ export default function chatReducer(state = initialState.chat, action) {
     .on(types.ADD_MESSAGE, () => assignToNew(state, {
       activeChatMessages: state.activeChatMessages.concat(action.message)
     }))
+    .on(types.LEAVE_CHAT, () => {
+      if(state.activeChat && state.activeChat.key === action.chat.key) {
+        return assignToNew(state, {activeChat: null});
+      }
+      return state;
+    })
     .otherwise(() => state);
 }

@@ -16,6 +16,9 @@ export const USER_IS_ADMIN_SUCCESS = 'USER_IS_ADMIN_SUCCESS';
 export const SET_ACTIVE_CHAT = 'SET_ACTIVE_CHAT';
 export const ADD_CHAT = 'ADD_CHAT';
 export const MODIFY_CHAT = 'MODIFY_CHAT';
+export const LEAVE_CHAT = 'LEAVE_CHAT';
+export const JOIN_CHAT = 'JOIN_CHAT';
 export const ADD_MESSAGE= 'ADD_MESSAGE';
+export const CREATE_MESSAGE= 'CREATE_MESSAGE';
 
 

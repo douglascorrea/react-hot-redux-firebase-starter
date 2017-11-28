@@ -1,7 +1,9 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 import {Component} from 'react/lib/ReactBaseClasses';
-import MessageApi from '../../api/message';
+import {createMessage} from '../../actions/chatActions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 class MessageForm extends Component {
   constructor(props) {
@@ -18,9 +20,8 @@ class MessageForm extends Component {
 
   save(event) {
     event.preventDefault();
-    MessageApi.create(this.state.message.text, this.props.chatKey);
-    const message = this.state.message;
-    message.text = '';
+    this.props.actions.createMessage(this.state.message.text, this.props.chatKey);
+    const message = {text: ''};
     this.setState({message});
   }
 
@@ -30,8 +31,8 @@ class MessageForm extends Component {
 
   change(event) {
     const field = event.target.name;
-    let message = this.state.message;
-    message[field] = event.target.value;
+    const value = event.target.value;
+    const message = {[field]: value};
     return this.setState({message});
   }
 
@@ -58,7 +59,20 @@ class MessageForm extends Component {
 }
 
 MessageForm.propTypes = {
-  chatKey: React.PropTypes.string.isRequired
+  chatKey: React.PropTypes.string.isRequired,
+  actions: React.PropTypes.object.isRequired
 };
 
-export default MessageForm;
+function mapStateToProps(state, ownProps) {
+  return {
+    activeChat: state.chat.activeChat
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({createMessage}, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);

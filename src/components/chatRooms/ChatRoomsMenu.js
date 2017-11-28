@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import * as firebase from 'firebase/firebase-browser';
-import ChatRoomApi from '../../api/chatRoom';
 import ChatRoomForm from './ChatRoomForm';
 import MyChatItem from './MyChatItem';
 import OtherChatItem from './OtherChatItem';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {setActiveChat} from '../../actions/chatActions';
+import {joinChat, leaveChat, setActiveChat} from '../../actions/chatActions';
 
 class ChatRoomsMenu extends Component {
   constructor(props) {
@@ -27,11 +26,11 @@ class ChatRoomsMenu extends Component {
   }
 
   joinChat(chat) {
-    ChatRoomApi.join(chat);
+    this.props.actions.joinChat(chat);
   }
 
   leaveChat(chat) {
-    ChatRoomApi.leave(chat);
+    this.props.actions.leaveChat(chat);
   }
 
   seeChat(chat) {
@@ -98,7 +97,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({setActiveChat}, dispatch)
+    actions: bindActionCreators({setActiveChat, leaveChat, joinChat}, dispatch)
   };
 }
 
