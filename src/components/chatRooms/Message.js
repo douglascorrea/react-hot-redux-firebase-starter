@@ -1,16 +1,17 @@
 import React from 'react';
 import * as firebase from 'firebase/firebase-browser';
+import classnames from 'classnames';
 
 const Message = ({message}) => {
-  const classes = ['app-message'];
-  if(message.user.uid === firebase.auth().currentUser.uid) {
-    classes.push('bg-primary', 'blockquote-reverse', 'own-message');
-  } else {
-    classes.push('bg-info');
-  }
+  const isOfCurrentUser = message.user.uid === firebase.auth().currentUser.uid;
+  const classes =  classnames('app-message', {
+    'bg-primary blockquote-reverse own-message': isOfCurrentUser,
+    'bg-info': !isOfCurrentUser
+  });
+
   const dateString = (new Date(message.timestamp)).toLocaleString();
   return (
-    <blockquote className={classes.join(' ')}>
+    <blockquote className={classes}>
       <p> {message.text} </p>
       <footer>
         on {dateString}

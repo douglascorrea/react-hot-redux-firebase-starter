@@ -19,8 +19,7 @@ class ChatRoomForm extends Component {
   save(event) {
     event.preventDefault();
     ChatRoomApi.create(this.state.chatRoom);
-    const chatRoom = this.state.chatRoom;
-    chatRoom.name = '';
+    const chatRoom = {name: ''};
     this.setState({chatRoom});
   }
 
@@ -30,8 +29,7 @@ class ChatRoomForm extends Component {
 
   change(event) {
     const field = event.target.name;
-    let chatRoom = this.state.chatRoom;
-    chatRoom[field] = event.target.value;
+    const chatRoom = {[field]: event.target.value};
     return this.setState({chatRoom});
   }
 

@@ -6,6 +6,7 @@ import Message from './Message';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {addMessageFromData} from '../../actions/chatActions';
+import classnames from 'classnames';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -38,11 +39,9 @@ class ChatRoom extends Component {
   }
 
   getClassName(message) {
-    let className = 'col-md-8';
-    if(message.user.uid === firebase.auth().currentUser.uid) {
-      className += ' col-md-offset-4';
-    }
-    return className;
+    return classnames('col-md-8', {
+      'col-md-offset-4': message.user.uid === firebase.auth().currentUser.uid
+    });
   }
 
   render() {
