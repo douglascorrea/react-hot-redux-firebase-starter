@@ -21,3 +21,5 @@ export default function authReducer(state = initialState.auth, action) {
       return state;
   }
 }
+
+export const isLogged = state => state.auth.isLogged;

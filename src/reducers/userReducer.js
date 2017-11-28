@@ -3,6 +3,8 @@ import initialState from './initialState';
 
 export default function userReducer(state = initialState.user, action) {
   switch (action.type) {
+    case types.UPDATE_USER:
+      return Object.assign({}, state, action.payload);
     case types.USER_LOADED_SUCCESS:
       return Object.assign({}, state, action.user);
     case types.USER_IS_ADMIN_SUCCESS:
@@ -13,3 +15,5 @@ export default function userReducer(state = initialState.user, action) {
       return state;
   }
 }
+
+export const getUser = state => state.user;
