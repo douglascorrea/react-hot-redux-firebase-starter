@@ -8,7 +8,7 @@ import {
   requestMessages,
 } from '../../actions/messagesActions';
 import MessageForm from './MessageForm';
-import Message from './Message';
+import MessageList from './MessageList';
 import { getUser } from '../../reducers/userReducer';
 import { getLoading } from '../../reducers/loadingReducer';
 import { getMessages } from '../../reducers/messagesReducer';
@@ -67,7 +67,7 @@ class ChatRoom extends Component {
     return (
       <div>
         <h3>Chat</h3>
-        <Message messages={messages} currentUser={user} />
+        <MessageList messages={messages} currentUser={user} />
         <MessageForm
           onChange={this.updateMessage}
           onClick={this.sendNewMessage}

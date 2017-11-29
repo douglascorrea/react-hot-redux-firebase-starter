@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import prop from 'lodash/fp/prop';
 import MessageItem from './MessageItem';
 
-const Message = ({ messages }) =>
+const MessageList= ({ messages }) =>
   <div>
     <h4>Messages</h4>
     <div className="message-list">
@@ -16,12 +16,12 @@ const Message = ({ messages }) =>
     </div>
   </div>;
 
-Message.defaultProps = {
+MessageList.defaultProps = {
   messages: [],
 };
 
-Message.propTypes = {
+MessageList.propTypes = {
   messages: PropTypes.array,
 };
 
-export default Message;
+export default MessageList;
