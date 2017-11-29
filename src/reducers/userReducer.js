@@ -1,5 +1,7 @@
 import * as types from '../actions/actionTypes';
 import initialState from './initialState';
+import prop from 'lodash/fp/prop';
+import { createSelector } from 'reselect';
 
 export default function userReducer(state = initialState.user, action) {
   switch (action.type) {
@@ -17,3 +19,5 @@ export default function userReducer(state = initialState.user, action) {
 }
 
 export const getUser = state => state.user;
+export const getUserUid = createSelector(getUser, user => prop('uid')(user));
+export const getUserEmail = createSelector(getUser, user => prop('email')(user));

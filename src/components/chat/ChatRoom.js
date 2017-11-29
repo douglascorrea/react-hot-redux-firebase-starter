@@ -9,7 +9,7 @@ import {
 } from '../../actions/messagesActions';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import { getUser } from '../../reducers/userReducer';
+import { getUserEmail, getUserUid } from '../../reducers/userReducer';
 import { getLoading } from '../../reducers/loadingReducer';
 import { getMessages } from '../../reducers/messagesReducer';
 import { isLogged } from '../../reducers/authReducer';
@@ -46,7 +46,7 @@ class ChatRoom extends Component {
   sendNewMessage = e => {
     e.preventDefault();
 
-    const { user: { uid, email }, launchPushMessages } = this.props;
+    const { uid, email, launchPushMessages } = this.props;
     const { message: { value } } = this.state;
 
     const message = {
@@ -61,13 +61,13 @@ class ChatRoom extends Component {
   };
 
   render() {
-    const { loading, messages, user } = this.props;
+    const { loading, messages } = this.props;
     const { message } = this.state;
 
     return (
       <div>
         <h3>Chat</h3>
-        <MessageList messages={messages} currentUser={user} />
+        <MessageList messages={messages} />
         <MessageForm
           onChange={this.updateMessage}
           onClick={this.sendNewMessage}
@@ -80,7 +80,8 @@ class ChatRoom extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: getUser,
+  email: getUserEmail,
+  uid: getUserUid,
   messages: getMessages,
   loading: getLoading,
   isLogged,
