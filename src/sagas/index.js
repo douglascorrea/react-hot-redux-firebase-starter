@@ -56,10 +56,7 @@ export function* watchFetchMessages() {
 }
 
 function* watchRequests() {
-  while (true) {
-    yield take(types.REQUEST);
-    yield fork(watchFetchMessages);
-  }
+    yield takeEvery(types.REQUEST, watchFetchMessages);
 }
 
 export default function* startFireBase() {
