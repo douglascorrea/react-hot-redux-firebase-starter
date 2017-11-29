@@ -71,7 +71,7 @@ class FirebaseApi {
       .database()
       .ref(path)
       .limitToLast(limit)
-      .on('value', handler);
+      .on('child_added', handler);
   }
 }
 
