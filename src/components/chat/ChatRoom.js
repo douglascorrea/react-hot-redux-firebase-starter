@@ -25,7 +25,7 @@ class ChatRoom extends Component {
 
   componentWillMount() {
     const { requestMessages, isLogged } = this.props;
-    if(isLogged) {
+    if (isLogged) {
       requestMessages();
     }
   }
@@ -38,9 +38,9 @@ class ChatRoom extends Component {
   }
 
   updateMessage = e => {
-    let message = this.state.message;
-    message[e.target.name] = e.target.value;
-    this.setState({ message: message });
+    const { message } = this.state;
+    const { name, value } = e.target;
+    this.setState({ message: { ...message, [name]: value } });
   };
 
   sendNewMessage = e => {
