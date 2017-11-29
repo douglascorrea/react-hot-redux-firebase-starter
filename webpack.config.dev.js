@@ -1,9 +1,11 @@
 let path = require('path');
 let webpack = require('webpack');
+import "babel-polyfill";
 
 const config = {
   devtool: 'source-map',
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=false',
     './src/index'

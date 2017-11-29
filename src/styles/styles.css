@@ -35,9 +35,9 @@ nav {
   background-color: #fff;
   min-height: 100%;
   height: 100%;
-  display:table-cell;
-  vertical-align:middle;
-  text-align:center;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
   width: 100%;
 }
 
@@ -55,4 +55,70 @@ nav {
   color: #fff;
   font-size: 6rem;
   line-height: 8rem;
+}
+
+.message-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 25%;
+  margin: 10.66666667px 0;
+  padding: 10.66666667px 0;
+}
+
+.message-wrapper .text-wrapper {
+  padding: 10.66666667px;
+  min-height: 42.66666667px;
+  width: 60%;
+  margin: 0 10.66666667px;
+  box-shadow: 0px 1px 0px 0px rgba(50, 50, 50, 0.3);
+  border-radius: 2px;
+  font-weight: 300;
+  position: relative;
+  word-break: break-word;
+  text-align: justify;
+}
+
+.message-wrapper .text-wrapper:before {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.message-wrapper.them .text-wrapper {
+  background: rgba(244, 67, 54, 0.82);
+  float: left;
+  color: #ffffff;
+}
+
+.message-wrapper.them .circle-wrapper {
+  background: transparent;
+  float: left;
+  color: rgb(34, 34, 34);
+}
+
+.message-wrapper.them .text-wrapper:before {
+  border-width: 0 10px 10px 0;
+  border-color: transparent rgba(244, 67, 54, 0.82) transparent transparent;
+  position: absolute;
+  top: 0;
+  left: -9px;
+}
+
+.message-wrapper.me .circle-wrapper, .message-wrapper.me .text-wrapper {
+  background: transparent;
+  float: right;
+  color: #333333;
+}
+
+.message-wrapper.me .text-wrapper {
+  background: #ffffff;
+}
+
+.message-wrapper.me .text-wrapper:before {
+  border-width: 10px 10px 0 0;
+  border-color: #ffffff transparent transparent transparent;
+  position: absolute;
+  top: 0;
+  right: -9px;
 }
