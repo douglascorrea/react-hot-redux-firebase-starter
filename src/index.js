@@ -24,6 +24,7 @@ import configureStore from './store/configureStore'; //eslint-disable-line impor
 import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
+import '../node_modules/flexboxgrid/dist/flexboxgrid.min.css';
 
 // store initialization
 const store = configureStore(initialState);

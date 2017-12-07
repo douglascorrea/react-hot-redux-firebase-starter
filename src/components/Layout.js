@@ -12,6 +12,20 @@ class Layout extends React.Component {
 
   render() {
     const {auth, actions, loading, user} = this.props;
+
+    if(this.props.location.pathname === "/chat") {
+      return (
+        <div>
+          <div className="chatHeader">
+            <div className="container-fluid">
+              <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
+            </div>
+          </div>
+          {this.props.children}
+        </div>
+      );
+    }
+
     return (
       <div className="container-fluid">
         <Header signOut={actions.signOut} auth={auth} loading={loading} user={user} />
@@ -26,7 +40,8 @@ Layout.propTypes =  {
   actions: React.PropTypes.object.isRequired,
   auth: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
-  loading: React.PropTypes.bool.isRequired
+  loading: React.PropTypes.bool.isRequired,
+  location: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
