@@ -1,10 +1,11 @@
+/* eslint react/jsx-no-bind: 0 */
 import React from 'react';
 import shortid from 'shortid';
 import { observer } from 'mobx-react';
 import { autorun } from 'mobx';
 
 @observer
-export default class extends React.Component {
+export default class MessageList extends React.Component {
 
     componentDidUpdate() {
         const scrollHeight = this.chatContainer.scrollHeight;
@@ -17,7 +18,10 @@ export default class extends React.Component {
 
         return (
             <div className="container-fluid">
-                <div className="chatContainer" ref={e => this.chatContainer = e}>
+                <div 
+                    className="chatContainer"
+                    ref={e => this.chatContainer = e}
+                >
                     {(this.props.messages.map((row) => {
 
                         let className = "row";
@@ -33,14 +37,14 @@ export default class extends React.Component {
                                     <div className="username">{row.user}</div>
                                 </div>
                             </div>
-                        )
+                        );
                     }))}
                 </div>
 
                 <style jsx>
                     {`
                         .chatContainer {
-                            height: 82vh;
+                            height: 80vh;
                             overflow-y: scroll;
                             overflow-x: hidden;
                         }
@@ -73,6 +77,11 @@ export default class extends React.Component {
                     `}
                 </style>
             </div>
-        )
+        );
     }
 }
+
+MessageList.propTypes = {
+    messages: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired
+  };
