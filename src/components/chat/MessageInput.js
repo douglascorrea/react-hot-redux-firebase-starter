@@ -1,3 +1,4 @@
+/* eslint react/jsx-no-bind: 0 */
 import React from 'react';
 import { createForm } from 'rc-form';
 
@@ -6,13 +7,13 @@ const MessageInput = ({ onNewMessage, form }) => (
 
         <form 
             onSubmit={e => {
-                e.preventDefault()
+                e.preventDefault();
                 form.validateFields((err, values) => {
                     if(!err) {
                         onNewMessage(values.message);
                         form.setFieldsValue({
                             message: ''
-                        })
+                        });
                     }
                 });
             }}
@@ -66,4 +67,10 @@ const MessageInput = ({ onNewMessage, form }) => (
     </div>
 );
 
-export default createForm()(MessageInput)
+MessageInput.propTypes = {
+    onNewMessage: React.PropTypes.func.isRequired,
+    form: React.PropTypes.object.isRequired
+  };
+  
+
+export default createForm()(MessageInput);

@@ -88,4 +88,4 @@ export default class MessageList extends React.Component {
 MessageList.propTypes = {
     messages: React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired
-  };
+};

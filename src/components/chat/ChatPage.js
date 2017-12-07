@@ -21,15 +21,13 @@ const primaryColor = '#0084ff';
 @observer
 class ChatPage extends React.Component {
 
-  @observable messages = []
-
   componentDidMount() {
 
     let firstItem = true;
     this.messageDB = firebase.database().ref('messages').orderByKey().limitToLast(15);
     this.messageDB.on('child_added', snapshot => {
       if(firstItem) {
-        firstItem = false
+        firstItem = false;
       } else {
         this.messages.push({
           user: snapshot.val().user,
@@ -41,10 +39,12 @@ class ChatPage extends React.Component {
 
   componentWillUnmount() {
     // Stop listening for messages when user left the page
-    this.messageDB.off()
+    this.messageDB.off();
     // Ensuring that we don't keep the reference
     this.messageDB = null;
   }
+
+  @observable messages = []
 
   onNewMessage = (message) => {
     postMessageRequest({
@@ -105,6 +105,10 @@ class ChatPage extends React.Component {
     );
   }
 }
+
+ChatPage.propTypes = {
+  user: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, ownProps) {
   return {
