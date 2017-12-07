@@ -4,6 +4,10 @@ import shortid from 'shortid';
 import { observer } from 'mobx-react';
 import { autorun } from 'mobx';
 
+/**
+ * When we use "observer" (mobx-react) on a component, each time that
+ * an observable props will change, the component will be updated
+ */
 @observer
 export default class MessageList extends React.Component {
 
