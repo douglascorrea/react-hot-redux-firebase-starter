@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const LoginForm = ({user, onSave, onChange, saving}) => {
+const LoginForm = ({ user, onSave, onChange, saving }) => {
   return (
     <form>
       <h1>Login</h1>

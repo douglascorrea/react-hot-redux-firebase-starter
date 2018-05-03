@@ -40,6 +40,7 @@
     "no-alert": 0,
     "no-lone-blocks": 0,
     "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
     "jsx-quotes": 1,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],

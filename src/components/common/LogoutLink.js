@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LogoutLink = ({signOut}) => {
+const LogoutLink = ({ signOut }) => {
   return <a href="#" onClick={signOut}>Logout</a>;
 };
 

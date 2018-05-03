@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/firebase-browser';
-import {firebaseConfig} from '../config';
+import { firebaseConfig } from '../config';
 
 
 class FirebaseApi {

@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 class LoadingDots extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {frame: 1};
+    this.state = { frame: 1 };
   }
 
   componentDidMount() {

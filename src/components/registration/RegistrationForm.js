@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const RegistrationForm = ({user, onSave, onChange, saving}) => {
+const RegistrationForm = ({ user, onSave, onChange, saving }) => {
   return (
     <form>
       <h1>Create account</h1>

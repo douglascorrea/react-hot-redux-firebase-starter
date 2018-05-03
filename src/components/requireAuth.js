@@ -1,7 +1,7 @@
 /*eslint no-invalid-this: "error"*/
 /*eslint-env es6*/
 import React, { PropTypes, Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import toastr from 'toastr';
 
 export default function (ComposedComponent){
