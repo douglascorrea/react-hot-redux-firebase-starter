@@ -23,13 +23,13 @@ export default function (ComposedComponent){
       }
   }
   Authentication.contextTypes = {
-      router : PropTypes.object
+      router : PropTypes.object,
     };
   Authentication.propTypes  = {
-    authenticated : PropTypes.bool
+    authenticated : PropTypes.bool,
   };
   const mapStateToProps = (state) => ({
-    authenticated : state.auth.isLogged
+    authenticated : state.auth.isLogged,
   });
   return connect(mapStateToProps)(Authentication);
 }

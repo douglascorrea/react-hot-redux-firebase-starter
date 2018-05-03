@@ -12,9 +12,9 @@ export class RegistrationPage extends React.Component {
     this.state = {
       user: {
         email: "",
-        password: ""
+        password: "",
       },
-      saving: false
+      saving: false,
     };
 
     this.updateUserState = this.updateUserState.bind(this);
@@ -54,11 +54,11 @@ export class RegistrationPage extends React.Component {
 }
 
 RegistrationPage.propTypes = {
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
 };
 
 RegistrationPage.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -67,7 +67,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({createUserWithEmailAndPassword}, dispatch)
+    actions: bindActionCreators({createUserWithEmailAndPassword}, dispatch),
   };
 }
 

@@ -29,7 +29,7 @@ Header.propTypes = {
   signOut: React.PropTypes.func.isRequired,
   auth: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
 };
 
 export default Header;

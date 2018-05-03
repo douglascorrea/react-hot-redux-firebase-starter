@@ -26,20 +26,20 @@ Layout.propTypes =  {
   actions: React.PropTypes.object.isRequired,
   auth: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
-  loading: React.PropTypes.bool.isRequired
+  loading: React.PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     auth: state.auth,
     user: state.user,
-    loading: state.ajaxCallsInProgress > 0
+    loading: state.ajaxCallsInProgress > 0,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({signOut}, dispatch)
+    actions: bindActionCreators({signOut}, dispatch),
   };
 }
 

@@ -6,5 +6,5 @@ export const firebaseConfig = {
   databaseURL: "https://startx-demo.firebaseio.com",
   projectId: "startx-demo",
   storageBucket: "startx-demo.appspot.com",
-  messagingSenderId: "217193623623"
+  messagingSenderId: "217193623623",
 };

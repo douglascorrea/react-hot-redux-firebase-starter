@@ -20,7 +20,7 @@ class App extends Component {
 
 App.propTypes = {
   history: React.PropTypes.object.isRequired,
-  store: React.PropTypes.object.isRequired
+  store: React.PropTypes.object.isRequired,
 };
 
 export default App;

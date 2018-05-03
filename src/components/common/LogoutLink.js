@@ -5,7 +5,7 @@ const LogoutLink = ({signOut}) => {
 };
 
 LogoutLink.propTypes = {
-  signOut: React.PropTypes.func.isRequired
+  signOut: React.PropTypes.func.isRequired,
 };
 
 export default LogoutLink;

@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   routesPermissions,
   user,
   auth,
-  ajaxCallsInProgress
+  ajaxCallsInProgress,
 });
 
 export default rootReducer;
