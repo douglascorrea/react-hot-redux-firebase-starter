@@ -1,7 +1,7 @@
 import React from 'react';
 import TextInput from '../common/TextInput';
 
-const LoginForm = ({user, onSave, onChange, saving}) => {
+const LoginForm = ({ user, onSave, onChange, saving }) => {
   return (
     <form>
       <h1>Login</h1>
@@ -33,7 +33,7 @@ LoginForm.propTypes = {
   onSave: React.PropTypes.func.isRequired,
   saving: React.PropTypes.bool,
   user: React.PropTypes.object.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  onChange: React.PropTypes.func.isRequired,
 };
 
 export default LoginForm;

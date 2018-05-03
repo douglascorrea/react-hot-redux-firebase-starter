@@ -1,17 +1,17 @@
 // modules
-import {AppContainer} from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {syncHistoryWithStore} from 'react-router-redux';
-import {browserHistory} from 'react-router';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 // api
 import FirebaseApi from './api/firebase';
 
 // actions
-import {authInitialized} from './actions/authActions';
-import {ajaxCallError, beginAjaxCall} from './actions/ajaxStatusActions';
+import { authInitialized } from './actions/authActions';
+import { ajaxCallError, beginAjaxCall } from './actions/ajaxStatusActions';
 
 // components
 import App from './components/App';

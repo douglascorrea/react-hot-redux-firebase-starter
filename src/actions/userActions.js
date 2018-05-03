@@ -2,7 +2,7 @@ import firebaseApi from '../api/firebase';
 import * as types from './actionTypes';
 
 import { authLoggedIn } from './authActions';
-import {ajaxCallError, beginAjaxCall} from './ajaxStatusActions';
+import { ajaxCallError, beginAjaxCall } from './ajaxStatusActions';
 
 function extractUserProperties(firebaseUser) {
 
@@ -17,7 +17,7 @@ function extractUserProperties(firebaseUser) {
     'providerId',
     'refreshToken',
     'uid',
-    'isAdmin'
+    'isAdmin',
   ];
 
   userProperties.map((prop) => {
@@ -48,18 +48,18 @@ export function userCreated(user) {
 
 export function userCreatedSuccess() {
   return {
-    type: types.USER_CREATED_SUCCESS
+    type: types.USER_CREATED_SUCCESS,
   };
 }
 
 export function userLoadedSuccess(user) {
   return {
-    type: types.USER_LOADED_SUCCESS, user: extractUserProperties(user)
+    type: types.USER_LOADED_SUCCESS, user: extractUserProperties(user),
   };
 }
 
 export function userIsAdminSuccess() {
   return {
-    type: types.USER_IS_ADMIN_SUCCESS
+    type: types.USER_IS_ADMIN_SUCCESS,
   };
 }

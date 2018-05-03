@@ -1,8 +1,10 @@
 // Firebase
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyCNsG4Y4pkaVxqM809bpQeZ3wsFgVlCPcg",
-  authDomain: "react-hot-redux-firebase-start.firebaseapp.com",
-  databaseURL: "https://react-hot-redux-firebase-start.firebaseio.com",
-  storageBucket: "react-hot-redux-firebase-start.appspot.com"
+  apiKey: "AIzaSyAmAQm5NlktKK-N4Q3qI8sK3ixbNDWKAVc",
+  authDomain: "startx-demo.firebaseapp.com",
+  databaseURL: "https://startx-demo.firebaseio.com",
+  projectId: "startx-demo",
+  storageBucket: "startx-demo.appspot.com",
+  messagingSenderId: "217193623623",
 };
