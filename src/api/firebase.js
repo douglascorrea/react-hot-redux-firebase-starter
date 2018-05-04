@@ -1,8 +1,10 @@
 import * as firebase from 'firebase/firebase-browser';
 import { firebaseConfig } from '../config';
 
+const noop = () => {};
 
 class FirebaseApi {
+  static SERVER_TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 
   static initAuth() {
     firebase.initializeApp(firebaseConfig);
@@ -30,18 +32,36 @@ class FirebaseApi {
   }
 
   static databasePush(path, value) {
-    return new Promise((resolve, reject) => {
-      firebase
-        .database()
-        .ref(path)
-        .push(value, (error) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve();
-          }
-        });
-    });
+    return firebase
+      .database()
+      .ref(path)
+      .push(value);
+  }
+
+  static databaseRemove(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .remove();
+  }
+
+  static GetValue = async (path) => {
+    try {
+      const snapshot = await firebase.database().ref(path).once('value');
+      return snapshot.val();
+    } catch (e) {
+      return e;
+    }
+  }
+
+  static Watch = (path, event, userCb = noop) => {
+    const ref = firebase.database().ref(path);
+    const cb = (snapshot) => {
+      userCb(snapshot.val(), snapshot.key, snapshot);
+    };
+
+    ref.on(event, cb);
+    return () => ref.off(event, cb);
   }
 
   static GetValueByKeyOnce(path, key) {

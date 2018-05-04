@@ -1,32 +1,31 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import Room from './Room';
 
 
-const RoomList = () => (
+const RoomList = ({ rooms, onRoomRemove }) => (
   <span>
     <h4>Rooms</h4>
     <div className="chatx-roomlist">
-      <Room>general</Room>
-      <Room>random</Room>
-      <Room>music</Room>
-      <Room>events</Room>
-      <Room>gaming</Room>
-      <Room>nodejs</Room>
-      <Room>react</Room>
-      <Room>redux</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
-      <Room>misc</Room>
+      {
+        rooms.map(({ name, id }) => (
+          <Room
+            key={id}
+            onRemove={() => onRoomRemove(id)}
+          >
+            {name}
+          </Room>
+        ))
+      }
     </div>
   </span>
 );
+RoomList.propTypes = {
+  onRoomRemove: PropTypes.func.isRequired,
+  rooms: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default RoomList;

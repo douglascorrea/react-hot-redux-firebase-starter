@@ -6,6 +6,7 @@ const config = {
   entry: [
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=false',
+    'babel-polyfill',
     './src/index',
   ],
   output: {
