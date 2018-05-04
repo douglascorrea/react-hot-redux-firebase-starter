@@ -89,11 +89,8 @@ export function signOut() {
     return firebaseApi.authSignOut()
       .then(
         () => {
+          dispatch(push('/login'));
           dispatch(authLoggedOutSuccess());
-          if (getState().routesPermissions.requireAuth
-              .filter(route => route === getState().routing.locationBeforeTransitions.pathname).toString()) {
-            dispatch(push('/'));
-          }
         })
       .catch(error => {
         dispatch(ajaxCallError(error));
