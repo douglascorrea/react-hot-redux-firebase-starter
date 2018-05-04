@@ -1,0 +1,39 @@
+/* Layout */
+.chatx-left-column {
+  border-right: 1px solid black;
+}
+
+.chatx-right-column {
+  border-left: 1px solid black;
+}
+
+.chatx-main-column {
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+/* Components */
+.chatx-header {
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.chatx-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+
+.chatx-roomlist {
+  height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.chatx-userlist {
+   height: calc(100vh - 220px);
+   overflow-y: auto;
+}

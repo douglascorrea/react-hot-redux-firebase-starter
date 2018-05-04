@@ -1,0 +1,95 @@
+import React from 'react';
+
+const UserList = () => (
+  <span>
+    <h4>#general Users</h4>
+    <ul className="chatx-userlist">
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+      <li>Shpouik</li>
+      <li>Shplouf</li>
+      <li>Cacahuete</li>
+    </ul>
+  </span>
+);
+
+export default UserList;

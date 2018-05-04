@@ -43,7 +43,7 @@ export function authLoggedIn(userUID) {
       .then(
         user => {
           dispatch(userLoadedSuccess(user.val()));
-          dispatch(push('/'));
+          dispatch(push('/chat'));
         })
       .catch(
         error => {
