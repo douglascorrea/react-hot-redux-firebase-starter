@@ -9,4 +9,9 @@ export default {
     initialized: false,
   },
   ajaxCallsInProgress: 0,
+  chatx: {
+    enabled: false,
+    rooms: {},
+    currentRoom: null,
+  },
 };

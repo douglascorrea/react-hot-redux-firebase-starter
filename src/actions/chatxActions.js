@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 export const enterChat = createAction('CHATX/ENTER_CHAT');
 export const leaveChat = createAction('CHATX/LEAVE_CHAT');
 
+export const selectRoom = createAction('CHATX/SELECT_ROOM');
 export const createRoom = createAction('CHATX/CREATE_ROOM');
 export const removeRoom = createAction('CHATX/REMOVE_ROOM');
 

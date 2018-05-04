@@ -1,4 +1,6 @@
-import { getCurrentUserUID } from '../selectors/authSelectors';
+import {
+  getCurrentUserUID,
+} from '../selectors/authSelectors';
 import {
   enterChat, leaveChat,
   createRoom, removeRoom,

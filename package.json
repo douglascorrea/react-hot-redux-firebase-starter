@@ -80,6 +80,7 @@
     "redux-actions": "^2.3.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
+    "reselect": "^3.0.1",
     "toastr": "^2.1.2"
   },
   "repository": {

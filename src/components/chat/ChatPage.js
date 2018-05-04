@@ -5,6 +5,7 @@ import MainColumn from './layout/MainColumn';
 import LeftColumn from './layout/LeftColumn';
 import RightColumn from './layout/RightColumn';
 
+import ChatHeader from './Header';
 import RoomCreator from './RoomCreator';
 import RoomList from './RoomList';
 import MessageList from './MessageList';
@@ -13,15 +14,16 @@ import MessagePrompt from './MessagePrompt';
 
 import checkAuth from '../requireAuth';
 
-import { getRooms } from '../../selectors/chatxSelectors';
-import { enterChat, leaveChat, createRoom, removeRoom } from '../../actions/chatxActions';
+import { getRooms, getCurrentRoom } from '../../selectors/chatxSelectors';
+import { enterChat, leaveChat, createRoom, removeRoom, selectRoom } from '../../actions/chatxActions';
 
 const mapStateToProps = (state) => ({
+  currentRoom: getCurrentRoom(state),
   rooms: getRooms(state),
 });
 
 const mapDispatchToProps = {
-  enterChat, leaveChat, createRoom, removeRoom,
+  enterChat, leaveChat, createRoom, removeRoom, selectRoom,
 };
 
 @checkAuth
@@ -32,6 +34,8 @@ class ChatPage extends React.Component {
     leaveChat: PropTypes.func.isRequired,
     createRoom: PropTypes.func.isRequired,
     removeRoom: PropTypes.func.isRequired,
+    selectRoom: PropTypes.func.isRequired,
+    currentRoom: PropTypes.object.isRequired,
     rooms: PropTypes.array,
   }
 
@@ -50,17 +54,14 @@ class ChatPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="chatx-header">
-          <h2 className="chatx-title">ChatX on #general</h2>
-          <button type="button" className="btn btn-xs btn-danger">
-            Leave room
-          </button>
-        </div>
+        <ChatHeader currentRoom={this.props.currentRoom} />
         <div className="row">
           <LeftColumn>
             <RoomCreator onCreate={this.props.createRoom} />
             <RoomList
+              currentRoom={this.props.currentRoom}
               onRoomRemove={this.props.removeRoom}
+              onRoomSelect={this.props.selectRoom}
               rooms={this.props.rooms}
             />
           </LeftColumn>

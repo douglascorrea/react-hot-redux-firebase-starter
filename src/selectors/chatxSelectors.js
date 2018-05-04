@@ -1,8 +1,18 @@
+import { createSelector } from 'reselect';
 import { pipe, values, path, sortBy, prop } from 'ramda';
 
 export const getIsEnabled = path(['chatx', 'enabled']);
-export const getRooms = pipe(
+
+export const getCurrentRoom = createSelector(
   path(['chatx', 'rooms']),
-  values,
-  sortBy(prop('createdAt'))
+  path(['chatx', 'currentRoom']),
+  (rooms, roomId) => rooms[roomId] || {},
+);
+
+export const getRooms = createSelector(
+  path(['chatx', 'rooms']),
+  pipe(
+    values,
+    sortBy(prop('createdAt'))
+  ),
 );
