@@ -34,7 +34,7 @@ export class RegistrationPage extends React.Component {
     this.setState({ saving: true });
 
     this.props.actions.createUserWithEmailAndPassword(this.state.user)
-      .then((user) => toastr.success('User Created'))
+      .then(() => toastr.success('User Created'))
       .catch(error => {
         toastr.error(error.message);
         this.setState({ saving: false });
@@ -61,14 +61,10 @@ RegistrationPage.contextTypes = {
   router: PropTypes.object,
 };
 
-function mapStateToProps(state, ownProps) {
-  return {};
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({ createUserWithEmailAndPassword }, dispatch),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationPage);
+export default connect(null, mapDispatchToProps)(RegistrationPage);

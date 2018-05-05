@@ -29,7 +29,7 @@ Layout.propTypes =  {
   loading: React.PropTypes.bool.isRequired,
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     auth: state.auth,
     user: state.user,

@@ -84,7 +84,7 @@ export function signInWithEmailAndPassword(user) {
 }
 
 export function signOut() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginAjaxCall());
     return firebaseApi.authSignOut()
       .then(
