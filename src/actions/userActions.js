@@ -13,9 +13,6 @@ function extractUserProperties(firebaseUser) {
     'emailVerified',
     'isAnonymous',
     'photoURL',
-    'providerData',
-    'providerId',
-    'refreshToken',
     'uid',
     'isAdmin',
   ];
