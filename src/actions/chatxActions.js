@@ -12,6 +12,9 @@ export const addedRoom = createAction('CHATX/ADDED_ROOM');
 export const removedRoom = createAction('CHATX/REMOVED_ROOM');
 export const changedRoom = createAction('CHATX/CHANGED_ROOM');
 
+export const joinRoom = createAction('CHATX/JOIN_ROOM');
+export const leaveRoom = createAction('CHATX/LEAVE_ROOM');
+
 export const joinedRoom = createAction('CHATX/JOINED_ROOM');
 export const leftRoom = createAction('CHATX/LEFT_ROOM');
 

@@ -1,8 +1,10 @@
 import { pipeMiddlewares } from 'redux-fun';
 import {
   enterChat, leaveChat,
-  refreshJoinedRooms, selectRoom, joinedRoom, leftRoom,
+  refreshJoinedRooms, selectRoom, joinedRoom, leftRoom, joinRoom, leaveRoom,
 } from '../../actions/chatxActions';
+
+import { getCurrentUserUID } from '../../selectors/authSelectors';
 
 const joinedRoomsObserver = (firebaseApi) => {
   let unsubscribers = [];
@@ -11,7 +13,7 @@ const joinedRoomsObserver = (firebaseApi) => {
     unsubscribers = [];
   };
 
-  return ({ dispatch }) => (next) => (action) => {
+  return ({ dispatch, getState }) => (next) => async (action) => {
     if (action.type === `${selectRoom}`) {
       unsubJoinedRoom();
       const roomId = action.payload;
@@ -27,6 +29,18 @@ const joinedRoomsObserver = (firebaseApi) => {
 
     if (action.type === `${leaveChat}`) {
       unsubJoinedRoom();
+    }
+
+    if (action.type === `${joinRoom}`) {
+      const roomId = action.payload;
+      const userId = getCurrentUserUID(getState());
+      await firebaseApi.databasePush(`/joinedRooms/${roomId}/${userId}`, true);
+    }
+
+    if (action.type === `${leaveRoom}`) {
+      const roomId = action.payload;
+      const userId = getCurrentUserUID(getState());
+      await firebaseApi.databaseRemove(`/joinedRooms/${roomId}/${userId}`);
     }
 
     return next(action);

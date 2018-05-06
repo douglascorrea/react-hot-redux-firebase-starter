@@ -14,23 +14,36 @@ import MessagePrompt from './MessagePrompt';
 
 import checkAuth from '../requireAuth';
 
-import { getRooms, getCurrentRoom, getCurrentRoomUsers } from '../../selectors/chatxSelectors';
-import { enterChat, leaveChat, createRoom, removeRoom, selectRoom } from '../../actions/chatxActions';
+import {
+  getRooms,
+  getCurrentRoom,
+  getCurrentRoomUsers,
+  getCurrentRoomIsJoined,
+} from '../../selectors/chatxSelectors';
+import {
+  enterChat, leaveChat,
+  createRoom, removeRoom, selectRoom,
+  joinRoom, leaveRoom,
+} from '../../actions/chatxActions';
 
 const mapStateToProps = (state) => ({
+  currentRoomIsJoined: getCurrentRoomIsJoined(state),
   roomUsers: getCurrentRoomUsers(state),
   currentRoom: getCurrentRoom(state),
   rooms: getRooms(state),
 });
 
 const mapDispatchToProps = {
-  enterChat, leaveChat, createRoom, removeRoom, selectRoom,
+  enterChat, leaveChat,
+  createRoom, removeRoom, selectRoom,
+  joinRoom, leaveRoom,
 };
 
 @checkAuth
 @connect(mapStateToProps, mapDispatchToProps)
 class ChatPage extends React.Component {
   static propTypes = {
+    currentRoomIsJoined: PropTypes.bool.isRequired,
     roomUsers: PropTypes.arrayOf(PropTypes.shape({
       uid: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
@@ -40,6 +53,8 @@ class ChatPage extends React.Component {
     createRoom: PropTypes.func.isRequired,
     removeRoom: PropTypes.func.isRequired,
     selectRoom: PropTypes.func.isRequired,
+    joinRoom: PropTypes.func.isRequired,
+    leaveRoom: PropTypes.func.isRequired,
     currentRoom: PropTypes.object.isRequired,
     rooms: PropTypes.array,
   }
@@ -59,7 +74,12 @@ class ChatPage extends React.Component {
   render() {
     return (
       <div>
-        <ChatHeader currentRoom={this.props.currentRoom} />
+        <ChatHeader
+          onJoin={this.props.joinRoom}
+          onLeave={this.props.leaveRoom}
+          isJoined={this.props.currentRoomIsJoined}
+          currentRoom={this.props.currentRoom}
+        />
         <div className="row">
           <LeftColumn>
             <RoomCreator onCreate={this.props.createRoom} />

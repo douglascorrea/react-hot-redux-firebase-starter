@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import {
   pipe, values, path, sortBy, prop, has,
-  keys, filter, compose,
+  keys, filter, compose, contains,
 } from 'ramda';
 
 import { getCurrentUserUID } from './authSelectors';
@@ -12,6 +12,11 @@ export const getCurrentRoom = createSelector(
   path(['chatx', 'rooms']),
   path(['chatx', 'currentRoom']),
   (rooms, roomId) => rooms[roomId] || {}
+);
+
+export const getCurrentRoomId = createSelector(
+  getCurrentRoom,
+  prop('id')
 );
 
 export const getCurrentRoomUsers = createSelector(
@@ -43,4 +48,10 @@ export const getUserJoinedRooms = createSelector(
     keys,
     filter(has(uuid)),
   )(joinedRooms)
+);
+
+export const getCurrentRoomIsJoined = createSelector(
+  getCurrentRoomId,
+  getUserJoinedRooms,
+  (currentRoomId, joinedRooms) => contains(currentRoomId, joinedRooms)
 );
