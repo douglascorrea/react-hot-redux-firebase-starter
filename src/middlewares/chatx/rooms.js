@@ -1,19 +1,28 @@
-import {
-  getCurrentUserUID,
-} from '../selectors/authSelectors';
+import { getCurrentRoom, getFirstRoom }  from '../../selectors/chatxSelectors';
+import { getCurrentUserUID } from '../../selectors/authSelectors';
 import {
   enterChat, leaveChat,
-  createRoom, removeRoom,
+  createRoom, removeRoom, selectRoom,
   addedRoom, removedRoom, changedRoom,
-} from '../actions/chatxActions';
+} from '../../actions/chatxActions';
 
-const noop = () => {};
+const createRoomsMiddleware = (firebaseApi) => {
+  let unsubscribers = [];
+  const unsubsribeAll = () => {
+    unsubscribers.forEach(u => u());
+    unsubscribers = [];
+  };
 
-const createChatxMiddleware = (firebaseApi) => {
-  let unsubsribeAll = noop;
   return ({ dispatch, getState }) => (next) => async (action) => {
+    const selectFirstRoom = () => dispatch => {
+      const firstRoom = getFirstRoom(getState());
+      if (firstRoom) {
+        return dispatch(selectRoom(firstRoom.id));
+      }
+    };
+
     if (action.type === `${enterChat}`) {
-      const unsubscribers = [
+      unsubscribers.push(
         firebaseApi.Watch('/rooms', 'child_added', (room, id) => {
           dispatch(addedRoom({ ...room, id }));
         }),
@@ -23,13 +32,11 @@ const createChatxMiddleware = (firebaseApi) => {
         firebaseApi.Watch('/rooms', 'child_changed', (room, id) => {
           dispatch(changedRoom({ ...room, id }));
         }),
-      ];
+      );
 
-      unsubsribeAll = () => {
-        unsubscribers.forEach(u => u());
-        unsubsribeAll = noop;
-      };
-      return next(action);
+      const nexted = await next(action);
+      await dispatch(selectFirstRoom());
+      return nexted;
     }
     if (action.type === `${leaveChat}`) {
       unsubsribeAll();
@@ -42,7 +49,8 @@ const createChatxMiddleware = (firebaseApi) => {
           author: getCurrentUserUID(getState()),
           createdAt: firebaseApi.SERVER_TIMESTAMP,
         };
-        await firebaseApi.databasePush('/rooms', newRoom);
+        const roomSnap = await firebaseApi.databasePush('/rooms', newRoom);
+        await dispatch(selectRoom(roomSnap.key));
         return next(action);
       } catch (err) {
         return next(createRoom(err));
@@ -51,7 +59,12 @@ const createChatxMiddleware = (firebaseApi) => {
     if (action.type === `${removeRoom}`) {
       try {
         const roomId = action.payload;
+        const currentRoom = getCurrentRoom(getState());
+        await firebaseApi.databaseRemove(`/joinedRooms/${roomId}`);
         await firebaseApi.databaseRemove(`/rooms/${roomId}`);
+        if (currentRoom && roomId === currentRoom.id) {
+          await dispatch(selectFirstRoom());
+        }
         return next(action);
       } catch (err) {
         return next(removeRoom(err));
@@ -61,4 +74,4 @@ const createChatxMiddleware = (firebaseApi) => {
   };
 };
 
-export default createChatxMiddleware;
+export default createRoomsMiddleware;

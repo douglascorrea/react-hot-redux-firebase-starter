@@ -14,10 +14,11 @@ import MessagePrompt from './MessagePrompt';
 
 import checkAuth from '../requireAuth';
 
-import { getRooms, getCurrentRoom } from '../../selectors/chatxSelectors';
+import { getRooms, getCurrentRoom, getCurrentRoomUsers } from '../../selectors/chatxSelectors';
 import { enterChat, leaveChat, createRoom, removeRoom, selectRoom } from '../../actions/chatxActions';
 
 const mapStateToProps = (state) => ({
+  roomUsers: getCurrentRoomUsers(state),
   currentRoom: getCurrentRoom(state),
   rooms: getRooms(state),
 });
@@ -30,6 +31,10 @@ const mapDispatchToProps = {
 @connect(mapStateToProps, mapDispatchToProps)
 class ChatPage extends React.Component {
   static propTypes = {
+    roomUsers: PropTypes.arrayOf(PropTypes.shape({
+      uid: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    })).isRequired,
     enterChat: PropTypes.func.isRequired,
     leaveChat: PropTypes.func.isRequired,
     createRoom: PropTypes.func.isRequired,
@@ -69,7 +74,10 @@ class ChatPage extends React.Component {
             <MessageList />
           </MainColumn>
           <RightColumn>
-            <UserList />
+            <UserList
+              roomName={this.props.currentRoom.name}
+              users={this.props.roomUsers}
+            />
           </RightColumn>
         </div>
         <MessagePrompt />

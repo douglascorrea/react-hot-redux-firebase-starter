@@ -11,7 +11,9 @@ export default {
   ajaxCallsInProgress: 0,
   chatx: {
     enabled: false,
+    users: {},
     rooms: {},
+    joinedRooms: {},
     currentRoom: null,
   },
 };
