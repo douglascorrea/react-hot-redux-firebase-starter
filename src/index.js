@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 // api
 import FirebaseApi from './api/firebase';
@@ -33,7 +33,7 @@ import '../node_modules/toastr/build/toastr.min.css';
 const store = configureStore(initialState);
 
 // Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 const rootEl = document.getElementById('root');
 
 // Initialize Firebase Auth and then start the app

@@ -1,5 +1,7 @@
 import thunk from 'redux-thunk';
 import toastr from 'toastr';
+import { routerMiddleware } from 'react-router-redux';
+import { hashHistory } from "react-router";
 
 import createErrorsMiddleware from './errors';
 import createChatxMiddleware from './chatx';
@@ -9,4 +11,5 @@ export default [
   thunk,
   createChatxMiddleware(firebaseApi),
   createErrorsMiddleware(toastr),
+  routerMiddleware(hashHistory),
 ];

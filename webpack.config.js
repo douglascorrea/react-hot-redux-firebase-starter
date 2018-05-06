@@ -1,20 +1,33 @@
-let path = require('path');
-let webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+const devEntries = isProduction ? [] : [
+  'react-hot-loader/patch',
+  'webpack-hot-middleware/client?reload=false',
+];
 
 const config = {
   devtool: 'source-map',
   entry: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?reload=false',
+    ...devEntries,
     'babel-polyfill',
     './src/index',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/',
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -34,4 +47,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;

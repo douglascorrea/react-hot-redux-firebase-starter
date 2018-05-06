@@ -1,7 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
-import { browserHistory } from "react-router";
 import logger from 'redux-logger';
 
 import middlewares from '../middlewares';
@@ -15,7 +13,6 @@ export default function configureStore(initialState) {
       applyMiddleware(
         ...middlewares,
         reduxImmutableStateInvariant(),
-        routerMiddleware(browserHistory),
         logger,
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f

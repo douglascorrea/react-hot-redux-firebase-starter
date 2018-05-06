@@ -5,6 +5,8 @@
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
+    "clean": "rimraf ./dist",
+    "build": "NODE_ENV=production webpack",
     "open:src": "babel-node tools/srcServer.js",
     "test": "mocha --reporter progress tools/testSetup.js src/*.test.js",
     "test:watch": "npm run test -- --watch",
@@ -50,6 +52,7 @@
     "expect": "^1.20.1",
     "express": "^4.13.4",
     "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^3.2.0",
     "jsdom": "^9.2.1",
     "mocha": "^2.5.3",
     "nock": "^8.0.0",

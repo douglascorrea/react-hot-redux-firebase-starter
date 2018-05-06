@@ -1,8 +1,11 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config.dev';
+// eslint-disable-next-line import/default
+import config from '../webpack.config';
 import open from 'open';
+
+process.env.NODE_ENV = 'development';
 
 /* eslint-disable no-console */
 
