@@ -1,7 +1,11 @@
 import React from 'react';
 
 const LogoutLink = ({ signOut }) => {
-  return <a href="#" onClick={signOut}>Logout</a>;
+  const onClick = (e) => {
+    e.preventDefault();
+    return signOut(e);
+  };
+  return <a href="#" onClick={onClick}>Logout</a>;
 };
 
 LogoutLink.propTypes = {
