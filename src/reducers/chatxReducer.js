@@ -1,4 +1,4 @@
-import { always, assoc, dissoc, assocPath, dissocPath } from 'ramda';
+import { map, always, assoc, dissoc, assocPath, dissocPath } from 'ramda';
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
@@ -10,14 +10,16 @@ const LOGGED_OUT = types.AUTH_LOGGED_OUT_SUCCESS;
 
 import {
   enterChat, leaveChat,
-  selectRoom,
+  selectRoom, leaveRoom,
   addedRoom, removedRoom, changedRoom,
+  addedMessage, removedMessage, changedMessage,
   refreshJoinedRooms, joinedRoom, leftRoom,
+  changedUserMessage, sendMessage,
 } from '../actions/chatxActions';
 
 const enabled = handleActions({
-  [enterChat]: () => true,
-  [leaveChat]: () => false,
+  [enterChat]: always(true),
+  [leaveChat]: always(false),
 }, initialState.chatx.enabled);
 
 const currentRoom = handleActions({
@@ -26,14 +28,50 @@ const currentRoom = handleActions({
 }, initialState.chatx.currentRoom);
 
 const rooms = handleActions({
+  [selectRoom]: {
+    next: (state, { payload }) => map(room => {
+      if (room.id !== payload) {
+        return assoc('messages', [], room);
+      }
+      return room;
+    }, state),
+  },
   [addedRoom]: {
-    next: (state, { payload }) => ({ ...state, [payload.id]: payload }),
+    next: (state, { payload }) => assoc(payload.id, payload, state),
   },
   [removedRoom]: {
     next: (state, { payload }) => dissoc(payload.id, state),
   },
   [changedRoom]: {
     next: (state, { payload }) => assoc(payload.id, payload, state),
+  },
+  [addedMessage]: {
+    next: (state, { payload: { room, message } }) => (
+      assocPath([room, 'messages', message.id], message, state)
+    ),
+  },
+  [removedMessage]: {
+    next: (state, { payload: { room, message } }) => (
+      dissocPath([room, 'messages', message.id], state)
+    ),
+  },
+  [changedMessage]: {
+    next: (state, { payload: { room, message } }) => (
+      assocPath([room, 'messages', message.id], message, state)
+    ),
+  },
+  [changedUserMessage]: {
+    next: (state, { payload: { room, userMessage } }) => (
+      assocPath([room, 'userMessage'], userMessage, state)
+    ),
+  },
+  [sendMessage]: {
+    next: (state, { payload: { room } }) => (
+      assocPath([room, 'userMessage'], '', state)
+    ),
+  },
+  [leaveRoom]: {
+    next: (state, { payload }) => dissocPath([payload, 'userMessage'], state),
   },
   [LOGGED_OUT]: always({}),
 }, initialState.chatx.rooms);

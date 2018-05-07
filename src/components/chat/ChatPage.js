@@ -19,11 +19,13 @@ import {
   getCurrentRoom,
   getCurrentRoomUsers,
   getCurrentRoomIsJoined,
+  getCurrentMessages,
 } from '../../selectors/chatxSelectors';
 import {
   enterChat, leaveChat,
   createRoom, removeRoom, selectRoom,
   joinRoom, leaveRoom,
+  changedUserMessage, sendMessage,
 } from '../../actions/chatxActions';
 
 const mapStateToProps = (state) => ({
@@ -31,19 +33,36 @@ const mapStateToProps = (state) => ({
   roomUsers: getCurrentRoomUsers(state),
   currentRoom: getCurrentRoom(state),
   rooms: getRooms(state),
+  currentMessages: getCurrentMessages(state),
 });
 
 const mapDispatchToProps = {
   enterChat, leaveChat,
   createRoom, removeRoom, selectRoom,
   joinRoom, leaveRoom,
+  changedUserMessage, sendMessage,
+};
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const props = { ...stateProps, ...dispatchProps, ...ownProps };
+  const roomId = props.currentRoom.id;
+  return {
+    ...props,
+    changedUserMessage: userMessage => (
+      dispatchProps.changedUserMessage({ room: roomId, userMessage })
+    ),
+    sendMessage: message => (
+      dispatchProps.sendMessage({ room: roomId, message })
+    ),
+  };
 };
 
 @checkAuth
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps, mergeProps)
 class ChatPage extends React.Component {
   static propTypes = {
     currentRoomIsJoined: PropTypes.bool.isRequired,
+    currentMessages: PropTypes.array.isRequired,
     roomUsers: PropTypes.arrayOf(PropTypes.shape({
       uid: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
@@ -55,6 +74,8 @@ class ChatPage extends React.Component {
     selectRoom: PropTypes.func.isRequired,
     joinRoom: PropTypes.func.isRequired,
     leaveRoom: PropTypes.func.isRequired,
+    changedUserMessage: PropTypes.func.isRequired,
+    sendMessage: PropTypes.func.isRequired,
     currentRoom: PropTypes.object.isRequired,
     rooms: PropTypes.array,
   }
@@ -91,7 +112,9 @@ class ChatPage extends React.Component {
             />
           </LeftColumn>
           <MainColumn>
-            <MessageList />
+            <MessageList
+              currentMessages={this.props.currentMessages}
+            />
           </MainColumn>
           <RightColumn>
             <UserList
@@ -100,7 +123,13 @@ class ChatPage extends React.Component {
             />
           </RightColumn>
         </div>
-        <MessagePrompt />
+        <MessagePrompt
+          message={this.props.currentRoom.userMessage}
+          onMessageChange={this.props.changedUserMessage}
+          onMessageSubmit={this.props.sendMessage}
+          currentRoomName={this.props.currentRoom.name}
+          currentRoomIsJoined={this.props.currentRoomIsJoined}
+        />
       </div>
     );
   }

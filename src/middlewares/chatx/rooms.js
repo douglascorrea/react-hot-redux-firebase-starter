@@ -2,7 +2,7 @@ import { getCurrentRoom, getFirstRoom }  from '../../selectors/chatxSelectors';
 import { getCurrentUserUID } from '../../selectors/authSelectors';
 import {
   enterChat, leaveChat,
-  createRoom, removeRoom, selectRoom,
+  createRoom, removeRoom, selectRoom, joinRoom,
   addedRoom, removedRoom, changedRoom,
 } from '../../actions/chatxActions';
 
@@ -51,6 +51,7 @@ const createRoomsMiddleware = (firebaseApi) => {
         };
         const roomSnap = await firebaseApi.databasePush('/rooms', newRoom);
         await dispatch(selectRoom(roomSnap.key));
+        await dispatch(joinRoom(roomSnap.key));
         return next(action);
       } catch (err) {
         return next(createRoom(err));
@@ -61,6 +62,7 @@ const createRoomsMiddleware = (firebaseApi) => {
         const roomId = action.payload;
         const currentRoom = getCurrentRoom(getState());
         await firebaseApi.databaseRemove(`/joinedRooms/${roomId}`);
+        await firebaseApi.databaseRemove(`/messages/${roomId}`);
         await firebaseApi.databaseRemove(`/rooms/${roomId}`);
         if (currentRoom && roomId === currentRoom.id) {
           await dispatch(selectFirstRoom());

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import {
-  pipe, values, path, sortBy, prop, has,
-  keys, filter, compose, contains,
+  pipe, values, has, prop, propOr, path, sortBy, applyTo,
+  keys, filter, compose, contains, map, over, lensProp,
 } from 'ramda';
 
 import { getCurrentUserUID } from './authSelectors';
@@ -12,6 +12,18 @@ export const getCurrentRoom = createSelector(
   path(['chatx', 'rooms']),
   path(['chatx', 'currentRoom']),
   (rooms, roomId) => rooms[roomId] || {}
+);
+
+const overAuthor = over(lensProp('author'));
+export const getCurrentMessages = createSelector(
+  path(['chatx', 'users']),
+  getCurrentRoom,
+  (users, room) => applyTo(room)(pipe(
+    propOr({}, 'messages'),
+    values,
+    sortBy(prop('createdAt')),
+    map(overAuthor(id => users[id])),
+  ))
 );
 
 export const getCurrentRoomId = createSelector(

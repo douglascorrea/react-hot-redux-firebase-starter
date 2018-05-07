@@ -1,30 +1,42 @@
 import React, { PropTypes } from 'react';
+import { assoc } from 'ramda';
 
-const RoomCreator = ({ onCreate }) => {
-  const onSubmitForm = (e) => {
+class RoomCreator extends React.Component {
+  static propTypes = {
+    onCreate: PropTypes.func.isRequired,
+  }
+
+  state = { roomName: '' }
+
+  onChange = (e) => {
+    this.setState(assoc('roomName', e.target.value));
+  }
+
+  onSubmitForm = (e) => {
     e.preventDefault();
-    const input = e.target.firstChild;
-    const roomName = input.value.trim().toLowerCase();
+    const roomName = this.state.roomName.trim().toLowerCase();
     if (roomName) {
-      onCreate(roomName);
-      input.value = '';
+      this.setState(assoc('roomName', ''));
+      this.props.onCreate(roomName);
     }
-  };
-  return (
-    <span>
-      <h4>Create a room</h4>
-      <form onSubmit={onSubmitForm}>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Room name"
-        />
-      </form>
-    </span>
-  );
-};
-RoomCreator.propTypes = {
-  onCreate: PropTypes.func.isRequired,
-};
+  }
+
+  render() {
+    return (
+      <span>
+        <h4>Create a room</h4>
+        <form onSubmit={this.onSubmitForm}>
+          <input
+            type="text"
+            onChange={this.onChange}
+            className="form-control"
+            placeholder="Room name"
+            value={this.state.roomName}
+          />
+        </form>
+      </span>
+    );
+  }
+}
 
 export default RoomCreator;
