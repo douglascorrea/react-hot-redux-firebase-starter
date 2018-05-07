@@ -6,8 +6,6 @@ import {
 
 import { getCurrentUserUID } from './authSelectors';
 
-export const getIsEnabled = path(['chatx', 'enabled']);
-
 export const getCurrentRoom = createSelector(
   path(['chatx', 'rooms']),
   path(['chatx', 'currentRoom']),
