@@ -2,11 +2,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import logger from 'redux-logger';
 
-import middlewares from '../middlewares';
 import rootReducer from '../reducers';
+import middlewares from '../middlewares';
+import runSagas from '../sagas';
+
 
 export default function configureStore(initialState) {
-  return createStore(
+  const store = createStore(
     rootReducer,
     initialState,
     compose(
@@ -18,4 +20,6 @@ export default function configureStore(initialState) {
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );
+  runSagas();
+  return store;
 }
