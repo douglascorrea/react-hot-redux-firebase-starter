@@ -14,6 +14,26 @@ class MessagePrompt extends React.Component {
     message: '',
   }
 
+  componentDidMount() {
+    document.addEventListener("keydown", this.focusInput, false);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener("keydown", this.focusInput, false);
+  }
+
+  focusInput = (e) => {
+    const isSpecialKey = (
+      e.ctrlKey || e.altKey || e.metaKey
+      || e.key === 'Tab' || e.key === 'CapsLock' || e.key === 'Shift'
+      || e.key === 'Enter' || e.key === 'Escape' || e.key === 'Backspace'
+    );
+    if (!isSpecialKey && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+      this.inputRef.focus();
+    }
+}
+
+
   onChange = (e) => {
     this.props.onMessageChange(e.target.value);
   }
@@ -50,6 +70,7 @@ class MessagePrompt extends React.Component {
       <div>
         <form onSubmit={this.onSubmitForm}>
           <input
+            ref={el => { this.inputRef = el; }}
             onChange={this.onChange}
             value={message}
             disabled={disabled}
