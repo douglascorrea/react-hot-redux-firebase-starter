@@ -43,6 +43,7 @@ const createRoomsMiddleware = (firebaseApi) => {
       return next(action);
     }
     if (action.type === `${createRoom}`) {
+      const nexted = await next(action);
       try {
         const newRoom = {
           name: action.payload,
@@ -50,11 +51,11 @@ const createRoomsMiddleware = (firebaseApi) => {
           createdAt: firebaseApi.SERVER_TIMESTAMP,
         };
         const roomSnap = await firebaseApi.databasePush('/rooms', newRoom);
-        await dispatch(selectRoom(roomSnap.key));
         await dispatch(joinRoom(roomSnap.key));
-        return next(action);
+        await dispatch(selectRoom(roomSnap.key));
+        return nexted;
       } catch (err) {
-        return next(createRoom(err));
+        return dispatch(createRoom(err));
       }
     }
     if (action.type === `${removeRoom}`) {
