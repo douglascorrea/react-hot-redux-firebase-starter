@@ -5,6 +5,11 @@ export const enterChat = createAction('UI/CHATX/ENTER_CHAT');
 export const leaveChat = createAction('UI/CHATX/LEAVE_CHAT');
 export const selectRoom = createAction('UI/CHATX/SELECT_ROOM');
 
+/* Users */
+export const addedUser = createAction('CHATX/ADDED_USER');
+export const removedUser = createAction('CHATX/REMOVED_USER');
+export const changedUser = createAction('CHATX/CHANGED_USER');
+
 /* Rooms */
 export const createRoom = createAction('UI/CHATX/CREATE_ROOM');
 export const removeRoom = createAction('UI/CHATX/REMOVE_ROOM');

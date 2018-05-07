@@ -1,7 +1,7 @@
 import { always, assoc, dissoc } from 'ramda';
 import { handleActions } from 'redux-actions';
 
-import { addedUser, removedUser, changedUser } from '../../actions/usersActions';
+import { addedUser, removedUser, changedUser } from '../../actions/chatxActions';
 import { AUTH_LOGGED_OUT_SUCCESS } from '../../actions/actionTypes';
 
 const initialState = {};

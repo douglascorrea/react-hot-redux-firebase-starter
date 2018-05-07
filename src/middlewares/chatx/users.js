@@ -1,8 +1,7 @@
 import {
-  enterChat, leaveChat,
+  enterChat, leaveChat, addedUser, removedUser, changedUser,
 } from '../../actions/chatxActions';
 
-import { addedUser, removedUser, changedUser } from '../../actions/usersActions';
 
 const createUsersMiddleware = (firebaseApi) => {
   let unsubscribers = [];
