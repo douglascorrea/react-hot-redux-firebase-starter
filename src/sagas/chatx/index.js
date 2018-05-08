@@ -1,6 +1,7 @@
-import { all, take, cancel, fork } from 'redux-saga/effects';
+import { all, take, put, call, cancel, fork } from 'redux-saga/effects';
 
-import { enterChat, leaveChat } from '../../actions/chatxActions';
+import api from '../../api/firebase';
+import { enterChat, leaveChat, refreshJoinedRooms } from '../../actions/chatxActions';
 import messagesSaga from './messages';
 import usersSaga from './users';
 import roomsSaga from './rooms';
@@ -8,6 +9,9 @@ import roomsSaga from './rooms';
 export default function* chatxSaga() {
   while (true) {
     yield take(enterChat);
+
+    const joinedRooms = yield call(api.GetValue, '/joinedRooms');
+    yield put(refreshJoinedRooms(joinedRooms || {}));
 
     const tasks = yield all([
       fork(messagesSaga),

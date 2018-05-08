@@ -6,7 +6,7 @@ import {
 import { getCurrentRoom, getFirstRoom }  from '../../selectors/chatxSelectors';
 import { getCurrentUserUID } from '../../selectors/authSelectors';
 import {
-  createRoom, removeRoom, selectRoom, joinRoom,
+  createRoom, removeRoom, selectRoom, joinRoom, leaveRoom,
   addedRoom, removedRoom, changedRoom,
 } from '../../actions/chatxActions';
 
@@ -53,6 +53,18 @@ export function* removeRoomSaga(action) {
   }
 }
 
+export function* joinRoomSaga(action) {
+  const roomId = action.payload;
+  const userId = yield select(getCurrentUserUID);
+  yield api.databasePush(`/joinedRooms/${roomId}/${userId}`, true);
+}
+
+export function* leaveRoomSaga(action) {
+  const roomId = action.payload;
+  const userId = yield select(getCurrentUserUID);
+  yield api.databaseRemove(`/joinedRooms/${roomId}/${userId}`);
+}
+
 export default function* roomsSaga() {
   yield all([
     fork(subscribeAndDispatch('/rooms', 'child_added', addedRoom)),
@@ -60,6 +72,8 @@ export default function* roomsSaga() {
     fork(subscribeAndDispatch('/rooms', 'child_changed', changedRoom)),
     takeEvery(createRoom, createRoomSaga),
     takeEvery(removeRoom, removeRoomSaga),
+    takeEvery(joinRoom, joinRoomSaga),
+    takeEvery(leaveRoom, leaveRoomSaga),
   ]);
   yield take(addedRoom);
   yield call(selectFirstRoom);
