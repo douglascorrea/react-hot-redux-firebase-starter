@@ -20,19 +20,6 @@ class MessagePrompt extends React.Component {
     document.addEventListener("keydown", this.focusInput, false);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.currentRoomIsJoined && (
-        nextProps.currentRoomName !== this.props.currentRoomName
-        || !this.props.currentRoomIsJoined
-      )
-    ) {
-      setImmediate(() => {
-        this.inputRef.focus();
-      });
-    }
-  }
-
   componentWillUnmount(){
     document.removeEventListener("keydown", this.focusInput, false);
   }
