@@ -10,7 +10,7 @@ export function* sendSaga(action) {
     const newMessage = {
       content: message,
       author: yield select(getCurrentUserUID),
-      createdAt: yield api.SERVER_TIMESTAMP,
+      createdAt: api.SERVER_TIMESTAMP,
     };
     yield call(api.databasePush, `/messages/${room}/`, newMessage);
   } catch (err) {

@@ -8,7 +8,7 @@
     "clean": "rimraf ./dist",
     "build": "NODE_ENV=production webpack --progress",
     "open:src": "babel-node tools/srcServer.js",
-    "test": "mocha tools/testSetup.js src/**/*.test.js",
+    "test": "mocha tools/testSetup.js \"src/**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "lint": "node_modules/.bin/esw webpack.config.* tools src",
     "lint:watch": "npm run lint -- --watch"
