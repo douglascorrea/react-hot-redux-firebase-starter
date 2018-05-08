@@ -6,8 +6,8 @@
     "users": {
       ".read": "auth != null",
       "$user": {
-        ".write": "auth.uid == $user",
-      },
+        ".write": "auth.uid == $user"
+      }
     },
 
     "rooms": {
@@ -15,8 +15,8 @@
       ".indexOn": ["createdAt"],
 			"$room": {
         ".write": "auth != null && (!data.exists() || data.child('author').val() == auth.uid)",
-        ".validate": "(!data.exists() && newData.child('author').val() == auth.uid && newData.child('createdAt').val() == now) || (data.child('author').val() == newData.child('author').val())",
-      },
+        ".validate": "(!data.exists() && newData.child('author').val() == auth.uid && newData.child('createdAt').val() == now) || (data.child('author').val() == newData.child('author').val())"
+      }
     },
     
     "messages": {
@@ -28,7 +28,7 @@
           ".write": "auth != null && (!data.exists() && newData.child('author').val() === auth.uid) || (!newData.exists() && data.child('author').val() === auth.uid)",
           ".validate": "(!data.exists() && root.child('rooms').hasChild($room) && newData.child('createdAt').val() == now) || (data.exists() && newData.exists() && data.child('author').val() === newData.child('author').val())"  
         }
-      },
+      }
     },
     
     "joinedRooms": {
@@ -37,9 +37,9 @@
         ".write": "auth != null && !newData.exists() && (auth.uid == root.child('rooms').child($room).child('author').val() || !root.child('rooms').hasChild($room))",
         "$user": {
            ".write": "auth != null && $user == auth.uid",
-           ".validate": "root.child('rooms').hasChild($room)",
-        },
-      },
-    },
+           ".validate": "root.child('rooms').hasChild($room)"
+        }
+      }
+    }
   }
 }
