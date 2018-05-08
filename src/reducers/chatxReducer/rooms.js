@@ -7,6 +7,7 @@ import {
   addedRoom, removedRoom, changedRoom,
   addedMessage, removedMessage, changedMessage,
   changedUserMessage, sendMessage,
+  leaveChat,
 } from '../../actions/chatxActions';
 
 const initialState = {};
@@ -58,6 +59,7 @@ const rooms = handleActions({
     next: (state, { payload }) => dissocPath([payload, 'userMessage'], state),
   },
   [AUTH_LOGGED_OUT_SUCCESS]: always(initialState),
+  [leaveChat]: always(initialState),
 }, initialState);
 
 export default rooms;

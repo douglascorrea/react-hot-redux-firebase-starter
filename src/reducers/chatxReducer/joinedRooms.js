@@ -2,7 +2,11 @@ import { always, dissoc, assocPath, dissocPath } from 'ramda';
 import { handleActions } from 'redux-actions';
 
 import { AUTH_LOGGED_OUT_SUCCESS } from '../../actions/actionTypes';
-import { removedRoom, refreshJoinedRooms, joinedRoom, leftRoom } from '../../actions/chatxActions';
+import {
+  removedRoom, joinedRoom, leftRoom,
+  leaveChat,
+  refreshJoinedRooms,
+} from '../../actions/chatxActions';
 
 const initialState = {};
 
@@ -20,6 +24,7 @@ const joinedRooms = handleActions({
     next: (state, { payload: { room, user } }) => dissocPath([room, user], state),
   },
   [AUTH_LOGGED_OUT_SUCCESS]: always(initialState),
+  [leaveChat]: always(initialState),
 }, initialState);
 
 export default joinedRooms;
