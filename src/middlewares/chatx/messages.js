@@ -1,7 +1,7 @@
 import { getCurrentUserUID } from '../../selectors/authSelectors';
 import { sendMessage } from '../../actions/chatxActions';
 
-const createRoomsMiddleware = (firebaseApi) => {
+const createMessagesMiddleware = (firebaseApi) => {
   return ({ getState }) => (next) => async (action) => {
     if (action.type === `${sendMessage}`) {
       const { room, message } = action.payload;
@@ -21,4 +21,4 @@ const createRoomsMiddleware = (firebaseApi) => {
   };
 };
 
-export default createRoomsMiddleware;
+export default createMessagesMiddleware;
