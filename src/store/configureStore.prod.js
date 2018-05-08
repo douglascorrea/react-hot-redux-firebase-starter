@@ -1,14 +1,14 @@
 import { createStore, applyMiddleware } from 'redux';
 
+import commonMiddewares from './commonMiddlewares';
 import rootReducer from '../reducers';
-import middlewares from '../middlewares';
 import runSagas from '../sagas';
 
 export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(...middlewares)
+    applyMiddleware(...commonMiddewares)
   );
   runSagas();
   return store;

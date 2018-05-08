@@ -1,8 +1,6 @@
 import * as firebase from 'firebase/firebase-browser';
 import { firebaseConfig } from '../config';
 
-const noop = () => {};
-
 class FirebaseApi {
   static SERVER_TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 
@@ -52,16 +50,6 @@ class FirebaseApi {
     } catch (e) {
       return e;
     }
-  }
-
-  static Watch = (path, event, userCb = noop) => {
-    const ref = firebase.database().ref(path);
-    const cb = (snapshot) => {
-      userCb(snapshot.val(), snapshot.key, snapshot);
-    };
-
-    ref.on(event, cb);
-    return () => ref.off(event, cb);
   }
 
   static Subscribe = (path, event) => emit => {
