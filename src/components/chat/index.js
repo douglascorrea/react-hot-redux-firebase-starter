@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import MainColumn from './layout/MainColumn';
 import LeftColumn from './layout/LeftColumn';
 import RightColumn from './layout/RightColumn';
 
@@ -40,9 +39,7 @@ class ChatPage extends React.Component {
             <RoomCreatorContainer />
             <RoomListContainer />
           </LeftColumn>
-          <MainColumn>
-            <MessageListContainer />
-          </MainColumn>
+          <MessageListContainer />
           <RightColumn>
             <UserListContainer />
           </RightColumn>
