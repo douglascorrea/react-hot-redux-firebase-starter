@@ -46,8 +46,10 @@ export const getCurrentRoomUsers = createSelector(
   path(['chatx', 'joinedRooms']),
   path(['chatx', 'currentRoom']),
   (users, joinedRooms, currentRoom) => (
-    keys(joinedRooms[currentRoom]).map(userId => users[userId])
-  )
+    keys(joinedRooms[currentRoom])
+      .map(userId => users[userId])
+      .filter(user => !!user)
+    )
 );
 
 export const getRooms = createSelector(

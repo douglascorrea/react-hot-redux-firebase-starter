@@ -64,6 +64,19 @@ class FirebaseApi {
     return () => ref.off(event, cb);
   }
 
+  static Subscribe = (path, event) => emit => {
+    const ref = firebase.database().ref(path);
+    const cb = (snapshot) => {
+      emit({ ...snapshot.val(), id: snapshot.key });
+    };
+
+    ref.on(event, cb);
+
+    return () => {
+      ref.off(event, cb);
+    };
+  }
+
   static GetValueByKeyOnce(path, key) {
     return firebase
       .database()

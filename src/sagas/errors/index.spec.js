@@ -2,7 +2,7 @@ import toastr from 'toastr';
 import { takeEvery, call } from 'redux-saga/effects';
 import expect from 'expect';
 
-import errorsSaga, { printErrors } from './errors';
+import errorsSaga, { printErrors } from '.';
 
 const errorAction = {
   type: 'ERROR_ACTION',
