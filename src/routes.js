@@ -7,7 +7,7 @@ import ProtectedPage from './components/protected/ProtectedPage';
 import AboutPage from './components/about/AboutPage';
 import LoginPage from './components/login/LoginPage'; //eslint-disable-line import/no-named-as-default
 import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
-import ChatPage from './components/chat/ChatPage';
+import ChatPage from './components/chat';
 import { requireAdmin } from './actions/authActions';
 
 export default function Routes(store) {

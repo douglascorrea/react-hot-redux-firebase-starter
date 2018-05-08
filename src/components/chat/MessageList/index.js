@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const MessageList = ({ currentMessages }) => {
+import connector from './connector';
+
+export const MessageList = ({ currentMessages }) => {
   return (
     <span>
       {
@@ -24,4 +26,4 @@ MessageList.propTypes = {
   })).isRequired,
 };
 
-export default MessageList;
+export default connector(MessageList);

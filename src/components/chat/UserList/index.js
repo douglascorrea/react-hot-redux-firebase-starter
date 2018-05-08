@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 
-const UserList = ({ roomName, users }) => (
+import connector from './connector';
+
+export const UserList = ({ currentRoomName, users }) => (
   <span>
-    <h4>{roomName ? `#${roomName} Users` : 'No room joined'}</h4>
+    <h4>{currentRoomName ? `#${currentRoomName} Users` : 'No room joined'}</h4>
     <ul className="chatx-userlist list-group">
       {
         users.map(({ uid, email }) => (
@@ -13,14 +15,14 @@ const UserList = ({ roomName, users }) => (
   </span>
 );
 UserList.propTypes = {
-  roomName: PropTypes.string,
+  currentRoomName: PropTypes.string,
   users: PropTypes.arrayOf(PropTypes.shape({
     uid: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   })).isRequired,
 };
 UserList.defaultProps = {
-  roomName: '',
+  currentRoomName: '',
 };
 
-export default UserList;
+export default connector(UserList);

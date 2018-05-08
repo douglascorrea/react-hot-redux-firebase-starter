@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { assoc } from 'ramda';
 
-class RoomCreator extends React.Component {
+import connector from './connector';
+
+export class RoomCreator extends React.Component {
   static propTypes = {
     onCreate: PropTypes.func.isRequired,
   }
@@ -39,4 +41,4 @@ class RoomCreator extends React.Component {
   }
 }
 
-export default RoomCreator;
+export default connector(RoomCreator);

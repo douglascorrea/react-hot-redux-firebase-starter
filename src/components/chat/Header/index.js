@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
 
-class ChatHeader extends React.Component {
+import connector from './connector';
+
+export class Header extends React.Component {
   static propTypes = {
     onJoin: PropTypes.func.isRequired,
     onLeave: PropTypes.func.isRequired,
-    isJoined: PropTypes.bool.isRequired,
     currentRoom: PropTypes.shape({
       name: PropTypes.string,
       id: PropTypes.string,
     }).isRequired,
+    currentRoomIsJoined: PropTypes.bool.isRequired,
   }
 
   renderLeaveButton() {
@@ -38,11 +40,11 @@ class ChatHeader extends React.Component {
   }
 
   renderRoom() {
-    const { currentRoom, isJoined } = this.props;
+    const { currentRoom, currentRoomIsJoined } = this.props;
     return (
       <div className="chatx-header">
         <h2 className="chatx-title">ChatX on #{currentRoom.name}</h2>
-        {isJoined ? this.renderLeaveButton() : this.renderJoinButton()}
+        {currentRoomIsJoined ? this.renderLeaveButton() : this.renderJoinButton()}
       </div>
     );
   }
@@ -62,4 +64,4 @@ class ChatHeader extends React.Component {
   }
 }
 
-export default ChatHeader;
+export default connector(Header);

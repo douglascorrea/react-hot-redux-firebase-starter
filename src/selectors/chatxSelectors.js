@@ -6,6 +6,8 @@ import {
 
 import { getCurrentUserUID } from './authSelectors';
 
+const getProp = key => (state, ownProps = {}) => ownProps[key];
+
 export const getCurrentRoom = createSelector(
   path(['chatx', 'rooms']),
   path(['chatx', 'currentRoom']),
@@ -27,6 +29,16 @@ export const getCurrentMessages = createSelector(
 export const getCurrentRoomId = createSelector(
   getCurrentRoom,
   prop('id')
+);
+
+export const getCurrentRoomName = createSelector(
+  getCurrentRoom,
+  prop('name')
+);
+
+export const getCurrentRoomUserMessage = createSelector(
+  getCurrentRoom,
+  prop('userMessage')
 );
 
 export const getCurrentRoomUsers = createSelector(
@@ -60,8 +72,13 @@ export const getUserJoinedRooms = createSelector(
   )(joinedRooms)
 );
 
-export const getCurrentRoomIsJoined = createSelector(
-  getCurrentRoomId,
+export const getRoomIsJoined = createSelector(
+  getProp('roomId'),
   getUserJoinedRooms,
-  (currentRoomId, joinedRooms) => contains(currentRoomId, joinedRooms)
+  (roomId, joinedRooms) => contains(roomId, joinedRooms)
 );
+
+export const getCurrentRoomIsJoined = (state, ownProps = {}) => {
+  const roomId = getCurrentRoomId(state, ownProps);
+  return getRoomIsJoined(state, { ...ownProps, roomId });
+};

@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import connector from './connector';
+
 class MessagePrompt extends React.Component {
 
   static propTypes = {
@@ -84,4 +86,4 @@ class MessagePrompt extends React.Component {
   }
 }
 
-export default MessagePrompt;
+export default connector(MessagePrompt);

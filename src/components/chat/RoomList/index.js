@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 
+import connector from './connector';
 import Room from './Room';
 
 
-const RoomList = ({ rooms, onRoomSelect, onRoomRemove, currentRoom }) => (
+export const RoomList = ({ rooms, onRoomSelect, onRoomRemove, currentRoom }) => (
   <span>
     <h4>Rooms</h4>
     <div className="chatx-roomlist">
@@ -34,4 +35,4 @@ RoomList.propTypes = {
   }),
 };
 
-export default RoomList;
+export default connector(RoomList);
