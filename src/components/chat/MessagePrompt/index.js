@@ -42,7 +42,7 @@ class MessagePrompt extends React.Component {
 
   onSubmitForm = (e) => {
     e.preventDefault();
-    const message = this.props.message;
+    const message = this.props.message.trim();
     if (message) {
       this.props.onMessageSubmit(message);
     }
