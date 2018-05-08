@@ -8,13 +8,13 @@ const initialState = {};
 
 const users = handleActions({
   [addedUser]: {
-    next: (state, { payload }) => ({ ...state, [payload.uid]: payload }),
+    next: (state, { payload }) => assoc(payload.id, payload, state),
   },
   [removedUser]: {
-    next: (state, { payload }) => dissoc(payload.uid, state),
+    next: (state, { payload }) => dissoc(payload.id, state),
   },
   [changedUser]: {
-    next: (state, { payload }) => assoc(payload.uid, payload, state),
+    next: (state, { payload }) => assoc(payload.id, payload, state),
   },
   [AUTH_LOGGED_OUT_SUCCESS]: always(initialState),
 }, initialState);

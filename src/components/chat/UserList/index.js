@@ -7,8 +7,8 @@ export const UserList = ({ currentRoomName, users }) => (
     <h4>{currentRoomName ? `#${currentRoomName} Users` : 'No room joined'}</h4>
     <ul className="chatx-userlist list-group">
       {
-        users.map(({ uid, email }) => (
-          <li className="list-group-item" key={uid}>{email}</li>
+        users.map(({ id, email }) => (
+          <li className="list-group-item" key={id}>{email}</li>
         ))
       }
     </ul>
@@ -17,7 +17,7 @@ export const UserList = ({ currentRoomName, users }) => (
 UserList.propTypes = {
   currentRoomName: PropTypes.string,
   users: PropTypes.arrayOf(PropTypes.shape({
-    uid: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   })).isRequired,
 };
