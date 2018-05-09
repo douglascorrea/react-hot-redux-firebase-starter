@@ -1,7 +1,7 @@
 /*eslint no-invalid-this: "error"*/
 /*eslint-env es6*/
 import React, { PropTypes, Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import toastr from 'toastr';
 
 export default function (ComposedComponent){
@@ -19,17 +19,20 @@ export default function (ComposedComponent){
       }
     }
     render(){
-              return <ComposedComponent {...this.props}/>;
+      if (this.props.authenticated) {
+        return <ComposedComponent {...this.props}/>;
       }
+      return null;
+    }
   }
   Authentication.contextTypes = {
-      router : PropTypes.object
+      router : PropTypes.object,
     };
   Authentication.propTypes  = {
-    authenticated : PropTypes.bool
+    authenticated : PropTypes.bool,
   };
   const mapStateToProps = (state) => ({
-    authenticated : state.auth.isLogged
+    authenticated : state.auth.isLogged,
   });
   return connect(mapStateToProps)(Authentication);
 }

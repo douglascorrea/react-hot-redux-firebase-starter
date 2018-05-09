@@ -1,0 +1,30 @@
+# handle-io circleci configuration file
+
+version: 2
+jobs:
+  test_all:
+    docker:
+      - image: circleci/node:9
+    filters:
+      branches:
+        ignore: gh-pages
+    steps:
+      - checkout
+
+      # install
+      - run: npm install
+
+      # test
+      - run: npm run test:ci
+
+      # build
+      - run: npm run build
+
+      - store_artifacts:
+          path: ./dist
+
+workflows:
+  version: 2
+  install_test_and_build:
+    jobs:
+      - test_all

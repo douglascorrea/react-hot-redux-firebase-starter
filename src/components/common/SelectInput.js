@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
-const SelectInput = ({name, label, onChange, defaultOption, value, error, options}) => {
+const SelectInput = ({ name, label, onChange, defaultOption, value, error, options }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -30,7 +30,7 @@ SelectInput.propTypes = {
   defaultOption: PropTypes.string,
   value: PropTypes.string,
   error: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.object)
+  options: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default SelectInput;

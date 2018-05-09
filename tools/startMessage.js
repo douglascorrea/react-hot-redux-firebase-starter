@@ -1,4 +1,4 @@
-import colors from 'colors';
+import 'colors';
 
 /*eslint-disable no-console */
 

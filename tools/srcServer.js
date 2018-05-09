@@ -1,8 +1,11 @@
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
-import config from '../webpack.config.dev';
+// eslint-disable-next-line import/default
+import config from '../webpack.config';
 import open from 'open';
+
+process.env.NODE_ENV = 'development';
 
 /* eslint-disable no-console */
 
@@ -12,7 +15,7 @@ const compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
-  publicPath: config.output.publicPath
+  publicPath: config.output.publicPath,
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));

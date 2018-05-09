@@ -1,17 +1,17 @@
 // modules
-import {AppContainer} from 'react-hot-loader';
+import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {syncHistoryWithStore} from 'react-router-redux';
-import {browserHistory} from 'react-router';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { hashHistory } from 'react-router';
 
 // api
 import FirebaseApi from './api/firebase';
 
 // actions
-import {authInitialized} from './actions/authActions';
-import {ajaxCallError, beginAjaxCall} from './actions/ajaxStatusActions';
+import { authInitialized } from './actions/authActions';
+import { ajaxCallError, beginAjaxCall } from './actions/ajaxStatusActions';
 
 // components
 import App from './components/App';
@@ -20,8 +20,12 @@ import App from './components/App';
 import initialState from './reducers/initialState';
 import configureStore from './store/configureStore'; //eslint-disable-line import/default
 
+// bootstrap
+import 'bootstrap';
+
 // styles
 import './styles/styles.css'; //Webpack can import CSS files too!
+import './styles/chatx.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 
@@ -29,7 +33,7 @@ import '../node_modules/toastr/build/toastr.min.css';
 const store = configureStore(initialState);
 
 // Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 const rootEl = document.getElementById('root');
 
 // Initialize Firebase Auth and then start the app

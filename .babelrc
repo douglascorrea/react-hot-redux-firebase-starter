@@ -1,4 +1,13 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": [
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    }
+  }
 }

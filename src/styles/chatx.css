@@ -1,0 +1,73 @@
+/* Layout */
+.chatx-left-column {
+  border-right: 1px solid black;
+}
+
+.chatx-right-column {
+  border-left: 1px solid black;
+}
+
+.chatx-main-column {
+  word-wrap: break-word;
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+/* Components */
+.chatx-header {
+  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.chatx-title {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+
+.chatx-roomlist {
+  height: calc(100vh - 300px);
+  overflow-y: auto;
+}
+
+.chatx-userlist {
+   height: calc(100vh - 220px);
+   overflow-y: auto;
+}
+
+.chatx-message-container {
+  position: relative;
+  padding: 5px;
+}
+
+.chatx-message-remove-button {
+  visibility: hidden;
+}
+
+.chatx-message-container:hover {
+  border: 1px solid lightgrey;
+
+  padding: 4px;
+}
+
+.chatx-message-container:hover .chatx-message-remove-button {
+  visibility: visible;
+}
+
+/* .chatx-message-container {
+  display: hidden;
+} */
+
+.chatx-message {
+  width: 80%;
+}
+
+.chatx-message-remove-button {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}

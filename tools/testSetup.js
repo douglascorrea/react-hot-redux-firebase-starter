@@ -14,6 +14,7 @@ process.env.NODE_ENV = 'test';
 // Register babel so that it will transpile ES6 to ES5
 // before our tests run.
 require('babel-register')();
+require('babel-polyfill');
 
 // Disable webpack-specific features for tests since
 // Mocha doesn't know what to do with them.
@@ -37,7 +38,7 @@ Object.keys(document.defaultView).forEach((property) => {
 });
 
 global.navigator = {
-  userAgent: 'node.js'
+  userAgent: 'node.js',
 };
 
 documentRef = document;  //eslint-disable-line no-undef

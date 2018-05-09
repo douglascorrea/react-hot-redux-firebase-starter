@@ -1,8 +1,9 @@
+import { identity } from 'ramda';
 import * as firebase from 'firebase/firebase-browser';
-import {firebaseConfig} from '../config';
-
+import { firebaseConfig } from '../config';
 
 class FirebaseApi {
+  static SERVER_TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 
   static initAuth() {
     firebase.initializeApp(firebaseConfig);
@@ -30,18 +31,35 @@ class FirebaseApi {
   }
 
   static databasePush(path, value) {
-    return new Promise((resolve, reject) => {
-      firebase
-        .database()
-        .ref(path)
-        .push(value, (error) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve();
-          }
-        });
-    });
+    return firebase
+      .database()
+      .ref(path)
+      .push(value);
+  }
+
+  static databaseRemove(path) {
+    return firebase
+      .database()
+      .ref(path)
+      .remove();
+  }
+
+  static GetValue = async (path) => {
+    const snapshot = await firebase.database().ref(path).once('value');
+    return snapshot.val();
+  }
+
+  static Subscribe = (path, event, prepareQuery = identity) => emit => {
+    const query = prepareQuery(firebase.database().ref(path));
+    const cb = (snapshot) => {
+      emit({ ...snapshot.val(), id: snapshot.key });
+    };
+
+    query.on(event, cb);
+
+    return () => {
+      query.off(event, cb);
+    };
   }
 
   static GetValueByKeyOnce(path, key) {

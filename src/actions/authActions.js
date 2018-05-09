@@ -2,26 +2,26 @@ import toastr from 'toastr';
 
 import firebaseApi from '../api/firebase';
 import * as types from './actionTypes';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 
-import {ajaxCallError, beginAjaxCall} from './ajaxStatusActions';
-import {userLoadedSuccess, userCreated, userIsAdminSuccess} from './userActions';
+import { ajaxCallError, beginAjaxCall } from './ajaxStatusActions';
+import { userLoadedSuccess, userCreated, userIsAdminSuccess } from './userActions';
 
 export function authInitializedDone() {
   return {
-    type: types.AUTH_INITIALIZATION_DONE
+    type: types.AUTH_INITIALIZATION_DONE,
   };
 }
 
 export function authLoggedInSuccess(userUID) {
   return {
-    type: types.AUTH_LOGGED_IN_SUCCESS, userUID
+    type: types.AUTH_LOGGED_IN_SUCCESS, userUID,
   };
 }
 
 export function authLoggedOutSuccess() {
 
-  return {type: types.AUTH_LOGGED_OUT_SUCCESS};
+  return { type: types.AUTH_LOGGED_OUT_SUCCESS };
 }
 
 export function authInitialized(user) {
@@ -43,7 +43,7 @@ export function authLoggedIn(userUID) {
       .then(
         user => {
           dispatch(userLoadedSuccess(user.val()));
-          dispatch(push('/'));
+          dispatch(push('/chat'));
         })
       .catch(
         error => {
@@ -84,16 +84,13 @@ export function signInWithEmailAndPassword(user) {
 }
 
 export function signOut() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(beginAjaxCall());
     return firebaseApi.authSignOut()
       .then(
         () => {
+          dispatch(push('/login'));
           dispatch(authLoggedOutSuccess());
-          if (getState().routesPermissions.requireAuth
-              .filter(route => route === getState().routing.locationBeforeTransitions.pathname).toString()) {
-            dispatch(push('/'));
-          }
         })
       .catch(error => {
         dispatch(ajaxCallError(error));
@@ -107,7 +104,7 @@ export function signOut() {
 function redirect(replace, pathname, nextPathName, error = false) {
   replace({
     pathname: pathname,
-    state: {nextPathname: nextPathName}
+    state: { nextPathname: nextPathName },
   });
   if (error) {
     toastr.error(error);
