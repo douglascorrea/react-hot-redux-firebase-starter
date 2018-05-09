@@ -1,4 +1,4 @@
-import { takeEvery, select, call, put } from 'redux-saga/effects';
+import { select, call, put } from 'redux-saga/effects';
 import { cloneableGenerator } from 'redux-saga/utils';
 import expect from 'expect';
 
@@ -6,7 +6,7 @@ import api from '../../api/firebase';
 import { getCurrentUserUID } from '../../selectors/authSelectors';
 import { sendMessage } from '../../actions/chatxActions';
 
-import messagesSaga, { sendSaga } from './messages';
+import { sendSaga } from './messages';
 
 const userId = 'user1';
 const roomId = 'room1';
@@ -16,14 +16,7 @@ const messageAction = {
   payload: { room: roomId, message: msg },
 };
 
-describe('saga:chatx:messagesSaga', () => {
-  const gen = messagesSaga();
-
-  it('should take every send message actions', () => {
-    expect(gen.next().value).toEqual(takeEvery(sendMessage, sendSaga));
-    expect(gen.next().done).toBe(true);
-  });
-
+describe('saga:chatx:messages', () => {
   describe('sendSaga', () => {
     const gen = cloneableGenerator(sendSaga)(messageAction);
 

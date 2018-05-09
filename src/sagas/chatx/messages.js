@@ -1,8 +1,9 @@
-import { takeEvery, put, select, call } from 'redux-saga/effects';
+import { all, takeEvery, put, select, call } from 'redux-saga/effects';
 
 import api from '../../api/firebase';
 import { getCurrentUserUID } from '../../selectors/authSelectors';
-import { sendMessage } from '../../actions/chatxActions';
+import { getCurrentRoom } from '../../selectors/chatxSelectors';
+import { sendMessage, removeMessage } from '../../actions/chatxActions';
 
 export function* sendSaga(action) {
   const { room, message } = action.payload;
@@ -18,6 +19,20 @@ export function* sendSaga(action) {
   }
 }
 
+export function* removeMessageSaga(action) {
+  if (action.error) return;
+  try {
+    const messageId = action.payload;
+    const currentRoom = yield select(getCurrentRoom);
+    yield call(api.databaseRemove, `/messages/${currentRoom.id}/${messageId}`);
+  } catch (err) {
+    yield put(removeMessage(err));
+  }
+}
+
 export default function* messagesSaga() {
-  yield takeEvery(sendMessage, sendSaga);
+  yield all([
+    takeEvery(sendMessage, sendSaga),
+    takeEvery(removeMessage, removeMessageSaga),
+  ]);
 }

@@ -18,6 +18,9 @@ You can see a demo here : https://guillaumearm.github.io/demo-chatx
 - can read last 10 messages of the room when entering
 - can read new messages
 - can write and send new messages
+- an user can remove his messages
+- an author of a room can remove any messages
+- an admin can do everything
 
 ## Minor features
 - select first room when entering in chat

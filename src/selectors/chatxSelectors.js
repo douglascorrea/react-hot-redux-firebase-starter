@@ -66,6 +66,17 @@ const getOwnedRoomsIds = createSelector(
   map(prop('id'))
 );
 
+export const getRoomIsOwned = createSelector(
+  getProp('roomId'),
+  getOwnedRoomsIds,
+  (roomId, ownedRooms) => contains(roomId, ownedRooms)
+);
+
+export const getCurrentRoomIsOwned = (state, ownProps = {}) => {
+  const roomId = getCurrentRoomId(state, ownProps);
+  return getRoomIsOwned(state, { ...ownProps, roomId });
+};
+
 export const getUserJoinedRooms = createSelector(
   path(['chatx', 'joinedRooms']),
   getCurrentUserUID,

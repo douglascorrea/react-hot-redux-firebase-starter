@@ -38,3 +38,36 @@
    height: calc(100vh - 220px);
    overflow-y: auto;
 }
+
+.chatx-message-container {
+  position: relative;
+  padding: 5px;
+}
+
+.chatx-message-remove-button {
+  visibility: hidden;
+}
+
+.chatx-message-container:hover {
+  border: 1px solid lightgrey;
+
+  padding: 4px;
+}
+
+.chatx-message-container:hover .chatx-message-remove-button {
+  visibility: visible;
+}
+
+/* .chatx-message-container {
+  display: hidden;
+} */
+
+.chatx-message {
+  width: 80%;
+}
+
+.chatx-message-remove-button {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}

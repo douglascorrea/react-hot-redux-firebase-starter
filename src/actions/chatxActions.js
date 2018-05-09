@@ -15,6 +15,9 @@ export const selectRoom = createAction('UI/CHATX/SELECT_ROOM');
 // prompt
 export const changedUserMessage = createAction('UI/CHATX/CHANGED_USER_MESSAGE');
 export const sendMessage = createAction('UI/CHATX/SEND_MESSAGE');
+
+// messages
+export const removeMessage = createAction('UI/CHATX/REMOVE_MESSAGE');
 /* ************************************************************************** */
 
 /* Users ******************************************************************** */
