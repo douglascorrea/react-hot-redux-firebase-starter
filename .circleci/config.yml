@@ -1,0 +1,87 @@
+# handle-io circleci configuration file
+
+version: 2
+jobs:
+  install:
+    docker:
+      - image: circleci/node:9
+    filters:
+      branches:
+        ignore: gh-pages
+    steps:
+      - checkout
+
+      # install
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+            - package-lock.json
+          key: handle-io-dependencies-{{ checksum "package-lock.json" }}
+
+  build:
+    docker:
+      - image: circleci/node:9
+    filters:
+      branches:
+        ignore: gh-pages
+    steps:
+      - checkout
+      - restore-cache:
+          keys:
+            - handle-io-dependencies-{{ checksum "package-lock.json" }}
+
+      # run build
+      - run: npm run build
+
+      - store_artifacts:
+          path: ./dist
+
+  unit_test:
+    docker:
+      - image: circleci/node:9
+    filters:
+      branches:
+        ignore: gh-pages
+    steps:
+      - checkout
+      - restore-cache:
+          keys:
+            - handle-io-dependencies-{{ checksum "package-lock.json" }}
+
+      # run test
+      - run: npm run test
+
+  style_test:
+    docker:
+      - image: circleci/node:9
+    filters:
+      branches:
+        ignore: gh-pages
+    steps:
+      - checkout
+      - restore-cache:
+          keys:
+            - handle-io-dependencies-{{ checksum "package-lock.json" }}
+
+      # run lint
+      - run: npm run lint
+
+workflows:
+  version: 2
+  build_test:
+    jobs:
+      - install
+      - unit_test:
+          requires:
+            - install
+
+      - style_test:
+          requires:
+            - install
+
+      - build:
+          requires:
+            - unit_test
+            - style_test
