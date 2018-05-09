@@ -6,9 +6,9 @@ import api from '../api/firebase';
 
 export const createSubscriptionChan = compose(eventChannel, api.Subscribe);
 
-export const subscribeAndDispatch = (path, event, actionCreator) => (
+export const subscribeAndDispatch = (path, event, actionCreator, prepareQuery) => (
   function* saga() {
-    const chan = yield call(createSubscriptionChan, path, event);
+    const chan = yield call(createSubscriptionChan, path, event, prepareQuery);
     try {
       while (true) {
         const payload = yield take(chan);

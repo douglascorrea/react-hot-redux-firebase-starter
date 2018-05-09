@@ -1,3 +1,4 @@
+import { identity } from 'ramda';
 import * as firebase from 'firebase/firebase-browser';
 import { firebaseConfig } from '../config';
 
@@ -52,16 +53,16 @@ class FirebaseApi {
     }
   }
 
-  static Subscribe = (path, event) => emit => {
-    const ref = firebase.database().ref(path);
+  static Subscribe = (path, event, prepareQuery = identity) => emit => {
+    const query = prepareQuery(firebase.database().ref(path));
     const cb = (snapshot) => {
       emit({ ...snapshot.val(), id: snapshot.key });
     };
 
-    ref.on(event, cb);
+    query.on(event, cb);
 
     return () => {
-      ref.off(event, cb);
+      query.off(event, cb);
     };
   }
 

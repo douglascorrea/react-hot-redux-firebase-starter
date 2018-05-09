@@ -9,12 +9,13 @@ import {
 
 describe('saga:utils', () => {
   describe('subscribeAndDispatch', () => {
+    const prepareQuery = q => q;
     const actionCreator = payload => ({ type: 'DUMMY_ACTION', payload });
-    const saga = subscribeAndDispatch('path', 'event', actionCreator);
+    const saga = subscribeAndDispatch('path', 'event', actionCreator, prepareQuery);
     const gen = saga();
     it('should call createSubscriptionChan', () => {
       expect(gen.next().value).toEqual(
-        call(createSubscriptionChan, 'path', 'event')
+        call(createSubscriptionChan, 'path', 'event', prepareQuery)
       );
     });
 
