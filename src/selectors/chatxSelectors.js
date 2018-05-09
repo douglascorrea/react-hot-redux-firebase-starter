@@ -66,7 +66,7 @@ const getOwnedRoomsIds = createSelector(
   map(prop('id'))
 );
 
-export const getRoomIsOwned = createSelector(
+const getRoomIsOwned = createSelector(
   getProp('roomId'),
   getOwnedRoomsIds,
   (roomId, ownedRooms) => contains(roomId, ownedRooms)
@@ -77,7 +77,7 @@ export const getCurrentRoomIsOwned = (state, ownProps = {}) => {
   return getRoomIsOwned(state, { ...ownProps, roomId });
 };
 
-export const getUserJoinedRooms = createSelector(
+const getUserJoinedRooms = createSelector(
   path(['chatx', 'joinedRooms']),
   getCurrentUserUID,
   (joinedRooms, uuid) => compose(
@@ -86,7 +86,7 @@ export const getUserJoinedRooms = createSelector(
   )(joinedRooms)
 );
 
-export const getRoomIsJoined = createSelector(
+const getRoomIsJoined = createSelector(
   getProp('roomId'),
   getUserJoinedRooms,
   (roomId, joinedRooms) => contains(roomId, joinedRooms)
