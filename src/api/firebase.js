@@ -45,12 +45,8 @@ class FirebaseApi {
   }
 
   static GetValue = async (path) => {
-    try {
-      const snapshot = await firebase.database().ref(path).once('value');
-      return snapshot.val();
-    } catch (e) {
-      return e;
-    }
+    const snapshot = await firebase.database().ref(path).once('value');
+    return snapshot.val();
   }
 
   static Subscribe = (path, event, prepareQuery = identity) => emit => {

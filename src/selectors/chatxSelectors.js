@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
 import {
-  pipe, values, has, prop, propOr, path, sortBy, applyTo,
-  keys, filter, compose, contains, map, over, lensProp,
+  pipe, values, has, prop, propOr, path, sortBy, applyTo, assoc,
+  keys, filter, compose, contains, map, over, lensProp, propEq,
 } from 'ramda';
 
+import { getUserIsAdmin } from './userSelectors';
 import { getCurrentUserUID } from './authSelectors';
 
 const getProp = key => (state, ownProps = {}) => ownProps[key];
@@ -52,12 +53,29 @@ export const getCurrentRoomUsers = createSelector(
     )
 );
 
+const getOwnedRooms = createSelector(
+  path(['chatx', 'rooms']),
+  getCurrentUserUID,
+  (rooms, userId) => filter(propEq('author', userId), values(rooms))
+);
+
+const getOwnedRoomsIds = createSelector(
+  getOwnedRooms,
+  map(prop('id'))
+);
+
 export const getRooms = createSelector(
   path(['chatx', 'rooms']),
-  pipe(
+  getUserIsAdmin,
+  getOwnedRoomsIds,
+  (rooms, isAdmin, ownedRoomsIds) => applyTo(rooms)(pipe(
     values,
-    sortBy(prop('createdAt'))
-  )
+    sortBy(prop('createdAt')),
+    map(room => {
+      const canRemove = isAdmin || contains(room.id, ownedRoomsIds);
+      return assoc('canRemove', canRemove, room);
+    })
+  ))
 );
 
 export const getFirstRoom = createSelector(
