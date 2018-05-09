@@ -64,25 +64,6 @@ const getOwnedRoomsIds = createSelector(
   map(prop('id'))
 );
 
-export const getRooms = createSelector(
-  path(['chatx', 'rooms']),
-  getUserIsAdmin,
-  getOwnedRoomsIds,
-  (rooms, isAdmin, ownedRoomsIds) => applyTo(rooms)(pipe(
-    values,
-    sortBy(prop('createdAt')),
-    map(room => {
-      const canRemove = isAdmin || contains(room.id, ownedRoomsIds);
-      return assoc('canRemove', canRemove, room);
-    })
-  ))
-);
-
-export const getFirstRoom = createSelector(
-  getRooms,
-  prop(0)
-);
-
 export const getUserJoinedRooms = createSelector(
   path(['chatx', 'joinedRooms']),
   getCurrentUserUID,
@@ -102,3 +83,27 @@ export const getCurrentRoomIsJoined = (state, ownProps = {}) => {
   const roomId = getCurrentRoomId(state, ownProps);
   return getRoomIsJoined(state, { ...ownProps, roomId });
 };
+
+export const getRooms = createSelector(
+  path(['chatx', 'rooms']),
+  getUserIsAdmin,
+  getOwnedRoomsIds,
+  getUserJoinedRooms,
+  (rooms, isAdmin, ownedRoomsIds, joinedRooms) => applyTo(rooms)(pipe(
+    values,
+    sortBy(prop('createdAt')),
+    map(room => {
+      const canRemove = isAdmin || contains(room.id, ownedRoomsIds);
+      const isJoined = contains(room.id, joinedRooms);
+      return applyTo(room, pipe(
+        assoc('canRemove', canRemove),
+        assoc('isJoined', isJoined),
+      ));
+    })
+  ))
+);
+
+export const getFirstRoom = createSelector(
+  getRooms,
+  prop(0)
+);

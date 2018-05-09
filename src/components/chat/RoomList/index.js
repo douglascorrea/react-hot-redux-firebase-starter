@@ -9,15 +9,15 @@ export const RoomList = ({ rooms, onRoomSelect, onRoomRemove, currentRoom }) => 
     <h4>Rooms</h4>
     <div className="chatx-roomlist">
       {
-        rooms.map(({ name, id, canRemove }) => (
+        rooms.map((room) => (
           <Room
-            canRemove={canRemove}
-            isSelected={id === currentRoom.id}
-            key={id}
-            onSelect={() => onRoomSelect(id)}
-            onRemove={() => onRoomRemove(id)}
+            {...room}
+            isSelected={room.id === currentRoom.id}
+            key={room.id}
+            onSelect={() => onRoomSelect(room.id)}
+            onRemove={() => onRoomRemove(room.id)}
           >
-            {name}
+            {room.name}
           </Room>
         ))
       }
@@ -30,7 +30,6 @@ RoomList.propTypes = {
   rooms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    canRemove: PropTypes.bool.isRequired,
   })).isRequired,
   currentRoom: PropTypes.shape({
     id: PropTypes.string,

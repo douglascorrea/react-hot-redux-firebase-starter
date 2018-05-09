@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
-const Room = ({ canRemove, children, onRemove, onSelect, isSelected }) => (
+const Room = ({ canRemove, children, onRemove, onSelect, isSelected, isJoined }) => (
   <div className="btn-block btn-group">
     <button
       onClick={onSelect}
       style={{ width: '80%' }}
       type="button"
-      className={`btn ${isSelected ? 'active' : ''} btn-xs btn-primary`}
+      className={`btn ${isSelected ? 'active' : ''} btn-xs btn-${isJoined ? 'primary' : 'secondary'}`}
     >
       {children}
     </button>
@@ -27,6 +27,7 @@ Room.propTypes = {
   onRemove: PropTypes.func.isRequired,
   canRemove: PropTypes.bool.isRequired,
   isSelected: PropTypes.bool.isRequired,
+  isJoined: PropTypes.bool.isRequired,
 };
 
 export default Room;
