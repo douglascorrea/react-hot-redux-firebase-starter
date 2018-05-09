@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const LeftColumn = ({ children }) => (
-  <div className="col-xs-2 chatx-left-column">
+  <div className="col-xs-3 chatx-left-column">
     {children}
   </div>
 );

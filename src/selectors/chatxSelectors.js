@@ -45,11 +45,13 @@ export const getCurrentRoomUserMessage = createSelector(
 export const getCurrentRoomUsers = createSelector(
   path(['chatx', 'users']),
   path(['chatx', 'joinedRooms']),
-  path(['chatx', 'currentRoom']),
+  getCurrentRoom,
   (users, joinedRooms, currentRoom) => (
-    keys(joinedRooms[currentRoom])
-      .map(userId => users[userId])
-      .filter(user => !!user)
+    keys(joinedRooms[currentRoom.id])
+      .map(userId => {
+        const user = users[userId];
+        return assoc('isOwner', user.id === currentRoom.author, user);
+      })
     )
 );
 
