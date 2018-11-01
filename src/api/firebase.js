@@ -1,8 +1,7 @@
 import * as firebase from 'firebase/firebase-browser';
-import {firebaseConfig} from '../config';
+import { firebaseConfig } from '~/config';
 
-
-class FirebaseApi {
+export default class FirebaseApi {
 
   static initAuth() {
     firebase.initializeApp(firebaseConfig);
@@ -17,7 +16,7 @@ class FirebaseApi {
     });
   }
 
-  static createUserWithEmailAndPassword(user){
+  static createUserWithEmailAndPassword(user) {
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
   }
 
@@ -44,6 +43,10 @@ class FirebaseApi {
     });
   }
 
+  static GetDataBaseChild(path, key) {
+    return firebase.database().ref(path).child(key);
+  }
+
   static GetValueByKeyOnce(path, key) {
     return firebase
       .database()
@@ -68,8 +71,5 @@ class FirebaseApi {
       .database()
       .ref(path)
       .set(value);
-
   }
 }
-
-export default FirebaseApi;

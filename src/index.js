@@ -7,21 +7,21 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import {browserHistory} from 'react-router';
 
 // api
-import FirebaseApi from './api/firebase';
+import FirebaseApi from '~/api/firebase';
 
 // actions
-import {authInitialized} from './actions/authActions';
-import {ajaxCallError, beginAjaxCall} from './actions/ajaxStatusActions';
+import {authInitialized} from '~/actions/authActions';
+import {ajaxCallError, beginAjaxCall} from '~/actions/ajaxStatusActions';
 
 // components
-import App from './components/App';
+import App from '~/components/App';
 
 // Store
-import initialState from './reducers/initialState';
-import configureStore from './store/configureStore'; //eslint-disable-line import/default
+import initialState from '~/reducers/initialState';
+import configureStore from '~/store/configureStore'; //eslint-disable-line import/default
 
 // styles
-import './styles/styles.css'; //Webpack can import CSS files too!
+import '~/styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
 
@@ -38,7 +38,6 @@ FirebaseApi.initAuth()
   .then(
     user => {
       store.dispatch(authInitialized(user));
-
       ReactDOM.render(
         <AppContainer>
           <Provider store={store}>
@@ -47,7 +46,6 @@ FirebaseApi.initAuth()
         </AppContainer>,
         rootEl
       );
-
       if (module.hot) {
         module.hot.accept('./components/App', () => {
           // If you use Webpack 2 in ES modules mode, you can

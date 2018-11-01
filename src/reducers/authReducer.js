@@ -1,4 +1,4 @@
-import * as types from '../actions/actionTypes';
+import * as types from '~/actions/actionTypes';
 import initialState from './initialState';
 
 export default function authReducer(state = initialState.auth, action) {
@@ -9,13 +9,13 @@ export default function authReducer(state = initialState.auth, action) {
     case types.AUTH_LOGGED_IN_SUCCESS:
       return Object.assign({}, state, {
         isLogged: true,
-        currentUserUID: action.userUID
+        currentUserUID: action.userUID,
       });
 
     case types.AUTH_LOGGED_OUT_SUCCESS:
       return Object.assign({}, state, {
         isLogged: false,
-        currentUserUID: null
+        currentUserUID: null,
       });
     default:
       return state;

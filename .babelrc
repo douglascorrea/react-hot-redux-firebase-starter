@@ -1,4 +1,16 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "presets": ["env", "stage-0", "react"],
+  "plugins": [
+    ["react-native-web", { "commonjs": true }],
+    "react-hot-loader/babel",
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "~": "./src",
+        "react-native$": "react-native-web"
+      }
+    }]
+  ]
 }

@@ -1,20 +1,23 @@
 export default {
   routesPermissions: {
     requireAuth: [
-      '/admin'
+      '/admin',
     ],
     routesRequireAdmin: [
-      '/admin'
-    ]
+      '/admin',
+    ],
   },
   routing: {},
   user: {
-    isAdmin: undefined
+    isAdmin: undefined,
   },
   auth: {
     isLogged: false,
     currentUserUID: null,
-    initialized: false
+    initialized: false,
   },
-  ajaxCallsInProgress: 0
+  ajaxCallsInProgress: 0,
+  room: {
+    messages: [],
+  },
 };

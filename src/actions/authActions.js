@@ -9,19 +9,20 @@ import {userLoadedSuccess, userCreated, userIsAdminSuccess} from './userActions'
 
 export function authInitializedDone() {
   return {
-    type: types.AUTH_INITIALIZATION_DONE
+    type: types.AUTH_INITIALIZATION_DONE,
   };
 }
 
 export function authLoggedInSuccess(userUID) {
   return {
-    type: types.AUTH_LOGGED_IN_SUCCESS, userUID
+    type: types.AUTH_LOGGED_IN_SUCCESS, userUID,
   };
 }
 
 export function authLoggedOutSuccess() {
-
-  return {type: types.AUTH_LOGGED_OUT_SUCCESS};
+  return {
+    type: types.AUTH_LOGGED_OUT_SUCCESS,
+  };
 }
 
 export function authInitialized(user) {
@@ -107,7 +108,7 @@ export function signOut() {
 function redirect(replace, pathname, nextPathName, error = false) {
   replace({
     pathname: pathname,
-    state: {nextPathname: nextPathName}
+    state: {nextPathname: nextPathName},
   });
   if (error) {
     toastr.error(error);
@@ -117,18 +118,17 @@ function redirect(replace, pathname, nextPathName, error = false) {
 export function requireAuth(nextState, replace) {
   return (dispatch, getState) => {
     if (!getState().auth.isLogged) {
-      redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
+      redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
     }
   };
 }
-
 
 export function requireAdmin(nextState, replace, callback) {
   return (dispatch, getState) => {
     if (getState().auth.isLogged) {
       switch (getState().user.isAdmin) {
         case false:
-          redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
+          redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
           break;
         case undefined:
           firebaseApi.GetChildAddedByKeyOnce('/isAdmin/', getState().auth.currentUserUID)
@@ -138,13 +138,13 @@ export function requireAdmin(nextState, replace, callback) {
                   dispatch(userIsAdminSuccess());
                   callback();
                 } else {
-                  redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
+                  redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
                 }
               })
             .catch(
               error => {
                 dispatch(ajaxCallError());
-                redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
+                redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
                 callback();
                 // @TODO better error handling
                 throw(error);
@@ -156,7 +156,7 @@ export function requireAdmin(nextState, replace, callback) {
 
       }
     } else {
-      redirect(replace, '/login', nextState.location.pathname, 'You need to be logged to access this page');
+      redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
       callback();
     }
   };

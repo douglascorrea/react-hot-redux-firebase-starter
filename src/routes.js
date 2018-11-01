@@ -1,31 +1,42 @@
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
-import Layout from './components/Layout';
-import HomePage from './components/home/HomePage';
-import AdminPage from './components/admin/AdminPage';
-import ProtectedPage from './components/protected/ProtectedPage';
-import AboutPage from './components/about/AboutPage';
-import LoginPage from './components/login/LoginPage'; //eslint-disable-line import/no-named-as-default
-import RegistrationPage from './components/registration/RegistrationPage'; //eslint-disable-line import/no-named-as-default
-import {requireAdmin} from './actions/authActions';
+import {
+  Route,
+  Redirect,
+  IndexRoute,
+} from 'react-router';
 
+import E404 from '~/components/E404';
+import Home from '~/containers/Home';
+import Room from '~/containers/Room';
+import Layout from '~/components/Layout';
+
+import {
+  requireAdmin,
+} from '~/actions/authActions';
 
 export default function Routes(store) {
-
-
-  const checkAdmin = (nextState, replace, callback) => {
-    store.dispatch(requireAdmin(nextState, replace, callback));
+  const redirectToRoom = (nextState, replace, callback) => {
+    if (store.getState().auth.isLogged) {
+      replace('/room');
+    }
+    callback();
   };
 
   return (
-    <Route path="/" component={Layout}>
-      <IndexRoute component={HomePage}/>
-      <Route path="layout" component={Layout}/>
-      <Route path="about" component={AboutPage}/>
-      <Route path="protected" component={ProtectedPage}/>
-      <Route path="admin" component={AdminPage} onEnter={checkAdmin}/>
-      <Route path="register" component={RegistrationPage}/>
-      <Route path="login" component={LoginPage}/>
+    <Route
+      path="/"
+      component={Layout}
+    >
+      <IndexRoute
+        component={Home}
+        onEnter={redirectToRoom}
+      />
+      <Route
+        path="room"
+        component={Room}
+      />
+      <Route path="/404" component={E404} />
+      <Redirect from="*" to="/404" />
     </Route>
   );
 }
