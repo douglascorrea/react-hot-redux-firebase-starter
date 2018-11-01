@@ -5,7 +5,7 @@ import Message from '~/components/Message';
 
 import * as Ui from './Ui';
 
-export default class Messages extends React.PureComponent {
+export default class MessageList extends React.PureComponent {
 
   static propTypes = {
     list: PropTypes.arrayOf(PropTypes.shape({

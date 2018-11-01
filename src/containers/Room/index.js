@@ -8,7 +8,7 @@ import firebaseApi from '~/api/firebase';
 
 import { onLoadMessage } from '~/actions/messageActions';
 
-import Messages from '~/components/Messages';
+import MessageList from '~/components/MessageList';
 import MessageInput from '~/components/MessageInput';
 
 import requireAuth from '~/components/requireAuth';
@@ -54,7 +54,7 @@ class Room extends React.PureComponent {
   render() {
     return (
       <Ui.Container>
-        <Messages
+        <MessageList
           list={this.props.room.messages}
         />
         <MessageInput
