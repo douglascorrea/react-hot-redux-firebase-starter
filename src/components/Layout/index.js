@@ -14,8 +14,6 @@ class Layout extends React.PureComponent {
     children: PropTypes.object,
     actions: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired,
   };
 
   render() {

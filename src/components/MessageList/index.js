@@ -20,6 +20,8 @@ export default class MessageList extends React.PureComponent {
     list: [],
   }
 
+  keyExtractor = item => item.id
+
   render() {
     return (
       <Ui.Container
@@ -28,6 +30,7 @@ export default class MessageList extends React.PureComponent {
         className="scroll-bar"
         data={this.props.list}
         showsVerticalScrollIndicator
+        keyExtractor={this.keyExtractor}
       />
     );
   }
