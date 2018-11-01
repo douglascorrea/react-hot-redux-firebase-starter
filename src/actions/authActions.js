@@ -1,6 +1,6 @@
 import toastr from 'toastr';
 
-import firebaseApi from '../api/firebase';
+import firebaseApi from '~/api/firebase';
 import * as types from './actionTypes';
 import {push} from 'react-router-redux';
 

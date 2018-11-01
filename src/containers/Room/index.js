@@ -17,6 +17,9 @@ import * as Ui from './Ui';
 
 class Room extends React.PureComponent {
   static propTypes = {
+    room: PropTypes.shape({
+      messages: PropTypes.arrayOf(PropTypes.object),
+    }),
     currentUserUID: PropTypes.string.isRequired,
   }
 
@@ -63,7 +66,6 @@ class Room extends React.PureComponent {
 }
 
 export default requireAuth(connect((state) => ({
-  user: state.user,
   room: state.room,
   currentUserUID: state.auth.currentUserUID,
 }), (dispatch) => ({

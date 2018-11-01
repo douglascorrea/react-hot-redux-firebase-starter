@@ -17,26 +17,24 @@ import LoginForm from '~/components/LoginForm';
 import * as Ui from './Ui';
 
 class Home extends React.Component {
-  static propTypes = {
+  static contextTypes = {
     router: PropTypes.shape({
       replace: PropTypes.func,
     }),
+  }
+
+  static propTypes = {
     actions: PropTypes.shape({
       signInWithEmailAndPassword: PropTypes.func.isRequired,
       createUserWithEmailAndPassword: PropTypes.func.isRequired,
     }).isRequired,
   }
 
-  state = {
-    login: {},
-    signup: {},
-  }
-
   login = (user) => {
     this.props.actions.signInWithEmailAndPassword(user)
     .then(user => {
       toastr.success('You are logged in');
-      this.props.router.replace('/room');
+      this.context.router.replace('/room');
     })
     .catch(error => {
       if (error.code === 'auth/user-not-found') {

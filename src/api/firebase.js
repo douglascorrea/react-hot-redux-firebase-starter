@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/firebase-browser';
+
 import { firebaseConfig } from '~/config';
 
 export default class FirebaseApi {

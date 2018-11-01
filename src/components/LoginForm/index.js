@@ -23,7 +23,6 @@ export default class LoginForm extends React.PureComponent {
     this.inputHandler = {
       email: this.inputHandleGenerator('email'),
       password: this.inputHandleGenerator('password'),
-      username: this.inputHandleGenerator('username'),
     };
   }
 

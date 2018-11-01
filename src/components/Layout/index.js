@@ -19,10 +19,16 @@ class Layout extends React.PureComponent {
   };
 
   render() {
-    const { auth, actions, loading, user } = this.props;
+    const {
+      auth,
+      actions,
+    } = this.props;
     return (
       <Ui.Container>
-        <Header />
+        <Header
+          signOut={actions.signOut}
+          showSignOut={auth.isLogged}
+        />
         {this.props.children}
       </Ui.Container>
     );
@@ -33,13 +39,14 @@ function mapStateToProps(state, ownProps) {
   return {
     auth: state.auth,
     user: state.user,
-    loading: state.ajaxCallsInProgress > 0,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({signOut}, dispatch),
+    actions: bindActionCreators({
+      signOut,
+    }, dispatch),
   };
 }
 
