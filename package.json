@@ -1,6 +1,6 @@
 {
   "name": "react-hot-redux-firebase-starter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Boilerplate for ReactJS, Redux, Hot Loading and Firebase 3.x",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
