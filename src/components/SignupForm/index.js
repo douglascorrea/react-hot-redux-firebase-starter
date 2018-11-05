@@ -8,7 +8,7 @@ import P from '~/components/P';
 
 import * as Ui from './Ui';
 
-export default class LoginForm extends React.PureComponent {
+export default class SignupForm extends React.PureComponent {
   static propTypes = {
     login: PropTypes.func,
   }
@@ -23,6 +23,7 @@ export default class LoginForm extends React.PureComponent {
     this.inputHandler = {
       email: this.inputHandleGenerator('email'),
       password: this.inputHandleGenerator('password'),
+      displayName: this.inputHandleGenerator('displayName'),
     };
   }
 
@@ -33,19 +34,28 @@ export default class LoginForm extends React.PureComponent {
     });
   }
 
-  onPressLogin = () => this.props.onPressLogin(this.state);
+  onPressSignup = () => this.props.onPressSignup(this.state);
 
   render() {
     return (
       <Ui.Container>
         <Ui.Header>
-          <H1>Login</H1>
+          <H1>Signup</H1>
         </Ui.Header>
+        <Ui.Line>
+          <TextInput
+            key="displayName"
+            type="displayName"
+            placeholder="Enter your display name"
+            value={this.state.displayName}
+            onChangeText={this.inputHandler.displayName}
+          />
+        </Ui.Line>
         <Ui.Line>
           <TextInput
             key="email"
             type="email"
-            placeholder="Email"
+            placeholder="Enter your email"
             value={this.state.email}
             onChangeText={this.inputHandler.email}
           />
@@ -54,19 +64,19 @@ export default class LoginForm extends React.PureComponent {
           <TextInput
             key="password"
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             secureTextEntry
             value={this.state.password}
-            onSubmitEditing={this.onPressLogin}
+            onSubmitEditing={this.onPressSignup}
             onChangeText={this.inputHandler.password}
           />
           </Ui.Line>
           <Ui.Footer>
-            <Ui.FormButton onPress={this.props.onPressSignup}>
-              <P>Signup</P>
-            </Ui.FormButton>
-            <Ui.FormButton onPress={this.onPressLogin}>
+            <Ui.FormButton onPress={this.props.onPressLogin}>
               <P>Login</P>
+            </Ui.FormButton>
+            <Ui.FormButton onPress={this.onPressSignup}>
+              <P>Signup</P>
             </Ui.FormButton>
           </Ui.Footer>
         </Ui.Container>

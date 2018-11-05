@@ -44,8 +44,12 @@ export default class FirebaseApi {
     });
   }
 
-  static GetDataBaseChild(path, key) {
-    return firebase.database().ref(path).child(key);
+  static GetDatabaseChild(path, child) {
+    return firebase.database().ref(path).child(child);
+  }
+
+  static GetDatabaseRef(path) {
+    return firebase.database().ref(path);
   }
 
   static GetValueByKeyOnce(path, key) {
@@ -67,7 +71,6 @@ export default class FirebaseApi {
   }
 
   static databaseSet(path, value) {
-
     return firebase
       .database()
       .ref(path)

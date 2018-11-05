@@ -1,8 +1,8 @@
 import * as types from './actionTypes';
 
-export function onLoadMessage(data) {
+export function onLoadedMessages(data) {
   return {
-    type: types.MESSAGE_LOAD_SUCCESS,
+    type: types.MESSAGE_ON_LOADED,
     payload: data,
   };
 }

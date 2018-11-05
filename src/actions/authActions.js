@@ -1,11 +1,20 @@
 import toastr from 'toastr';
 
-import firebaseApi from '~/api/firebase';
-import * as types from './actionTypes';
-import {push} from 'react-router-redux';
+import { push } from 'react-router-redux';
 
-import {ajaxCallError, beginAjaxCall} from './ajaxStatusActions';
-import {userLoadedSuccess, userCreated, userIsAdminSuccess} from './userActions';
+import firebaseApi from '~/api/firebase';
+
+import * as types from './actionTypes';
+import {
+  ajaxCallError,
+  beginAjaxCall,
+} from './ajaxStatusActions';
+import {
+  userIsAdminSuccess,
+  userLoadedSuccess,
+  userCreated,
+  updateUser,
+} from './userActions';
 
 export function authInitializedDone() {
   return {
@@ -15,7 +24,8 @@ export function authInitializedDone() {
 
 export function authLoggedInSuccess(userUID) {
   return {
-    type: types.AUTH_LOGGED_IN_SUCCESS, userUID,
+    type: types.AUTH_LOGGED_IN_SUCCESS,
+    userUID,
   };
 }
 
@@ -40,14 +50,14 @@ export function authLoggedIn(userUID) {
   return (dispatch) => {
     dispatch(authLoggedInSuccess(userUID));
     dispatch(beginAjaxCall());
-    firebaseApi.GetChildAddedByKeyOnce('/users', userUID)
+    return firebaseApi.GetChildAddedByKeyOnce('/users', userUID)
       .then(
         user => {
           dispatch(userLoadedSuccess(user.val()));
-          dispatch(push('/'));
         })
       .catch(
         error => {
+          dispatch(push('/login'));
           dispatch(beginAjaxCall());
           // @TODO better error handling
           throw(error);
@@ -58,8 +68,12 @@ export function authLoggedIn(userUID) {
 export function createUserWithEmailAndPassword(user) {
   return (dispatch) => {
     dispatch(beginAjaxCall());
-    return firebaseApi.createUserWithEmailAndPassword(user).then(user => {
-      dispatch(userCreated(user));
+    return firebaseApi.createUserWithEmailAndPassword(user)
+      .then(userData => {
+      dispatch(userCreated({
+        ...userData,
+        displayName: user.displayName,
+      }));
     }).catch(error => {
       dispatch(ajaxCallError(error));
       // @TODO better error handling
@@ -87,13 +101,18 @@ export function signInWithEmailAndPassword(user) {
 export function signOut() {
   return (dispatch, getState) => {
     dispatch(beginAjaxCall());
+    dispatch(updateUser({
+      ...getState().user,
+      roomId: '',
+    }));
     return firebaseApi.authSignOut()
       .then(
         () => {
           dispatch(authLoggedOutSuccess());
           if (getState().routesPermissions.requireAuth
-              .filter(route => route === getState().routing.locationBeforeTransitions.pathname).toString()) {
-            dispatch(push('/'));
+              .filter(route => route === getState()
+                .routing.locationBeforeTransitions.pathname).toString()) {
+            dispatch(push('/login'));
           }
         })
       .catch(error => {
@@ -108,7 +127,7 @@ export function signOut() {
 function redirect(replace, pathname, nextPathName, error = false) {
   replace({
     pathname: pathname,
-    state: {nextPathname: nextPathName},
+    state: { nextPathname: nextPathName },
   });
   if (error) {
     toastr.error(error);
@@ -118,7 +137,12 @@ function redirect(replace, pathname, nextPathName, error = false) {
 export function requireAuth(nextState, replace) {
   return (dispatch, getState) => {
     if (!getState().auth.isLogged) {
-      redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
+      redirect(
+        replace,
+        '/login',
+        nextState.location.pathname,
+        'You need to be logged to access this page',
+      );
     }
   };
 }
@@ -128,27 +152,41 @@ export function requireAdmin(nextState, replace, callback) {
     if (getState().auth.isLogged) {
       switch (getState().user.isAdmin) {
         case false:
-          redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
+          redirect(
+            replace,
+            '/login',
+            nextState.location.pathname,
+            'You need to be logged to access this page',
+          );
           break;
         case undefined:
-          firebaseApi.GetChildAddedByKeyOnce('/isAdmin/', getState().auth.currentUserUID)
-            .then(
-              user => {
-                if (user.exists() && user.val()) {
-                  dispatch(userIsAdminSuccess());
-                  callback();
-                } else {
-                  redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
-                }
-              })
-            .catch(
-              error => {
-                dispatch(ajaxCallError());
-                redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
-                callback();
-                // @TODO better error handling
-                throw(error);
-              });
+          firebaseApi.GetChildAddedByKeyOnce(
+            '/isAdmin/',
+            getState().auth.currentUserUID,
+          ).then(user => {
+            if (user.exists() && user.val()) {
+              dispatch(userIsAdminSuccess());
+              callback();
+            } else {
+              redirect(
+                replace,
+                '/login',
+                nextState.location.pathname,
+                'You need to be logged to access this page',
+              );
+            }
+          }).catch(error => {
+            dispatch(ajaxCallError());
+            redirect(
+              replace,
+              '/login',
+              nextState.location.pathname,
+              'You need to be logged to access this page',
+            );
+            callback();
+            // @TODO better error handling
+            throw(error);
+          });
           break;
         case true:
           callback();
@@ -156,7 +194,12 @@ export function requireAdmin(nextState, replace, callback) {
 
       }
     } else {
-      redirect(replace, '/', nextState.location.pathname, 'You need to be logged to access this page');
+      redirect(
+        replace,
+        '/login',
+        nextState.location.pathname,
+        'You need to be logged to access this page',
+      );
       callback();
     }
   };

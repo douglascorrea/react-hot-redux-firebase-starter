@@ -6,5 +6,16 @@ import {
 
 export const Container = Styled(View)`
   flex: 1;
+  flex-direction: row;
+`;
+
+export const MessageListContainer = Styled(View)`
+  flex: 1;
+  flex-direction: column;
+`;
+
+export const ListContainer = Styled(View)`
+  flex: 1;
+  max-width: 442px;
   flex-direction: column;
 `;

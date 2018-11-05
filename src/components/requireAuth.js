@@ -15,14 +15,14 @@ export default function (ComposedComponent) {
 
     componentWillMount() {
       if (!this.props.authenticated) {
-        this.context.router.push('/');
+        this.context.router.push('/login');
         toastr.error('You need to be logged to access this page');
       }
     }
 
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.push('/');
+        this.context.router.push('/login');
         toastr.error('You need to be logged to access this page');
       }
     }

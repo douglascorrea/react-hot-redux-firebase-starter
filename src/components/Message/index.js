@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import moment from 'moment';
+
 import * as Ui from './Ui';
 
 const propTypes = {
@@ -11,6 +13,12 @@ const propTypes = {
 
 const Message = (({ item }) =>
   <Ui.Container key={item.id}>
+    <Ui.TextData>
+      [{moment(item.date).format('HH:mm')}] {item.user ?
+        item.user.displayName
+        : ''
+      } :
+    </Ui.TextData>
     <Ui.TextData>{item.data}</Ui.TextData>
   </Ui.Container>
 );

@@ -8,7 +8,6 @@ import toastr from 'toastr';
 
 import {
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
 } from '~/actions/authActions';
 
 import H1 from '~/components/H1';
@@ -16,7 +15,7 @@ import LoginForm from '~/components/LoginForm';
 
 import * as Ui from './Ui';
 
-class Home extends React.Component {
+class Login extends React.Component {
   static contextTypes = {
     router: PropTypes.shape({
       replace: PropTypes.func,
@@ -26,31 +25,36 @@ class Home extends React.Component {
   static propTypes = {
     actions: PropTypes.shape({
       signInWithEmailAndPassword: PropTypes.func.isRequired,
-      createUserWithEmailAndPassword: PropTypes.func.isRequired,
     }).isRequired,
+    room: PropTypes.shape({
+      rooms: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+      })).isRequired,
+    }),
   }
 
-  login = (user) => {
+  onPressLogin = (user) => {
     this.props.actions.signInWithEmailAndPassword(user)
-    .then(user => {
-      toastr.success('You are logged in');
-      this.context.router.replace('/room');
-    })
-    .catch(error => {
-      if (error.code === 'auth/user-not-found') {
-        this.props.actions.createUserWithEmailAndPassword(user)
-        .then(() => this.login(user))
-        .catch((e) => toastr.error(e.message));
-      } else toastr.error(error.message);
-    });
+    .then(this.handleSuccess)
+    .catch(this.handleError);
   }
+
+  onPressSignup = () => this.context.router.push('/signup');
+
+  handleSuccess = user => {
+    toastr.success('You are logged in');
+    this.context.router.replace(`/room/${this.props.room.rooms[0].id}`);
+  }
+
+  handleError = error => toastr.error(error.message);
 
   render() {
     return (
       <Ui.Layout>
         <Ui.FormContainer>
           <LoginForm
-            login={this.login}
+            onPressLogin={this.onPressLogin}
+            onPressSignup={this.onPressSignup}
           />
         </Ui.FormContainer>
       </Ui.Layout>
@@ -59,16 +63,17 @@ class Home extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {};
+  return {
+    room: state.room,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
     }, dispatch),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

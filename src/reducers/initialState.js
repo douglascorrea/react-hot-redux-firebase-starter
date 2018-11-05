@@ -1,5 +1,9 @@
 export default {
   routesPermissions: {
+    requireAnonymous: [
+      '/login',
+      '/signup',
+    ],
     requireAuth: [
       '/admin',
     ],
@@ -8,9 +12,7 @@ export default {
     ],
   },
   routing: {},
-  user: {
-    isAdmin: undefined,
-  },
+  user: {},
   auth: {
     isLogged: false,
     currentUserUID: null,
@@ -18,6 +20,12 @@ export default {
   },
   ajaxCallsInProgress: 0,
   room: {
+    users: [],
+    rooms: [{
+      id: 'general',
+      name: 'General',
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    }],
     messages: [],
   },
 };

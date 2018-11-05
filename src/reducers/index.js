@@ -8,7 +8,6 @@ import room from './room';
 
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
-
 const rootReducer = combineReducers({
   routing: routerReducer,
   routesPermissions,

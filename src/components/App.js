@@ -18,7 +18,10 @@ class App extends React.PureComponent {
   render() {
     const { history } = this.props;
     return (
-      <Router routes={this.routes} history={history} />
+      <Router
+        history={history}
+        routes={this.routes}
+      />
     );
   }
 }
