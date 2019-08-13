@@ -1,9 +1,7 @@
-import * as firebase from 'firebase/firebase-browser';
-import {firebaseConfig} from '../config';
-
+import * as firebase from "firebase/firebase-browser";
+import { firebaseConfig } from "../config";
 
 class FirebaseApi {
-
   static initAuth() {
     firebase.initializeApp(firebaseConfig);
     return new Promise((resolve, reject) => {
@@ -17,15 +15,19 @@ class FirebaseApi {
     });
   }
 
-  static createUserWithEmailAndPassword(user){
-    return firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
+  static createUserWithEmailAndPassword(user) {
+    return firebase
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password);
   }
 
   static signInWithEmailAndPassword(user) {
-    return firebase.auth().signInWithEmailAndPassword(user.email, user.password);
+    return firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password);
   }
 
-  static authSignOut(){
+  static authSignOut() {
     return firebase.auth().signOut();
   }
 
@@ -34,7 +36,7 @@ class FirebaseApi {
       firebase
         .database()
         .ref(path)
-        .push(value, (error) => {
+        .push(value, error => {
           if (error) {
             reject(error);
           } else {
@@ -44,13 +46,36 @@ class FirebaseApi {
     });
   }
 
+  static Subscribe(path, event, callback) {
+    return firebase
+      .database()
+      .ref(path)
+      .on(event, snapshot => callback(snapshot.val(), snapshot.key));
+  }
+
+  static Unsubscribe(path, event) {
+    return firebase
+      .database()
+      .ref(path)
+      .off(event);
+  }
+
   static GetValueByKeyOnce(path, key) {
     return firebase
       .database()
       .ref(path)
       .orderByKey()
       .equalTo(key)
-      .once('value');
+      .once("value");
+  }
+
+  static GetKeyByValueOnce(path, value) {
+    return firebase
+      .database()
+      .ref(path)
+      .orderByValue()
+      .equalTo(value)
+      .once("value");
   }
 
   static GetChildAddedByKeyOnce(path, key) {
@@ -59,16 +84,14 @@ class FirebaseApi {
       .ref(path)
       .orderByKey()
       .equalTo(key)
-      .once('child_added');
+      .once("child_added");
   }
 
   static databaseSet(path, value) {
-
     return firebase
       .database()
       .ref(path)
       .set(value);
-
   }
 }
 

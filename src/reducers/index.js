@@ -1,6 +1,7 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import user from './userReducer';
 import routesPermissions from './routesPermissionsReducer';
+import chat from './chatReducer';
 import auth from './authReducer';
 
 import ajaxCallsInProgress from './ajaxStatusReducer';
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   routesPermissions,
   user,
   auth,
+  chat,
   ajaxCallsInProgress
 });
 
