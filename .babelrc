@@ -1,4 +1,7 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": [
+    "babel-plugin-transform-es2015-destructuring",
+    "react-hot-loader/babel"
+  ]
 }

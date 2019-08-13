@@ -4,9 +4,8 @@
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module",
@@ -22,19 +21,14 @@
     "mocha": true
   },
   "settings": {
-    "import/ignore": [
-      "node_modules"
-    ]
+    "import/ignore": ["node_modules"]
   },
   "rules": {
     "quotes": 0,
     "no-console": 1,
     "no-debugger": 1,
     "no-var": 1,
-    "semi": [
-      1,
-      "always"
-    ],
+    "semi": [1, "always"],
     "no-trailing-spaces": 0,
     "eol-last": 0,
     "no-unused-vars": 0,
@@ -51,9 +45,7 @@
     "react/forbid-prop-types": [
       1,
       {
-        "forbid": [
-          "any"
-        ]
+        "forbid": ["any"]
       }
     ],
     "react/jsx-boolean-value": 1,
