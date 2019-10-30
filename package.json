@@ -52,7 +52,7 @@
     "mocha": "^2.5.3",
     "nock": "^8.0.0",
     "npm-run-all": "^2.1.1",
-    "open": "0.0.5",
+    "open": "7.0.0",
     "react-addons-test-utils": "^15.1.0",
     "react-hot-loader": "^3.0.0-beta.2",
     "redux-immutable-state-invariant": "^1.2.3",
